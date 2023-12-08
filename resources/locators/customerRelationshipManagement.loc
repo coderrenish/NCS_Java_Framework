@@ -1,0 +1,197 @@
+loc.crmLogin.input.emailAddress = {"locator":["css=[name='loginfmt']","name=loginfmt"],"desc":"Email address"}
+loc.crmLogin.button.next = {"locator":["css=[value='Next']"],"desc":"Next"}
+loc.crmLogin.input.password = {"locator":["css=[name='passwd']","name=passwd"],"desc":"Password"}
+loc.crmLogin.button.signIn = {"locator":["css=[value='Sign in']"],"desc":"Sign in"}
+loc.crmLogin.link.cantUserAuthenticatorApp = {"locator":["id=signInAnotherWay","css=#signInAnotherWay"],"desc":"Can't user authenticator app"}
+loc.crmLogin.button.useAVerificationCode = {"locator":["css=[data-value='PhoneAppOTP']"],"desc":"Use a verification code"}
+loc.crmLogin.input.otpCode = {"locator":["css=[aria-label='Code']","name=otc"],"desc":"OTP Code"}
+loc.crmLogin.button.verify = {"locator":["css=[value='Verify']"],"desc":"Verify"}
+loc.crmLogin.button.yes = {"locator":["css=[value='Yes']"],"desc":"Yes"}
+loc.crmHome.button.dynamics365 = {"locator":["css=[title='Dynamics 365']"],"desc":"Dynamics 365"}
+loc.crmHome.button.dspCaseManagement = {"locator":["css=a[title='UW DSP Case Management']"],"desc":"DSP Case Management"}
+loc.crmHome.text.dynamics365Breadcrumb = {"locator":["css=[data-id='appBreadCrumbText']"],"desc":"Dynamics 365 Breadcrumb"}
+loc.crmLogin.button.signInAgain = {"locator":["id=okButtonText_1"],"desc":"Sign in again"}
+loc.crmHome.button.signInPopup = {"locator":["css=[aria-label='Sign in']"],"desc":"Sign in popup"}
+loc.crmHome.button.applications = {"locator":["css=li[title='Applications']"],"desc":"Applications"}
+loc.crmHome.button.cases = {"locator":["css=li[title='Cases']"],"desc":"Cases"}
+loc.crmApplications.input.filter = {"locator":["css=[aria-label='Application Filter by keyword']"],"desc":"Filter"}
+loc.crmApplications.link.applicationReferenceLink = {"locator":["xpath=(//a[contains(@class, 'ms-Link')])[1]"],"desc":"Application Reference Link"}
+loc.crmAppLocation.text.haveOtherApprovals = {"locator":["css=[aria-label='Do you have any other approvals or advice that relates to this application?']"],"desc":"Have other approvals"}
+loc.crmAppLocation.text.holdPreLodgementAdvise = {"locator":["css=[aria-label='Do you hold pre lodgement advise agreeing to this development?']"],"desc":"Hold pre lodgement advise"}
+loc.crmAppLocation.text.haveHigherOrderApproval = {"locator":["css=[aria-label='Do you have a higher-order approval?']"],"desc":"Have higher order approval"}
+loc.crmAppLocation.text.higherOrderApprovalReference = {"locator":["css=[data-id='uw_higherordercouncilapprovalreferencenumber.fieldControl-text-box-container']"],"desc":"Higher order approval reference"}
+loc.crmAppCommon.button.development = {"locator":["css=[aria-label='Development']"],"desc":"Development"}
+loc.crmAppCommon.button.stagesAndDemand = {"locator":["css=[aria-label='Stages & Demand']"],"desc":"Stages & Demand"}
+loc.crmAppCommon.button.consent = {"locator":["css=[aria-label='Consent']"],"desc":"Consent"}
+loc.crmAppCommon.button.attachments = {"locator":["css=[aria-label='Attachments']"],"desc":"Attachments"}
+loc.crmAppCommon.button.conditions = {"locator":["css=[aria-label='Conditions']"],"desc":"Conditions"}
+loc.crmAppCommon.button.review = {"locator":["css=[aria-label='Review']"],"desc":"Review"}
+loc.crmAppDevelopment.checkbox.waterConnectionService = {"locator":["css=input[data-id='uw_servicetypewater.fieldControl-checkbox-toggle']"],"desc":"Water connection service"}
+loc.crmAppDevelopment.checkbox.potableConnectionService = {"locator":["css=[aria-label='Potable']"],"desc":"Potable connection service"}
+loc.crmAppDevelopment.checkbox.newConnectionService = {"locator":["css=[aria-label='New Connection']"],"desc":"New Connection service"}
+loc.crmAppDevelopment.checkbox.alterationToAConnection = {"locator":["css=[aria-label='Alteration to a Connection']"],"desc":"Alteration to a Connection"}
+loc.crmAppDevelopment.checkbox.disconnection = {"locator":["css=[aria-label='Disconnection']"],"desc":"Disconnection"}
+loc.crmAppDevelopment.checkbox.recycledConnectionService = {"locator":["css=[aria-label='Recycled']"],"desc":"Recycled connection service"}
+loc.crmAppDevelopment.checkbox.sewerageConnectionService = {"locator":["css=[aria-label='Sewerage']"],"desc":"Sewerage connection service"}
+loc.crmAppDevelopment.text.requiresAlteration = {"locator":["css=[data-id='uw_alterationnetwork.fieldControl-checkbox-select']"],"desc":"Requires alteration"}
+loc.crmAppDevelopment.text.includeSubMeteringNetwork = {"locator":["css=[aria-label='Does this proposed development include a sub-metering network?']"],"desc":"Include sub-metering network"}
+loc.crmAppDevelopment.text.proposedConnectionInformation = {"locator":["css=[aria-label='Proposed connection information'] tbody"],"desc":"Proposed connection information"}
+loc.crmAppDevelopment.checkbox.reticulation = {"locator":["css=[aria-label='Reticulation (Water supply - DN100 and DN150, Sewerage - DN150 and DN225 )']"],"desc":"Reticulation"}
+loc.crmAppDevelopment.checkbox.extension = {"locator":["css=[aria-label='Extension']"],"desc":"Extension"}
+loc.crmAppDevelopment.checkbox.waterWorks = {"locator":["css=input[data-id='uw_reticulationextensionwater.fieldControl-checkbox-toggle']"],"desc":"Water works"}
+loc.crmAppDevelopment.checkbox.sewerWorks = {"locator":["css=[aria-label='Sewer']"],"desc":"Sewer works"}
+loc.crmAppDevelopment.checkbox.trunkWorks = {"locator":["css=[aria-label='Trunk (Water Supply - larger than DN150, Sewerage - larger than DN225)']"],"desc":"Trunk works"}
+loc.crmAppDevelopment.checkbox.trunkExtension = {"locator":["css=[aria-label='Extension']"],"desc":"Trunk-Extension"}
+loc.crmAppDevelopment.checkbox.trunkExtensionWater = {"locator":["css=input[data-id='uw_trunkextensionwater.fieldControl-checkbox-toggle']"],"desc":"Trunk-Extension-Water"}
+loc.crmAppDevelopment.checkbox.trunkExtensionSewer = {"locator":["css=input[data-id='uw_trunkextensionsewerage.fieldControl-checkbox-toggle']"],"desc":"Trunk-Extension-Sewer"}
+loc.crmAppDevelopment.checkbox.trunkAlteration = {"locator":["css=[aria-label='Alteration']"],"desc":"Trunk-Alteration"}
+loc.crmAppDevelopment.checkbox.trunkAlterationWater = {"locator":["css=input[data-id='uw_trunkalterationwater.fieldControl-checkbox-toggle']"],"desc":"Trunk-Alteration-Water"}
+loc.crmAppDevelopment.checkbox.trunkAlterationSewer = {"locator":["css=input[data-id='uw_trunkalterationsewerage.fieldControl-checkbox-toggle']"],"desc":"Trunk-Alteration-Sewer"}
+loc.crmAppDevelopment.checkbox.trunkDecommission = {"locator":["css=[aria-label='Decommission']"],"desc":"Trunk-Decommission"}
+loc.crmAppDevelopment.checkbox.trunkDecommissionWater = {"locator":["css=input[data-id='uw_trunkdecommissionwater.fieldControl-checkbox-toggle']"],"desc":"Trunk-Decommission-Water"}
+loc.crmAppDevelopment.checkbox.trunkDecommissionSewer = {"locator":["css=input[data-id='uw_trunkdecommissionsewerage.fieldControl-checkbox-toggle']"],"desc":"Trunk-Decommission-Sewer"}
+loc.crmAppDevelopment.text.trunkExtensionWaterDimension = {"locator":["css=[data-id='uw_trunkextensionwaterdimension.fieldControl-text-box-container']"],"desc":"Trunk-Extension-Water Dimension"}
+loc.crmAppDevelopment.text.trunkExtensionSewerDimension = {"locator":["css=[data-id='uw_trunkextensionseweragedimension.fieldControl-text-box-container']"],"desc":"Trunk-Extension-Sewer Dimension"}
+loc.crmAppDevelopment.text.trunkAlterationWaterDimension = {"locator":["css=[data-id='uw_trunkalterationwaterdimension.fieldControl-text-box-container']"],"desc":"Trunk-Alteration-Water Dimension"}
+loc.crmAppDevelopment.text.trunkAlterationSewerDimension = {"locator":["css=[data-id='uw_trunkalterationseweragedimension.fieldControl-text-box-container']"],"desc":"Trunk-Alteration-Sewer Dimension"}
+loc.crmAppDevelopment.text.trunkDecommissionWaterDimension = {"locator":["css=[data-id='uw_trunkdecommissionwaterdimension.fieldControl-text-box-container']"],"desc":"Trunk-Decommission-Water Dimension"}
+loc.crmAppDevelopment.text.trunkDecommissionSewerDimension = {"locator":["css=[data-id='uw_trunkdecommissionseweragedimension.fieldControl-text-box-container']"],"desc":"Trunk-Decommission-Sewer Dimension"}
+loc.crmAppDevelopment.text.waterDimension = {"locator":["css=[aria-label='Water Connection Dimension']"],"desc":"Water Dimension"}
+loc.crmAppDevelopment.text.sewerDimension = {"locator":["css=[aria-label='Sewerage Connection Dimension']"],"desc":"Sewer Dimension"}
+loc.crmAppDevelopment.text.riskActivity = {"locator":["css=[data-id='uw_riskactivityrating.fieldControl-option-set-select']"],"desc":"Risk Activity"}
+loc.crmAppDevelopment.text.fireServiceConnection = {"locator":["css=[aria-label='Fire Service Connection']"],"desc":"Fire Service Connection"}
+loc.crmAppDevelopment.text.includeFireServicePumpset = {"locator":["css=[aria-label='Does this proposed development include a fire service pumpset (booster)?']"],"desc":"Include fire service pumpset"}
+loc.crmAppDevelopment.text.newEasementRequired = {"locator":["css=[aria-label='Is a new easement required for this proposed development?']"],"desc":"new easement required"}
+loc.crmAppDevelopment.text.closeProximityToUwAssets = {"locator":["css=[aria-label='Does your proposed development include any building or structure within close proximity of Unitywater assets?']"],"desc":"close proximity to uw assets"}
+loc.crmAppDevelopment.text.existingDwelling = {"locator":["css=[data-id='uw_existingdwelling.fieldControl-checkbox-select']"],"desc":"existing dwelling"}
+loc.crmAppDevelopment.text.tmrCorridor = {"locator":["css=[aria-label='Is this proposed development within a Department of Transport and Main Roads road corridor?']"],"desc":"TMR corridor"}
+loc.crmAppDevelopment.text.stagedDevelopment = {"locator":["css=[aria-label='Is this a staged development?']"],"desc":"staged development"}
+loc.crmAppDevelopment.text.waterServiceConnectionDimension = {"locator":["css=[aria-label='New metered water service connection dimension']"],"desc":"Water service connection dimension"}
+loc.crmAppDevelopment.text.alteringOrDisconnectingExistingWaterService = {"locator":["css=[aria-label='Are you altering or disconnecting an existing water service?']"],"desc":"Altering or disconnecting existing water service"}
+loc.crmAppDevelopment.text.selectOneOfTheFollowingWater = {"locator":["css=[data-id='uw_alteringexistingwaterserviceoptions.fieldControl-option-set-select']"],"desc":"Select one of the following-water"}
+loc.crmAppDevelopment.text.alteringOrDisconnectingExistingSewerageService = {"locator":["css=[aria-label='Are you altering or disconnecting an existing sewerage service?']"],"desc":"Altering or disconnecting existing sewerage service"}
+loc.crmAppDevelopment.text.selectOneOfTheFollowingSewer = {"locator":["css=[data-id='uw_alteringexistingsewerserviceoptions.fieldControl-option-set-select']"],"desc":"Select one of the following-sewer"}
+loc.crmAppDevelopment.text.unitsBeAttachedOrDetached = {"locator":["css=[aria-label='Will the units be attached or detached?']"],"desc":"Units be attached or detached"}
+loc.crmAppDevelopment.text.howManyBedroomsInUnit1 = {"locator":["css=[aria-label='How many bedrooms in Unit 1?']"],"desc":"How many bedrooms in unit 1"}
+loc.crmAppDevelopment.text.howManyBedroomsInUnit2 = {"locator":["css=[aria-label='How many bedrooms in Unit 2?']"],"desc":"How many bedrooms in unit 2"}
+loc.crmAppDevelopment.checkbox.waterConnectionRemaining = {"locator":["css=.pa-hy[data-id='uw_existingdwellingwaterconnection.fieldControl-checkbox-toggle']"],"desc":"Water connection remaining"}
+loc.crmAppDevelopment.checkbox.sewerageConnectionRemaining = {"locator":["css=.pa-hy[data-id='uw_existingdwellingsewerconnection.fieldControl-checkbox-toggle']"],"desc":"Sewerage connection remaining"}
+loc.crmAppStagedemand.link.plan1 = {"locator":["xpath=(//a[contains(@class, 'ms-Link')])[1]"],"desc":"Plan 1"}
+loc.crmAppStagedemand.link.plan2 = {"locator":["xpath=(//a[contains(@class, 'ms-Link')])[2]"],"desc":"Plan 2"}
+loc.crmAppStagedemand.text.type = {"locator":["css=.ag-cell[col-id='uw_residentialusetype']"],"desc":"Type"}
+loc.crmAppStagedemand.text.existing = {"locator":["css=.ag-cell[col-id='uw_numberofexistinglots']"],"desc":"Existing"}
+loc.crmAppStagedemand.text.proposed = {"locator":["css=.ag-cell[col-id='uw_numberofproposedlots']"],"desc":"Proposed"}
+loc.crmAppStagedemand.text.balance = {"locator":["css=.ag-cell[col-id='uw_numberofproposedbalancelots']"],"desc":"Balance"}
+loc.crmAppStagedemand.text.quantityUnit = {"locator":["css=.ag-cell[aria-colindex='6']"],"desc":"Quantity Unit"}
+loc.crmAppStagedemand.text.catchment = {"locator":["css=.ag-cell[aria-colindex='7']"],"desc":"Catchment"}
+loc.crmAppStagedemand.text.epwRate = {"locator":["css=.ag-cell[aria-colindex='8']"],"desc":"EPW Rate"}
+loc.crmAppStagedemand.text.epwCalculation = {"locator":["css=.ag-cell[aria-colindex='9']"],"desc":"EPW Calculation"}
+loc.crmAppStagedemand.text.epsRate = {"locator":["css=.ag-cell[aria-colindex='10']"],"desc":"EPS Rate"}
+loc.crmAppStagedemand.text.epsCalculation = {"locator":["css=.ag-cell[aria-colindex='11']"],"desc":"EPS Calculation"}
+loc.crmAppStagedemand.text.nonResType = {"locator":["css=.ag-cell[col-id='uw_nonresidentialusetype']"],"desc":"Non-Res Type"}
+loc.crmAppStagedemand.text.nonResExisting = {"locator":["css=.ag-cell[col-id='uw_numberofexistinggfam2']"],"desc":"Non-Res Existing"}
+loc.crmAppStagedemand.text.nonResProposed = {"locator":["css=.ag-cell[col-id='uw_numberofnewgfam2']"],"desc":"Non-Res Proposed"}
+loc.crmAppStagedemand.text.nonResQuantityUnit = {"locator":["css=.ag-cell[aria-colindex='6']"],"desc":"Non-Res Quantity Unit"}
+loc.crmAppStagedemand.text.nonResEpwRate = {"locator":["css=.ag-cell[aria-colindex='8']"],"desc":"Non-Res EPW Rate"}
+loc.crmAppStagedemand.text.nonResEpwCalculation = {"locator":["css=.ag-cell[aria-colindex='9']"],"desc":"Non-Res EPW Calculation"}
+loc.crmAppStagedemand.text.nonResEpsRate = {"locator":["css=.ag-cell[aria-colindex='10']"],"desc":"Non-Res EPS Rate"}
+loc.crmAppStagedemand.text.nonResEpsCalculation = {"locator":["css=.ag-cell[aria-colindex='11']"],"desc":"Non-Res EPS Calculation"}
+loc.crmAppStagedemand.text.infrastructureType = {"locator":["css=.ag-cell[col-id='uw_qppdevelopmenttype']","xpath=(//div[@col-id='uw_qppdevelopmenttype'])[2]"],"desc":"Infrastructure type"}
+loc.crmAppStagedemand.text.infrastructureType2 = {"locator":["xpath=(//div[@col-id='uw_qppdevelopmenttype'])[3]"],"desc":"Infrastructure type"}
+loc.crmAppStagedemand.text.infrastructureType3 = {"locator":["xpath=(//div[@col-id='uw_qppdevelopmenttype'])[4]"],"desc":"Infrastructure type"}
+loc.crmAppStagedemand.text.infrastructureExisting = {"locator":["css=.ag-cell[col-id='uw_existingquantity']","xpath=(//div[@col-id='uw_existingquantity'])[2]"],"desc":"Infrastructure existing"}
+loc.crmAppStagedemand.text.infrastructureExisting2 = {"locator":["xpath=(//div[@col-id='uw_existingquantity'])[3]"],"desc":"Infrastructure existing"}
+loc.crmAppStagedemand.text.infrastructureExisting3 = {"locator":["xpath=(//div[@col-id='uw_existingquantity'])[4]"],"desc":"Infrastructure existing"}
+loc.crmAppStagedemand.text.infrastructureProposed = {"locator":["css=.ag-cell[col-id='uw_proposedquantity']","xpath=(//div[@col-id='uw_proposedquantity'])[2]"],"desc":"Infrastructure proposed"}
+loc.crmAppStagedemand.text.infrastructureProposed2 = {"locator":["xpath=(//div[@col-id='uw_proposedquantity'])[3]"],"desc":"Infrastructure proposed"}
+loc.crmAppStagedemand.text.infrastructureProposed3 = {"locator":["xpath=(//div[@col-id='uw_proposedquantity'])[4]"],"desc":"Infrastructure proposed"}
+loc.crmAppStagedemand.text.infrastructureQuantityUnit = {"locator":["xpath=(//div[contains(@class, 'ag-cell') and @aria-colindex='5'])[2]"],"desc":"Infrastructure quantity unit"}
+loc.crmAppStagedemand.text.infrastructureQuantityUnit2 = {"locator":["xpath=(//div[contains(@class, 'ag-cell') and @aria-colindex='5'])[3]"],"desc":"Infrastructure quantity unit 2"}
+loc.crmAppStagedemand.text.infrastructureQuantityUnit3 = {"locator":["xpath=(//div[contains(@class, 'ag-cell') and @aria-colindex='5'])[4]"],"desc":"Infrastructure quantity unit 3"}
+loc.crmCommon.button.backButton = {"locator":["id=navigateBackButtontab-id-0"],"desc":"Back button"}
+loc.crmAppConsent.text.individualOrOrganisation = {"locator":["css=[aria-label='Which individual or organisation are you submitting this application on behalf of?']"],"desc":"Individual or organisation"}
+loc.crmAppConsent.text.abn = {"locator":["css=[data-id='uw_abnacn.fieldControl-text-box-container']"],"desc":"ABN"}
+loc.crmAppConsent.text.addressLine = {"locator":["css=[data-id='uw_addressline.fieldControl-text-box-container']"],"desc":"Address Line"}
+loc.crmAppConsent.text.suburb = {"locator":["css=[data-id='uw_suburb.fieldControl-text-box-container']"],"desc":"Suburb"}
+loc.crmAppConsent.text.state = {"locator":["css=[aria-label='State']"],"desc":"State"}
+loc.crmAppConsent.text.postcode = {"locator":["css=[data-id='uw_postcode.fieldControl-text-box-container']"],"desc":"Postcode"}
+loc.crmAppConsent.text.firstName = {"locator":["css=[data-id='uw_developercontactname.fieldControl-text-box-container']"],"desc":"First Name"}
+loc.crmAppConsent.text.lastName = {"locator":["css=[data-id='uw_developercontactlastname.fieldControl-text-box-container']"],"desc":"Last Name"}
+loc.crmAppConsent.text.contactNumber = {"locator":["css=[data-id='uw_contactmobile.fieldControl-text-box-container']"],"desc":"Contact Number"}
+loc.crmAppConsent.text.contactEmail = {"locator":["css=[data-id='uw_contactemail.fieldControl-mail-container']"],"desc":"Contact Email"}
+loc.crmAppConsent.text.landAccessedDuringDevelopment = {"locator":["css=[aria-label='Will related land be accessed during this proposed development?']"],"desc":"Land accessed during development"}
+loc.crmAppConsent.text.easementBeInvolved = {"locator":["css=[aria-label='Will an easement be involved in this proposed development?']"],"desc":"Easement be involved"}
+loc.crmAppConsent.text.consultingEngineerForTrunkWorks = {"locator":["css=[aria-label='Are you the consulting engineer for the trunk works?']"],"desc":"Consulting engineer for Trunk Works"}
+loc.crmAppAttachments.table.attachmentsTable = {"locator":["css=[data-id='ApplicationDocumentRequirementGrid-powerapps_onegrid_control_container'] .ag-center-cols-container"],"desc":"Attachments Table"}
+loc.crmAppAttachments.link.applicationDocumentLink = {"locator":["css=a.ms-Link"],"desc":"Application Document Link"}
+loc.crmAppAttachments.button.attachmentFile = {"locator":["css=button.ms-Link"],"desc":"Attachment file"}
+loc.crmAppConditions.text.haveAnySpecialConditions = {"locator":["css=[aria-label='Do you have any special conditions to be included on your Decision Notice template?']"],"desc":"Have any special conditions"}
+loc.crmAppConditions.text.proposedDevelopmentDescription = {"locator":["css=textarea"],"desc":"Proposed development description"}
+loc.crmAppConditions.text.noticeConditionsTable = {"locator":["css=[data-id='subgrid_decision_notice_template-pcf_grid_control_container'] .ag-center-cols-container[role='rowgroup']"],"desc":"Notice conditions table"}
+loc.crmAppReview.checkbox.declarationConfirmed = {"locator":["css=[aria-label='Declaration Confirmed']"],"desc":"Declaration confirmed"}
+loc.crmAppReview.checkbox.email = {"locator":["css=[aria-label='Email']"],"desc":"Email"}
+loc.crmAppReview.checkbox.sms = {"locator":["css=[aria-label='SMS']"],"desc":"SMS"}
+loc.crmCases.button.caseView = {"locator":["css=h1 button.ms-Button--hasMenu"],"desc":"Case view"}
+loc.crmCases.button.allCases = {"locator":["css=[title='All Cases'] button","xpath=//label[.='All Cases']"],"desc":"All Cases"}
+loc.crmCases.input.caseFilter = {"locator":["css=[aria-label='Case Filter by keyword']"],"desc":"Case filter"}
+loc.crmCases.link.caseLink = {"locator":["xpath=(//a[contains(@class, 'ms-Link')])[1]"],"desc":"Case link"}
+loc.crmCasesOverview.text.applicationNumber = {"locator":["css=[data-id='uw_application.fieldControl-LookupResultsDropdown_uw_application_selected_tag_text']"],"desc":"Application number"}
+loc.crmCasesOverview.text.applicationType = {"locator":["css=[data-id='uw_applicationtype.fieldControl-LookupResultsDropdown_uw_applicationtype_selected_tag_text']"],"desc":"Application Type"}
+loc.crmCasesOverview.text.applicationSubType = {"locator":["css=[data-id='uw_applicationsubtype.fieldControl-LookupResultsDropdown_uw_applicationsubtype_selected_tag_text']"],"desc":"Application Sub Type"}
+loc.crmCasesOverview.text.caseTitle = {"locator":["css=[data-id='title.fieldControl-text-box-container']"],"desc":"Case title"}
+loc.crmCasesOverview.text.firstEmailMessage = {"locator":["xpath=(//*[@id='TimelineGroupsMainContainernotescontrol']//li)[1]"],"desc":"First email message"}
+loc.crmCasesOverview.text.developerContactDetails = {"locator":["css=[aria-label='Developer Contact Details']"],"desc":"Developer Contact Details"}
+loc.crmCases.button.attachments = {"locator":["css=li[title='Attachments']"],"desc":"Attachments"}
+loc.crmCases.button.financial = {"locator":["css=li[title='Financial']"],"desc":"Financial"}
+loc.crmCases.button.tasks = {"locator":["css=li[title='Tasks']"],"desc":"Tasks"}
+loc.crmCases.button.qualityAssurance = {"locator":["css=li[title='Quality Assurance']"],"desc":"Quality Assurance"}
+loc.crmCases.button.outcome = {"locator":["css=li[title='Outcome']"],"desc":"Outcome"}
+loc.crmCommon.text.pageTitle = {"locator":["css=#topBar > div:nth-of-type(2)","xpath=//div[.='SANDBOX']"],"desc":"Page Title"}
+loc.crmCasesAttachments.table.attachmentsTable = {"locator":["css=[data-id='ApplicationDocumentGrid-pcf_grid_control_container'] .ag-center-cols-container"],"desc":"Attachments Table"}
+loc.crmCasesAttachments.link.applicationDocumentLink = {"locator":["css=a.ms-Link"],"desc":"Application Document Link"}
+loc.crmCasesAttachments.button.attachmentFile = {"locator":["css=button.ms-Link"],"desc":"Attachment file"}
+loc.crmCasesFinancial.text.applicationFeesRow1 = {"locator":["css=[data-id='FeesandPayments-pcf_grid_control_container'] .ag-center-cols-viewport .ag-row"],"desc":"Application Fees row 1"}
+loc.crmCasesFinancial.text.applicationInvoiceRow1 = {"locator":["css=[data-id='subgrid_incident_apllicationinvoice-pcf_grid_control_container'] .ag-center-cols-viewport .ag-row"],"desc":"Application Invoice row 1"}
+loc.crmCasesOutcome.text.standardDncTable = {"locator":["css=[data-id='DNCs-pcf_grid_control_container']"],"desc":"Standard DNC table"}
+loc.crmCasesOutcome.text.approvedDocumentsAndDrawingsTable = {"locator":["css=[data-id='subgrid_case_approveddocumentanddrawing-pcf_grid_control_container']"],"desc":"Approved documents and Drawings table"}
+loc.crmCasesOutcome.text.outcomeDocumentsRow1 = {"locator":["css=[data-id='ApplicationDocumentRequirementQuickView.ApplicationDocument-pcf_grid_control_container'] .ag-center-cols-clipper [row-index='0']"],"desc":"Outcome Documents row 1"}
+loc.crmCasesOutcome.text.outcomeDocumentsRow2 = {"locator":["css=[data-id='ApplicationDocumentRequirementQuickView.ApplicationDocument-pcf_grid_control_container'] .ag-center-cols-clipper [row-index='1']"],"desc":"Outcome Documents row 2"}
+loc.crmCasesOutcome.text.outcomeDocumentsRow3 = {"locator":["css=[data-id='ApplicationDocumentRequirementQuickView.ApplicationDocument-pcf_grid_control_container'] .ag-center-cols-clipper [row-index='2']"],"desc":"Outcome Documents row 3"}
+loc.crmCasesOutcome.button.newApplicationDnc = {"locator":["css=#dataSetRoot_SpecialDNCs [aria-label='New Application DNC. Add New Application DNC']"],"desc":"New Application DNC"}
+loc.crmCasesOutcome.input.newDncReference = {"locator":["css=[aria-label='Reference']"],"desc":"New DNC Reference"}
+loc.crmCasesOutcome.input.newDncShortDescription = {"locator":["css=[aria-label='Short Description']"],"desc":"New DNC Short Description"}
+loc.crmCasesOutcome.input.newDncCodeReference = {"locator":["css=[aria-label='Code Reference']"],"desc":"New DNC Code Reference"}
+loc.crmCasesOutcome.input.newDncConditionText = {"locator":["css=[aria-label='Condition Text. Recommended.']"],"desc":"New DNC Condition Text"}
+loc.crmCases.text.businessProcessFlow = {"locator":["css=[aria-label='Business Process Flow']","xpath=//*[@aria-label='Business Process Flow']"],"desc":"Business Process flow"}
+loc.crmCases.button.triage = {"locator":["xpath=(//*[@aria-label='Business Process Flow']/li)[1]"],"desc":"Triage"}
+loc.crmCases.button.prepare = {"locator":["xpath=(//*[@aria-label='Business Process Flow']/li)[2]"],"desc":"Prepare"}
+loc.crmCases.button.draft = {"locator":["xpath=(//*[@aria-label='Business Process Flow']/li)[3]"],"desc":"Draft"}
+loc.crmCases.button.issueOutcome = {"locator":["xpath=(//*[@aria-label='Business Process Flow']/li)[4]"],"desc":"Issue Outcome"}
+loc.crmCases.text.triagePaymentDate = {"locator":["css=[data-id='header_process_uw_properlymadedate.fieldControl._datecontrol-date-container']"],"desc":"Triage payment date"}
+loc.crmCases.button.triageSetActive = {"locator":["id=MscrmControls.Containers.ProcessStageControl-setActiveButtonContainer"],"desc":"Triage Set Active"}
+loc.crmCases.button.prepareNextStage = {"locator":["id=MscrmControls.Containers.ProcessStageControl-Next Stage"],"desc":"Prepare Next Stage"}
+loc.crmCases.select.preparePeerReview = {"locator":["id=header_process_uw_peerreview-header_process_uw_peerreview6-header_process_uw_peerreview.fieldControl-checkbox-select","css=[aria-label='Peer Review']"],"desc":"Prepare Peer Review"}
+loc.crmCases.select.prepareQaOutcome = {"locator":["id=header_process_uw_qaoutcome-header_process_uw_qaoutcome8-header_process_uw_qaoutcome.fieldControl-option-set-select","css=[aria-label='QA Outcome']"],"desc":"Prepare QA Outcome"}
+loc.crmCases.select.draftAttachments = {"locator":["id=header_process_uw_attachments-header_process_uw_attachments6-header_process_uw_attachments.fieldControl-option-set-select","css=[data-id='header_process_uw_attachments.fieldControl-option-set-select']"],"desc":"Draft Attachments"}
+loc.crmCases.select.draftQaOutcome = {"locator":["id=header_process_uw_qaoutcome_1-header_process_uw_qaoutcome_18-header_process_uw_qaoutcome_1.fieldControl-option-set-select","css=[aria-label='QA Outcome']"],"desc":"Draft QA Outcome"}
+loc.crmCases.select.draftPreviewOutcomeDocument = {"locator":["id=header_process_uw_previewdndocument-header_process_uw_previewdndocument6-header_process_uw_previewdndocument.fieldControl-checkbox-select","css=[aria-label='Preview Outcome Document']"],"desc":"Draft Preview Outcome Document"}
+loc.crmCases.button.draftNextStage = {"locator":["id=MscrmControls.Containers.ProcessStageControl-nextButtonContainer"],"desc":"Draft Next Stage"}
+loc.crmCases.button.businessProcessErrorOk = {"locator":["css=[data-id='errorOkButton']"],"desc":"Business Process Error OK"}
+loc.crmCasesDocinfo.button.upload = {"locator":["css=[aria-label='Upload']"],"desc":"Upload"}
+loc.crmCasesDocinfo.input.chooseFile = {"locator":["css=[aria-label='File Upload']"],"desc":"Choose file"}
+loc.crmCasesDocinfo.button.ok = {"locator":["css=[data-id='ok_id']"],"desc":"OK"}
+loc.crmCasesDocinfo.button.attachedDocumentLink = {"locator":["css=.ag-row-even [col-id='fullname'] button"],"desc":"Attached document link"}
+loc.crmCommon.button.saveAndClose = {"locator":["css=[aria-label='Save & Close']"],"desc":"Save and Close"}
+loc.crmCommon.button.save = {"locator":["css=[aria-label='Save (CTRL+S)']"],"desc":"Save"}
+loc.crmCommon.button.refresh = {"locator":["css=[aria-label='Refresh']"],"desc":"Refresh"}
+loc.crmCommon.button.nextPage = {"locator":["css=[aria-label='Next page'][aria-disabled='false']"],"desc":"Next page"}
+loc.crmCasesAttachments.link.previewDecisionNoticeUrl = {"locator":["css=[col-id="uw_documenturl"] a","xpath=//a[contains(.,'Preview_Decision_Notice.pdf')]"],"desc":"Preview Decision Notice URL"}
+loc.crmCasesAttachments.text.embeddedPdfText = {"locator":["css=embed"],"desc":"Embedded PDF Text"}
+loc.crmCases.select.generatedDocuments = {"locator":["css=[aria-label='Generated Documents']"],"desc":"Generated Documents"}
+loc.crmCases.text.finished = {"locator":["id=MscrmControls.Containers.ProcessStageControl-finishedLabelContainer","css=[aria-label='Finished']","xpath=//button[@id='MscrmControls.Containers.ProcessStageControl-finishedLabelContainer']"],"desc":"Finished"}
+loc.crmCasesOutcome.link.outcomeDecisionNoticeUrl = {"locator":["xpath=//a[contains(.,'Decision_Notice.pdf')]"],"desc":"Outcome Decision Notice URL"}
+loc.crmCommon.button.markComplete = {"locator":["css=[aria-label='Mark Complete']"],"desc":"Mark Complete"}
+loc.crmCasesTasks.table.taskTable = {"locator":["css=[aria-label='Assessment Tasks'] .ag-center-cols-container"],"desc":"Task Table"}
+loc.crmCases.button.finish = {"locator":["id=MscrmControls.Containers.ProcessStageControl-finishButtonContainer","css=[aria-label='Finish']"],"desc":"Finish"}
+loc.crmAppLocation.text.addressRow = {"locator":["css=.ag-center-cols-container > .ag-row-even"],"desc":"Address row"}
+loc.crmCasesOverview.text.timeline = {"locator":["css=[data-id='notescontrol-unPinnedAccordion-incident']","xpath=//div[@id='TimelineGroupsMainContainernotescontrol']/div[@class=' ']/div[@class=' ']"],"desc":"Timeline"}

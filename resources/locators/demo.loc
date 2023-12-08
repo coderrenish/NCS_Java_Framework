@@ -1,0 +1,20 @@
+# Locator for Demo site : https://www.saucedemo.com/
+# “Input”, “link”, “text”, “radioButton”, “checkbox”, “select”, “button”
+
+
+#Login Page
+loc.login.input.username = {"locator":["id=user-name","name=user-name"],"desc":"Username field"}
+loc.login.input.password = {"locator":["id=password","name=password"],"desc":"Password field"}
+loc.login.button.login = {"locator":["id=login-button","name=login-button"],"desc":"Login button"}
+
+#Home Page
+loc.home.text.logo = {"locator":["css=.app_logo"],"desc":"Home Logo Text"}
+
+
+
+loc.cpLogin.input.username
+
+
+loc.d365Login.input.username
+
+
