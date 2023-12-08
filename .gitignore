@@ -3,6 +3,5 @@
 /img
 /test-output
 .idea
-pipelineVariables.properties
 /extent-reports
-/drivers
+/drivers/
