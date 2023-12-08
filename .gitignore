@@ -1,0 +1,9 @@
+/target
+/test-results
+/img
+/test-output
+test_data_sensitive.csv
+.idea
+pipelineVariables.properties
+/extent-reports
+/drivers
