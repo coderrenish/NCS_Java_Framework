@@ -4,4 +4,4 @@
 /test-output
 .idea
 /extent-reports
-/drivers/
+/drivers/*
