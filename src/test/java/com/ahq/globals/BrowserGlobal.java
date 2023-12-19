@@ -109,7 +109,18 @@ public class BrowserGlobal {
         driver.manage().window().setSize(new Dimension(Integer.parseInt(width.trim()), Integer.parseInt(height.trim())));
         get(url);
     }
-    
+
+    /**
+     * Zooming browser window to X percentage
+     * I zoom browser window to {zoom} Percentage
+     * @throws Exception
+     */
+    @QAFTestStep(description = "I zoom browser window to {percentage} Percentage")
+    public static void iZoomBrowserToPercentage(String zoom) throws Exception {
+        WebDriver driver = new WebDriverTestBase().getDriver();
+        JavascriptExecutor js=(JavascriptExecutor)driver;
+        js.executeScript("document.body.style.zoom='"+zoom+"'");
+    }
     /**
      * Pressing on the RETURN or ENTER key in a field
      * : I press RETURN or ENTER key in {loc}
@@ -153,7 +164,21 @@ public class BrowserGlobal {
         builder.sendKeys(Keys.valueOf(key.toUpperCase()));
         builder.build().perform();
     }
-    
+
+    /**
+     * Pressing the TAB key n times
+     * : I press Tab {n} times
+     *
+     * @param times [Press TAB n times]
+     */
+    @QAFTestStep(description = "I press Tab {times} times")
+    public static void iPressTabKeytimes(String times) throws Exception {
+        for (int i = 0; i < Integer.parseInt(times); i++) {
+            BrowserGlobal.iPressKey("TAB");
+            BrowserGlobal.iWaitForMilliseconds("1000");
+        }
+    }
+
     /**
      * Pressing a special key (E.g. Shift, Control, Option) and then fill value or character
      * : I press key {key} and fill {value}
@@ -349,6 +374,20 @@ public class BrowserGlobal {
     public static void iFillInTo(String value, String locator) throws Exception {
         sendKeys(pwd.check(value), locator);
     }
+
+
+    /**
+     * Input text/value to a given field
+     * : I input {value} into {locator}
+     *
+     * @param value   [Value to enter/input in a field]
+     * @param locator [Locator of the field]
+     * @throws Exception
+     */
+    @QAFTestStep(description = "I input {value} into {locator}")
+    public static void iInputInTo(String value, String locator) throws Exception {
+        sendKeys(pwd.check(value), locator);
+    }
     
     /**
      * Click and Fill text/value to a given lookup field with a delay
@@ -428,19 +467,7 @@ public class BrowserGlobal {
         iHoldKeyAndPressAKey("SHIFT", "TAB");
         iPressReturnOrEnterKey();
     }
-    
-    /**
-     * Input text/value to a given field
-     * : I input {value} into {locator}
-     *
-     * @param value   [Value to enter/input in a field]
-     * @param locator [Locator of the field]
-     * @throws Exception
-     */
-    @QAFTestStep(description = "I input {value} into {locator}")
-    public static void iInputInTo(String value, String locator) throws Exception {
-        iFillInTo(value, locator);
-    }
+
     
     /**
      * Clear the specified element value and Fill text/value
@@ -1449,6 +1476,34 @@ public class BrowserGlobal {
         new WebDriverTestBase().getDriver().executeScript("arguments[0].scrollIntoView(true);", element);
         QAFTestBase.pause(Integer.parseInt(mSecs));
         click(locator);
+    }
+
+    /**
+     * Scroll to the Bottom
+     * I scroll to the Bottom {locator}
+     * @throws Exception
+     */
+    @QAFTestStep(description = "I scroll to the bottom of the page")
+    public static void iScrollToTheBottomOfThePage() throws Exception {
+        WebDriver driver = new WebDriverTestBase().getDriver();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        try {
+            long lastHeight=((Number)js.executeScript("return document.body.scrollHeight")).longValue();
+            while (true) {
+                ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
+                Thread.sleep(2000);
+
+                long newHeight = ((Number)js.executeScript("return document.body.scrollHeight")).longValue();
+                if (newHeight == lastHeight) {
+                    break;
+                }
+                lastHeight = newHeight;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // JavascriptExecutor js=(JavascriptExecutor)driver;
+        // js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
     // {assert}
