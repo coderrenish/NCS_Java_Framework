@@ -96,7 +96,9 @@ public class stepListener implements QAFTestStepListener {
                 }
             }
             description = description.replaceAll("\\{.*?\\}", "\"%s\"");
-            description = String.format(description, actualArgs);
+            if (description.contains("\\%s")) {
+                description = String.format(description, actualArgs);
+            }
         }
         return description;
     }

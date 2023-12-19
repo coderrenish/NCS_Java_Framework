@@ -4,7 +4,7 @@ Feature: This is a test feature file
   @TST-01
     @TestCaseId:TST-01
     @PRIORITY:1
-    @SMOKE
+    @DEMO
   Scenario: Test scenario using Globals, static data & Environment Variable (without writing any Step definitions)
       # ${env.url} - Environment variable is wrapped with "${" and "}"
       # Static data "secret_sauce" is added directly
@@ -15,14 +15,13 @@ Feature: This is a test feature file
   And: I click on "loc.login.button.login"
   Result: I assert text present in page "Swag Labs"
   And: I assert "loc.home.text.logo" text is "Swag Labs"
-   I store data to a variable "var.username.<_INSTANCE>"
+
 
 
   @TST-02
     @TestCaseId:TST-02
     @PRIORITY:2
-    @SMOKE
-    @demo
+    @DEMO
   Scenario Outline: Test scenario using Test Data directly, Environment Variable, Encrypted Password & Globals (without writing any Step definitions)
   Step: I open the web browser with "${env.url}"
   And: I fill "<username>" into "loc.login.input.username"
@@ -39,8 +38,7 @@ Feature: This is a test feature file
   @TST-03
     @TestCaseId:TST-03
     @PRIORITY:3
-    @SMOKE
-    @demo
+    @DEMO
   Scenario Outline: Test scenario using Test Data file, Environment Variable & Globals (without writing any Step definitions)
   Step: I open the web browser with "${env.url}"
   And: I fill "<username>" into "loc.login.input.username"
@@ -57,7 +55,7 @@ Feature: This is a test feature file
   @TST-04
     @TestCaseId:TST-04
     @PRIORITY:4
-    @SMOKE
+    @DEMO
   Scenario Outline: Test scenario using Step Definition
   Step: Login: I login to SauseDemo using "${env.url}", "<username>" and "<password>"
   Result: Home: I verify I'm in homepage
@@ -69,7 +67,7 @@ Feature: This is a test feature file
   @TST-05
     @TestCaseId:TST-05
     @PRIORITY:5
-    @SMOKE
+    @DEMO
   Scenario Outline: Test scenario using Actions (without writing any Step definitions)
     Step: "Login": "I login to SauseDemo" -action/s:"{open}{browser}{${env.url}},{input}{<username>}{in}{Username},{input}{<password>}{in}{Password},{click}{Login}{button}"
   Result: "Home": "I verify I'm in homepage" -action/s:"{verify}{text}{Products}{present}{in}{page}"
