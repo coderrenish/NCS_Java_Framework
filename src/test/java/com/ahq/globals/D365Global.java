@@ -8,7 +8,7 @@ import static com.qmetry.qaf.automation.step.CommonStep.click;
 public class D365Global {
     @QAFTestStep(description = "D365: Input {0} into {1}")
     public void inputInTo(String date,String locator) throws Exception {
-        BrowserGlobal.iDoubleClickAndFillInTo(date,locator);
+        BrowserGlobal.iClickAndFillInTo(date,locator);
     }
 
     @QAFTestStep(description = "D365: Input Date {0} into {1}")
