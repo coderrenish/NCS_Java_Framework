@@ -120,7 +120,7 @@ public class D365Global {
      * @param field [Field name]
      * @param page [Page name]
      */
-    @QAFTestStep(description = "MSDynamics: Input-Lookup Text:{0} By-Clearing-Value:{1} field:{2} page:{3}")
+    @QAFTestStep(description = "MSDynamics: Input-Lookup Text:{0} By-Clearing-Value:{1} Field:{2} Page:{3}")
     public static void inputLookUpByClearingValue(String text, String clear_value, String field, String page) throws Exception {
         String splitFields[];
         String delField = field.replace(", Lookup","");
