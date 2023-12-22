@@ -71,7 +71,7 @@ public class D365Global {
      * @param wait_in_secs [wait in Secs for Lookup results to populate]
      */
     @QAFTestStep(description="MSDynamics: Input-Lookup Text:{0} Field:{1} Page:{2} Wait-In-Secs:{3}")
-    public void inputLookUpWithWai(String text,String field,String page,String wait_in_secs) throws Exception{
+    public void inputLookUpWithWait(String text,String field,String page,String wait_in_secs) throws Exception{
         if (!field.contains(", Lookup")) {
             field = field +", Lookup";
         }
