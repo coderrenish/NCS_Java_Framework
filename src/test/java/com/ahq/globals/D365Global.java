@@ -82,7 +82,7 @@ public class D365Global {
         BrowserGlobal.iWaitForSeconds(wait_in_secs);
         BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"lookup-text",text));
         BrowserGlobal.iClickOn(loc.get(page,"lookup-text",text));
-        BrowserGlobal.iWaitForSeconds("2000");
+        BrowserGlobal.iWaitForMilliseconds("2000");
     }
 
     /**
