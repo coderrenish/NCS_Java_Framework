@@ -4,7 +4,7 @@ import com.ahq.globals.utilities.*;
 
 public class Utils {
 
-    public static String nric_singapore_generate(String type, Integer age) { return UtilNricSingapore.generate(type,age); }
+    public static String nric_singapore_generate(String type, String age) { return UtilNricSingapore.generate(type,Integer.parseInt(age)); }
 //    public static String nric_singapore_validate(String nric) { return UtilNricSingapore.validate(nric); } // TO BE DEVELOPED
     public static String password_encrypt(String encryptedPassword) { return UtilPassword.encrypt(encryptedPassword);}
     public static String password_decrypt(String password) { return UtilPassword.decrypt(password);}
