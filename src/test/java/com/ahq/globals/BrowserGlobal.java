@@ -172,12 +172,25 @@ public class BrowserGlobal {
      * @param times [Press TAB n times]
      */
     @QAFTestStep(description = "I press Tab {times} times")
-    public static void iPressTabKeytimes(String times) throws Exception {
+    public static void iPressTabKeyTimes(String times) throws Exception {
         for (int i = 0; i < Integer.parseInt(times); i++) {
             BrowserGlobal.iPressKey("TAB");
             BrowserGlobal.iWaitForMilliseconds("1000");
         }
     }
+//    /**
+//     * Pressing the BACKSPACE key n times
+//     * : I press Tab {n} times
+//     *
+//     * @param times [Press TAB n times]
+//     */
+//    @QAFTestStep(description = "I press Backspace {times} times")
+//    public static void iPressBackspaceKeyTimes(String times) throws Exception {
+//        for (int i = 0; i < Integer.parseInt(times); i++) {
+//            BrowserGlobal.iPressKey("DELETE");
+//            BrowserGlobal.iWaitForMilliseconds("100");
+//        }
+//    }
 
     /**
      * Pressing a special key (E.g. Shift, Control, Option) and then fill value or character
@@ -195,7 +208,23 @@ public class BrowserGlobal {
         builder.keyUp(Keys.valueOf(key.toUpperCase()));
         builder.build().perform();
     }
-    
+
+    /**
+     * Select All by pressing Control or Command "a" Key
+     * : I Press Control or Command A by OS
+     * @throws Exception
+     */
+    @QAFTestStep(description = "I Press Control or Command A by OS")
+    public static void iPressControlOrCommandAByOs() throws Exception {
+        String keyType;
+        if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+            keyType = "COMMAND";
+        } else {
+            keyType = "CONTROL";
+        }
+        iHoldKeyAndPressAKey(keyType,"a");
+    }
+
     /**
      * Pressing a special key (E.g. Shift, Control, Option) and then press another special key
      * : I hold down a key {holdKey} and press a key {pressKey}
@@ -208,7 +237,7 @@ public class BrowserGlobal {
     public static void iHoldKeyAndPressAKey(String holdKey, String pressKey) throws Exception {
         Actions builder = new Actions(new WebDriverTestBase().getDriver());
         builder.keyDown(Keys.valueOf(holdKey.toUpperCase()));
-        builder.sendKeys(Keys.valueOf(pressKey.toUpperCase()));
+        builder.sendKeys(pressKey);
         builder.keyUp(Keys.valueOf(holdKey.toUpperCase()));
         builder.build().perform();
     }
@@ -1476,9 +1505,7 @@ public class BrowserGlobal {
         new WebDriverTestBase().getDriver().executeScript("arguments[0].scrollIntoView(true);", element);
         QAFTestBase.pause(Integer.parseInt(mSecs));
         click(locator);
-    }
-
-    /**
+    }/**
      * Scroll to the Bottom
      * I scroll to the Bottom {locator}
      * @throws Exception
@@ -1505,6 +1532,8 @@ public class BrowserGlobal {
         // JavascriptExecutor js=(JavascriptExecutor)driver;
         // js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
+
+
 
     // {assert}
     @QAFTestStep(description = "I assert text present in page {text}")
