@@ -28,5 +28,7 @@ nbdist/
 /img
 /test-output
 /extent-reports
-/drivers/*
+/drivers/
+
+### Java ###
 *.class
