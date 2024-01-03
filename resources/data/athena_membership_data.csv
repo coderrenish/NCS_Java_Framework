@@ -1,4 +1,4 @@
 _ID,_STATUS,_ENV,_INSTANCE,username,password
 AT-T001,no,SIT,1,SITest01@NCSD365Developmentoutlook.onmicrosoft.com,pwd.VG5WMmJ6ZzJPRGd4Tmc9PQ==
 AT-T001,yes,SIT,1,SITest01@NCSD365Developmentoutlook.onmicrosoft.com,pwd.VG5WMmJ6ZzJPRGd4Tmc9PQ==
-AT-T001,yes,UAT,1,UATest01@NCSD365Developmentoutlook.onmicrosoft.com,pwd.VG5WMmJ6ZzJPRGd4Tmc9PQ==
+AT-T002,yes,SIT,1,SITest01@NCSD365Developmentoutlook.onmicrosoft.com,pwd.VG5WMmJ6ZzJPRGd4Tmc9PQ==

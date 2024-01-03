@@ -17,7 +17,7 @@ public class demoLoginPage {
         BrowserGlobal.iFillInTo(password,loc.get("Login","input","Password"));
 
         BrowserGlobal.iClickOn(loc.get("Login","button","Login"));
-        BrowserGlobal.iComment("NRIC :::: " + Utils.nric_singapore_generate("S",40));
+        BrowserGlobal.iComment("NRIC :::: " + Utils.nric_singapore_generate("S","40"));
 
 //        BrowserGlobal.iFillInTo(username,loc.get("Login","input","First Name"));
     }

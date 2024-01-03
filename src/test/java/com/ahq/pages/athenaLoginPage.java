@@ -1,7 +1,6 @@
 package com.ahq.pages;
 
-import com.ahq.globals.BrowserGlobal;
-import com.ahq.globals.D365Global;
+import com.ahq.globals.*;
 import com.ahq.utils.loc;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 
@@ -12,15 +11,17 @@ public class athenaLoginPage {
         BrowserGlobal.iOpenWebBrowser(urlToOpen);
         BrowserGlobal.iInputInTo(username, loc.get("Login","input","Enter your email address, phone number or Skype."));
         BrowserGlobal.iClickOn(loc.get("Login","button","Next"));
+        BrowserGlobal.iWaitForSeconds("2");
         BrowserGlobal.iInputInTo(password, loc.get("Login","input","Password"));
         BrowserGlobal.iClickOn(loc.get("Login","button","Sign in"));
+        BrowserGlobal.iWaitForSeconds("2");
         BrowserGlobal.iClickOn(loc.get("Login","button","No"));
-//        BrowserGlobal.iWaitUntilElementPresent(loc.get("Login","button","Sign in:"));
-        BrowserGlobal.iWaitForSeconds("3");
-        BrowserGlobal.iPressTabKeytimes("1");
-        BrowserGlobal.iPressKey("ENTER");
-        BrowserGlobal.iWaitForSeconds("3");
-//        BrowserGlobal.iClickOn(loc.get("Login","button","Sign in:id:okButtonText_1"));
+        BrowserGlobal.iWaitUntilElementPresent(loc.get("Login","text","Please sign in again"));
+        BrowserGlobal.iClickOn(loc.get("ReLogin","button","Sign In"));
+
+//        D365Global.inputText(Utils.nric_singapore_generate(),"NRIC","");
+
+
     }
 
 }

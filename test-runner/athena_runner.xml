@@ -8,8 +8,8 @@
     <parameter name="exec.name" value="Config-1 Execution 1"/>
     <parameter name="exec.index" value="1"/>
     <parameter name="env.code" value="SIT"/>
-    <parameter name="env.resources" value="resources;environment-config/SIT;execution-config/SIT"/>
-    <parameter name="include" value="{'groups':['MEMBERSHIP','SMOKE']}"/>
+    <parameter name="env.resources" value="resources;environment-config/${env.code};execution-config/SIT"/>
+    <parameter name="include" value="{'groups':['AT-T002']}"/>
     <classes>
       <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
     </classes>
