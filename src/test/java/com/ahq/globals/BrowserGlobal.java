@@ -617,7 +617,7 @@ public class BrowserGlobal {
      * : I select dropdown {locator} with index {number}
      *
      * @param locator [Locator of the field]
-     * @param index   [Index of the text/value in Dropdown/select field starting with 0]
+     * @param index   [Index of the text/value in Dropdown/select field starting with 1]
      * @throws Exception
      */
     @QAFTestStep(description = "I select dropdown {locator} with index {index}")
