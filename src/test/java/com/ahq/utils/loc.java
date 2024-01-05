@@ -41,25 +41,25 @@ public class loc {
                 if (fieldType.trim().equalsIgnoreCase("d365_link") || fieldType.trim().equalsIgnoreCase("d365_tab")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//a[@aria-label='"+fieldName.trim()+"']\",\"xpath=//a[@title='"+fieldName.trim()+"']\",\"xpath=//li[@aria-label='"+fieldName.trim()+"']\",\"xpath=//li[@title='"+fieldName.trim()+"']\",\"xpath=//a[contains(@aria-label,'"+fieldName.trim()+"')]\",\"xpath=//a[contains(@title,'"+fieldName.trim()+"')]\",\"xpath=//li[contains(@aria-label,'"+fieldName.trim()+"')]\",\"xpath=//li[contains(@title,'"+fieldName.trim()+"')]\"],\"desc\":\""+fieldName+" field\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_header")){
-                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//h1[@title='"+fieldName.trim()+"']\",\"xpath=//div[@aria-label='"+fieldName.trim()+"']\",\"xpath=//h1[contains(@title,'"+fieldName.trim()+"')]\"],\"desc\":\""+fieldName+" field\"}");
+                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//h1[@title='"+fieldName.trim()+"']\",\"xpath=//div[@aria-label='"+fieldName.trim()+"']\",\"xpath=//h1[contains(@title,'"+fieldName.trim()+"')]\",\"xpath=//div[contains(@aria-label,'"+fieldName.trim()+"')]\"],\"desc\":\""+fieldName+" field\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_date")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//input[@aria-label='Date of "+fieldName.trim()+"']\",\"xpath=//input[@aria-label='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" field\"}");
-                } else if (fieldType.trim().equalsIgnoreCase("d365_input")){
+                } else if (fieldType.trim().equalsIgnoreCase("d365_time")){
+                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//input[@aria-label='Time of "+fieldName.trim()+"']\",\"xpath=//input[@aria-label='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" field\"}");
+                }else if (fieldType.trim().equalsIgnoreCase("d365_input")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//input[@aria-label='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" field\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_lookup")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//input[@aria-label='"+fieldName.trim()+", Lookup']\",\"xpath=//input[@aria-label='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" field\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_lookup_ext_value")){
-                    System.out.println("======> " + fieldName);
-                    String[] lookupfieldSplit = fieldName.trim().split("|");
-                    System.out.println("======> " + lookupfieldSplit[0]);
-                    System.out.println("======> " + lookupfieldSplit[1]);
+                    String[] lookupfieldSplit = fieldName.trim().split(":");
                     String[] lookupfieldNameSplit = lookupfieldSplit[0].trim().replaceAll(" ","_").split("_");
-                    System.out.println("======> " + lookupfieldNameSplit[0]);
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//div[contains(@data-id,'fieldControl-LookupResultsDropdown')][@title='"+lookupfieldSplit[1].trim()+"'][contains(@id,'"+lookupfieldNameSplit[0].trim().toLowerCase()+"')]\"],\"desc\":\""+lookupfieldSplit[0]+" field\"}");
-                }else if (fieldType.trim().equalsIgnoreCase("d365_filter")){
+                } else if (fieldType.trim().equalsIgnoreCase("d365_filter")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=(//input[@placeholder='Filter by keyword'])["+fieldName.trim()+"]\",\"xpath=(//*[contains(@data-id,'quickFind_text')])["+fieldName.trim()+"]\"],\"desc\":\""+fieldName+" field\"}");
-                }else if (fieldType.trim().equalsIgnoreCase("d365_button")){
+                } else if (fieldType.trim().equalsIgnoreCase("d365_button")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//button[@aria-label='"+fieldName.trim()+"']\",\"xpath=//button[@title='"+fieldName.trim()+"']\",\"xpath=//button[contains(@title,'"+fieldName.trim()+"')]\"],\"desc\":\""+fieldName+" field\"}");
+                } else if (fieldType.trim().equalsIgnoreCase("d365_select")){
+                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//select[@aria-label='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" select field\"}");
                 }else{
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//*[@aria-label='"+fieldName.trim()+"']\",\"xpath=//*[@title='"+fieldName.trim()+"']\",\"xpath=//*[@placeholder='"+fieldName.trim()+"']\",\"xpath=//*[@value='"+fieldName.trim()+"']\",\"id="+fieldName.replaceAll("\\s+","").toLowerCase()+"\",\"name="+fieldName.replaceAll("\\s+","").toLowerCase()+"\",\"xpath=//*[contains(@aria-label,'"+fieldName.trim()+"')]\",\"xpath=//*[contains(@title,'"+fieldName.trim()+"')]\",\"xpath=//*[contains(@value,'"+fieldName.trim()+"')]\",\"xpath=//*[contains(text(),'"+fieldName.trim()+"')]\"],\"desc\":\""+fieldName+" field\"}");
                 }

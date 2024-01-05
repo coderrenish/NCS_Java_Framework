@@ -1329,6 +1329,13 @@ public class BrowserGlobal {
         int tmpSecs = Integer.parseInt(secs);
         QAFTestBase.pause(tmpSecs * 1000L);
     }
+    @QAFTestStep(description = "I wait for page to load")
+    public static void iWaitForPageToLoad() {
+        QAFWebDriver driver = new WebDriverTestBase().getDriver();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(30000));
+        wait.until(wd -> ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
+    }
+
     // Assert Methods
     
     @QAFTestStep(description = "I assert {locator} is present")

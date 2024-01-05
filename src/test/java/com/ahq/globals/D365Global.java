@@ -6,9 +6,14 @@ import com.qmetry.qaf.automation.ui.WebDriverTestBase;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElement;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.WheelInput;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.Objects;
 
 import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
@@ -54,6 +59,21 @@ public class D365Global {
         BrowserGlobal.iPressControlOrCommandAByOs();
         BrowserGlobal.iWaitForMilliseconds(d365Global_input_date_fill_wait);
         BrowserGlobal.iInputInTo(date,loc.get(page,"d365_date",field));
+    }
+
+    /**
+     * @param time [time to fill]
+     * @param field [Field name]
+     * @param page [Page name]
+     */
+    @QAFTestStep(description = "D365Global: Input-Time Text:{0} Field:{1} Page:{2}")
+    public static void inputTime(String time,String field,String page) throws Exception {
+        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_time",field));
+        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_time",field));
+        BrowserGlobal.iClickOn(loc.get(page,"d365_time",field));
+        BrowserGlobal.iWaitForMilliseconds(d365Global_input_text_select_all_wait);
+        BrowserGlobal.iPressControlOrCommandAByOs();
+        BrowserGlobal.iInputInTo(time,loc.get(page,"d365_time",field));
     }
 
     /**
@@ -304,10 +324,9 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Select Text:{0} Field:{1} Page:{2}")
     public static void selectByText(String dropdown_Text, String field, String page) throws Exception {
-        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"select",field));
-        BrowserGlobal.iScrollToAnElement(loc.get(page,"select",field));
-        BrowserGlobal.iScrollToAnElement(loc.get(page,"select",field));
-        BrowserGlobal.iSelectDropdownWithText(loc.get(page,"select",field),dropdown_Text);
+        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_select",field));
+        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_select",field));
+        BrowserGlobal.iSelectDropdownWithText(loc.get(page,"d365_select",field),dropdown_Text);
     }
 
     /**
@@ -317,10 +336,9 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Select Index:{0} Field:{1} Page:{2}")
     public static void selectByIndex(String dropdown_Text_Index, String field, String page) throws Exception {
-        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"select",field));
-        BrowserGlobal.iScrollToAnElement(loc.get(page,"select",field));
-        BrowserGlobal.iScrollToAnElement(loc.get(page,"select",field));
-        BrowserGlobal.iSelectDropdownWithIndex(loc.get(page,"select",field),dropdown_Text_Index);
+        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_select",field));
+        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_select",field));
+        BrowserGlobal.iSelectDropdownWithIndex(loc.get(page,"d365_select",field),dropdown_Text_Index);
     }
 
     /**
@@ -394,7 +412,8 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Wait-And-Verify-Page-Header Text:{0} Page:{1}")
     public static void waitAndVerifyPageHeader(String header_text,String page) throws Exception {
-        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_header",header_text));
+        BrowserGlobal.iWaitForPageToLoad();
+//        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_header",header_text));
         BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_header",header_text));
         BrowserGlobal.iAssertTitlePartialText(header_text);
     }
@@ -429,10 +448,31 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Verify-Input-Lookup Text:{0} Field:{1} Page:{2}")
     public static void verifyInputLookUp(String lookup_text, String field, String page) throws Exception {
-        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_lookup_ext_value",field+"|"+lookup_text));
-        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_lookup_ext_value",field+"|"+lookup_text));
-        BrowserGlobal.iAssertElementText(loc.get(page,"d365_lookup_ext_value",field+"|"+lookup_text),lookup_text);
+        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_lookup_ext_value",field+":"+lookup_text));
+        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_lookup_ext_value",field+":"+lookup_text));
+        BrowserGlobal.iAssertElementText(loc.get(page,"d365_lookup_ext_value",field+":"+lookup_text),lookup_text);
     }
+
+    /**
+     * @param dropdown_Text [Text to be Verified]
+     * @param field [Field name]
+     * @param page [Page name]
+     */
+    @QAFTestStep(description = "D365Global: Verify-Select Text:{0} Field:{1} Page:{2}")
+    public static void verifySelectText(String dropdown_Text, String field, String page) throws Exception {
+        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_select",field));
+        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_select",field));
+        BrowserGlobal.iAssertElementPresent("xpath=//select[@aria-label='"+field+"'][@title='"+dropdown_Text+"']");
+    }
+
+    /**
+     * @param error_Text [error_Text to be Verified]
+     */
+    @QAFTestStep(description = "D365Global: Verify-Error Text:{0} Page:{1}")
+    public static void verifyErrorText(String error_Text, String page) throws Exception {
+        BrowserGlobal.iAssertElementPresent("xpath=//span[contains(@id,'error-message')][contains(text(),'"+error_Text.trim()+"']");
+    }
+
     /**
      * @param scroll_value [Scroll Value from the Visible Field]
      * @param field [Field name]
