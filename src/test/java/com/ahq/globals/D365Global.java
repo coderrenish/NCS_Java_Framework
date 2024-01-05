@@ -196,7 +196,12 @@ public class D365Global {
         BrowserGlobal.iWaitUntilElementPresent(loc.get("menu","d365_button",button_text));
         BrowserGlobal.iScrollToAnElement(loc.get("menu","d365_button",button_text));
         BrowserGlobal.iWaitUntilElementEnabled(loc.get("menu","d365_button",button_text));
-        BrowserGlobal.iClickOn(loc.get("menu","d365_button",button_text));
+        try {
+            BrowserGlobal.iClickOn(loc.get("menu","d365_button",button_text));
+        } catch (Exception e) {
+            BrowserGlobal.iWaitForMilliseconds("5000");
+            BrowserGlobal.iClickOn(loc.get("menu","d365_button",button_text));
+        }
     }
 
     /**
@@ -248,9 +253,9 @@ public class D365Global {
         BrowserGlobal.iWaitUntilElementPresent(loc.get("menu","d365_link",mainMenu_text));
         BrowserGlobal.iScrollToAnElement(loc.get("menu","d365_link",mainMenu_text));
         BrowserGlobal.iClickOn(loc.get("menu","d365_link",mainMenu_text));
-//        BrowserGlobal.iWaitForSeconds("1");
         BrowserGlobal.iWaitUntilElementPresent(loc.get("menu","d365_link",subMenu_text));
         BrowserGlobal.iClickOn(loc.get("menu","d365_link",subMenu_text));
+
     }
 
     /**
@@ -389,8 +394,8 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Wait-And-Verify-Page-Header Text:{0} Page:{1}")
     public static void waitAndVerifyPageHeader(String header_text,String page) throws Exception {
-        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365-header",header_text));
-        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365-header",header_text));
+        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_header",header_text));
+        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_header",header_text));
         BrowserGlobal.iAssertTitlePartialText(header_text);
     }
 
@@ -424,9 +429,9 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Verify-Input-Lookup Text:{0} Field:{1} Page:{2}")
     public static void verifyInputLookUp(String lookup_text, String field, String page) throws Exception {
-        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_lookup_ext_value",field+":"+lookup_text));
-        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_lookup_ext_value",field+":"+lookup_text));
-        BrowserGlobal.iAssertElementText(loc.get(page,"d365_lookup_ext_value",field+":"+lookup_text),lookup_text);
+        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_lookup_ext_value",field+"|"+lookup_text));
+        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_lookup_ext_value",field+"|"+lookup_text));
+        BrowserGlobal.iAssertElementText(loc.get(page,"d365_lookup_ext_value",field+"|"+lookup_text),lookup_text);
     }
     /**
      * @param scroll_value [Scroll Value from the Visible Field]
