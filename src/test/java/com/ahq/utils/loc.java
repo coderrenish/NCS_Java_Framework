@@ -17,7 +17,7 @@ public class loc {
         String locator;
         String locVal;
 //        System.out.println("== fieldName ==> " + fieldName);
-        if (fieldName.contains(":")) {
+        if (fieldName.contains(":") && !fieldType.contains("d365_")) {
             String[] fieldSplit = fieldName.split(":");
 
             locator = "loc." + CaseUtils.toCamelCase(page.replaceAll("[^a-zA-Z0-9]", " "), false, ' ') + "." + CaseUtils.toCamelCase(fieldType.replaceAll("d365_", "").replaceAll("[^a-zA-Z0-9]", " "), false, ' ').trim() + "." + CaseUtils.toCamelCase(fieldSplit[0].replaceAll("[^a-zA-Z0-9]", " "), false, ' ').trim();
@@ -39,9 +39,9 @@ public class loc {
             if (locator.equals(locVal) || locVal.length() < 5) {
                 locator = "auto."+ locator;
                 if (fieldType.trim().equalsIgnoreCase("d365_link") || fieldType.trim().equalsIgnoreCase("d365_tab")){
-                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//a[@aria-label='"+fieldName.trim()+"']\",\"xpath=//a[@title='"+fieldName.trim()+"']\",\"xpath=//li[@aria-label='"+fieldName.trim()+"']\",\"xpath=//li[@title='"+fieldName.trim()+"']\",\"xpath=//a[contains(@aria-label,'"+fieldName.trim()+"')]\",\"xpath=//a[contains(@title,'"+fieldName.trim()+"')]\"],\"desc\":\""+fieldName+" field\"}");
+                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//a[@aria-label='"+fieldName.trim()+"']\",\"xpath=//a[@title='"+fieldName.trim()+"']\",\"xpath=//li[@aria-label='"+fieldName.trim()+"']\",\"xpath=//li[@title='"+fieldName.trim()+"']\",\"xpath=//a[contains(@aria-label,'"+fieldName.trim()+"')]\",\"xpath=//a[contains(@title,'"+fieldName.trim()+"')]\",\"xpath=//li[contains(@aria-label,'"+fieldName.trim()+"')]\",\"xpath=//li[contains(@title,'"+fieldName.trim()+"')]\"],\"desc\":\""+fieldName+" field\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_header")){
-                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//h1[@title='"+fieldName.trim()+"']\",\"xpath=//div[@aria-label='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" field\"}");
+                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//h1[@title='"+fieldName.trim()+"']\",\"xpath=//div[@aria-label='"+fieldName.trim()+"']\",\"xpath=//h1[contains(@title,'"+fieldName.trim()+"')]\"],\"desc\":\""+fieldName+" field\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_date")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//input[@aria-label='Date of "+fieldName.trim()+"']\",\"xpath=//input[@aria-label='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" field\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_input")){
@@ -49,9 +49,13 @@ public class loc {
                 } else if (fieldType.trim().equalsIgnoreCase("d365_lookup")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//input[@aria-label='"+fieldName.trim()+", Lookup']\",\"xpath=//input[@aria-label='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" field\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_lookup_ext_value")){
-                    String[] lookupfieldSplit = fieldName.split(":");
-                    String[] lookupfieldNameSplit = lookupfieldSplit[0].split(" ");
-                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//div[contains(@data-id\\,'fieldControl-LookupResultsDropdown')][@title='"+lookupfieldSplit[1].trim()+"'][contains(@id\\,'"+lookupfieldNameSplit[0].trim().toLowerCase()+"')]\"],\"desc\":\""+lookupfieldSplit[0]+" field\"}");
+                    System.out.println("======> " + fieldName);
+                    String[] lookupfieldSplit = fieldName.trim().split("|");
+                    System.out.println("======> " + lookupfieldSplit[0]);
+                    System.out.println("======> " + lookupfieldSplit[1]);
+                    String[] lookupfieldNameSplit = lookupfieldSplit[0].trim().replaceAll(" ","_").split("_");
+                    System.out.println("======> " + lookupfieldNameSplit[0]);
+                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//div[contains(@data-id,'fieldControl-LookupResultsDropdown')][@title='"+lookupfieldSplit[1].trim()+"'][contains(@id,'"+lookupfieldNameSplit[0].trim().toLowerCase()+"')]\"],\"desc\":\""+lookupfieldSplit[0]+" field\"}");
                 }else if (fieldType.trim().equalsIgnoreCase("d365_filter")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=(//input[@placeholder='Filter by keyword'])["+fieldName.trim()+"]\",\"xpath=(//*[contains(@data-id,'quickFind_text')])["+fieldName.trim()+"]\"],\"desc\":\""+fieldName+" field\"}");
                 }else if (fieldType.trim().equalsIgnoreCase("d365_button")){
@@ -59,8 +63,6 @@ public class loc {
                 }else{
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//*[@aria-label='"+fieldName.trim()+"']\",\"xpath=//*[@title='"+fieldName.trim()+"']\",\"xpath=//*[@placeholder='"+fieldName.trim()+"']\",\"xpath=//*[@value='"+fieldName.trim()+"']\",\"id="+fieldName.replaceAll("\\s+","").toLowerCase()+"\",\"name="+fieldName.replaceAll("\\s+","").toLowerCase()+"\",\"xpath=//*[contains(@aria-label,'"+fieldName.trim()+"')]\",\"xpath=//*[contains(@title,'"+fieldName.trim()+"')]\",\"xpath=//*[contains(@value,'"+fieldName.trim()+"')]\",\"xpath=//*[contains(text(),'"+fieldName.trim()+"')]\"],\"desc\":\""+fieldName+" field\"}");
                 }
-
-
                 System.out.println("==== AUTO GENERATED LOCATOR [3]====> " + locator + "=" + getBundle().getPropertyValue(locator));
             }
         }
