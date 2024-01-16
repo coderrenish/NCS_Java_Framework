@@ -1179,8 +1179,8 @@ public class BrowserGlobal {
      * @throws Exception
      */
     @QAFTestStep(description = "I wait until element/field {locator} is present with timeout {timeout_sec} in seconds")
-    public static void iWaitUntilElementPresentWithTimeout(String locator, long timeout_sec) throws Exception {
-        waitForPresent(locator, timeout_sec);
+    public static void iWaitUntilElementPresentWithTimeout(String locator, String timeout_sec) throws Exception {
+        waitForPresent(locator, Long.parseLong(timeout_sec));
     }
     
     /**
@@ -1512,7 +1512,9 @@ public class BrowserGlobal {
         new WebDriverTestBase().getDriver().executeScript("arguments[0].scrollIntoView(true);", element);
         QAFTestBase.pause(Integer.parseInt(mSecs));
         click(locator);
-    }/**
+    }
+
+    /**
      * Scroll to the Bottom
      * I scroll to the Bottom {locator}
      * @throws Exception
@@ -1540,8 +1542,50 @@ public class BrowserGlobal {
         // js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
+    /**
+     * Scroll Horizontal using scroll locator (This is useful for internal scroll)
+     * I scroll horizontal (to right) using scroll locator {locator}
+     */
+    @QAFTestStep(description = "I scroll horizontal (to right) to end using scroll locator {0}")
+    public static void iScrollHorizontalToEndUsingScrollLocator(String loc) throws Exception {
+        WebElement scrollBar = new WebDriverTestBase().getDriver().findElement(loc);
+        BrowserGlobal.iClickOn(loc);
+        Actions move = new Actions(new WebDriverTestBase().getDriver());
 
+        int offsetVal = 0;
+        for (int i = 0; i < 1000; i++) {
+            offsetVal = offsetVal + 10;
+            try{
+                move.moveToElement(scrollBar).clickAndHold();
+                move.moveByOffset(offsetVal,0);
+                move.release();
+                move.perform();
+            } catch (Exception e) {
+                break;
+            }
+        }
+    }
 
+    /**
+     * Scroll Horizontal using scroll locator (This is useful for internal scroll)
+     * I scroll horizontal (to right) using scroll locator {locator}
+     * @param scrollLength [scrollLength to the right in pixel]
+     * @param loc [Scroll locator]
+     */
+    @QAFTestStep(description = "I scroll horizontal (to right) by {0} using scroll locator {1}")
+    public static void iScrollHorizontalUsingScrollLocator(String scrollLength, String loc) throws Exception {
+        WebElement scrollBar = new WebDriverTestBase().getDriver().findElement(loc);
+        BrowserGlobal.iClickOn(loc);
+        Actions move = new Actions(new WebDriverTestBase().getDriver());
+        try{
+            move.moveToElement(scrollBar).clickAndHold();
+            move.moveByOffset(Integer.parseInt(scrollLength),0);
+            move.release();
+            move.perform();
+        } catch (Exception e) {
+        }
+
+    }
     // {assert}
     @QAFTestStep(description = "I assert text present in page {text}")
     public static void iAssertTextPresentInPage(String text) throws Exception {
@@ -1667,7 +1711,7 @@ public class BrowserGlobal {
         Validator.verifyTrue(cleanedString.contains(text), expectedActualString(text, cleanedString), expectedActualString(text, cleanedString));
         return cleanedString.contains(text);
     }
-    
+
     @QAFTestStep(description = "I download file from url {url} and place it in {targetDirectory}, {targetFileName}")
     public static void iDownloadFileFromURL(String url, String tarDirectory, String tarFileName) {
         try {

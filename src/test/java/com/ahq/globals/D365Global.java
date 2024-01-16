@@ -6,12 +6,12 @@ import com.qmetry.qaf.automation.ui.WebDriverTestBase;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElement;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.WheelInput;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
+
 
 import java.time.Duration;
 import java.util.Objects;
@@ -207,6 +207,7 @@ public class D365Global {
         BrowserGlobal.iClickOn(loc.get("menu","d365_link",menu_text));
     }
 
+
     /**
      * @param button_text [Button text to be clicked]
      */
@@ -229,9 +230,8 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Click-Popup-Button Text:{0}")
     public static void clickPopupButton(String button_text) throws Exception {
-        BrowserGlobal.iWaitUntilElementPresent(loc.get("menu","button",button_text));
-        BrowserGlobal.iScrollToAnElement(loc.get("menu","button",button_text));
-        BrowserGlobal.iClickOn(loc.get("menu","button",button_text));
+        BrowserGlobal.iWaitUntilElementPresent(loc.get("popup","d365_button_popup",button_text));
+        BrowserGlobal.iClickOn(loc.get("popup","d365_button_popup",button_text));
     }
 
     /**
@@ -250,9 +250,6 @@ public class D365Global {
             BrowserGlobal.iScrollToAnElement(loc.get("menu","tab",tab_text));
             BrowserGlobal.iClickOn(loc.get("menu","tab",tab_text));
         }
-//        BrowserGlobal.iWaitUntilElementPresent(loc.get("menu","d365_tab",tab_text));
-//        BrowserGlobal.iScrollToAnElement(loc.get("menu","tab",tab_text));
-//        BrowserGlobal.iClickOn(loc.get("menu","tab",tab_text));
     }
 
     /**
@@ -275,7 +272,6 @@ public class D365Global {
         BrowserGlobal.iClickOn(loc.get("menu","d365_link",mainMenu_text));
         BrowserGlobal.iWaitUntilElementPresent(loc.get("menu","d365_link",subMenu_text));
         BrowserGlobal.iClickOn(loc.get("menu","d365_link",subMenu_text));
-
     }
 
     /**
@@ -304,19 +300,7 @@ public class D365Global {
         BrowserGlobal.iWaitForSeconds(wait_in_secs);
         BrowserGlobal.iClickOn(loc.get("menu","button",sub_button_name));
     }
-//    /**
-//     * @param main_button_name [Main Menu name]
-//     * @param wait_in_secs [Wait in Secs before clicking second Button in dropdown]
-//     * @param sub_button_name [Sub Menu name]
-//     */
-//    @QAFTestStep(description = "MsDynamicsGlobal: Click-Table-Row Text:{0} Wait-In Secs:{1} Sub-Menu-Button Text:{1} ")
-//    public static void clickMainAndSubMenuButtonWithWaitInSecs(String main_button_name,String wait_in_secs, String sub_button_name) throws Exception {
-//        BrowserGlobal.iWaitUntilElementPresent(loc.get("menu","button",main_button_name));
-//        BrowserGlobal.iScrollToAnElement(loc.get("menu","button",main_button_name));
-//        BrowserGlobal.iClickOn(loc.get("menu","button",main_button_name));
-//        BrowserGlobal.iWaitForSeconds(wait_in_secs);
-//        BrowserGlobal.iClickOn(loc.get("menu","button",sub_button_name));
-//    }
+
     /**
      * @param dropdown_Text [Text to be selected in dropdown]
      * @param field [Field name]
@@ -406,6 +390,20 @@ public class D365Global {
         BrowserGlobal.iClickOn(locator_2);
     }
 
+    //    /**
+//     * @param main_button_name [Main Menu name]
+//     * @param wait_in_secs [Wait in Secs before clicking second Button in dropdown]
+//     * @param sub_button_name [Sub Menu name]
+//     */
+//    @QAFTestStep(description = "MsDynamicsGlobal: Click-Table-Row Text:{0} Wait-In Secs:{1} Sub-Menu-Button Text:{1} ")
+//    public static void clickMainAndSubMenuButtonWithWaitInSecs(String main_button_name,String wait_in_secs, String sub_button_name) throws Exception {
+//        BrowserGlobal.iWaitUntilElementPresent(loc.get("menu","button",main_button_name));
+//        BrowserGlobal.iScrollToAnElement(loc.get("menu","button",main_button_name));
+//        BrowserGlobal.iClickOn(loc.get("menu","button",main_button_name));
+//        BrowserGlobal.iWaitForSeconds(wait_in_secs);
+//        BrowserGlobal.iClickOn(loc.get("menu","button",sub_button_name));
+//    }
+
     // ============= VERIFY ==============
     /**
      * @param header_text [Header text to be verified]
@@ -470,8 +468,99 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Verify-Error Text:{0} Page:{1}")
     public static void verifyErrorText(String error_Text, String page) throws Exception {
-        BrowserGlobal.iAssertElementPresent("xpath=//span[contains(@id,'error-message')][contains(text(),'"+error_Text.trim()+"']");
+        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_error_text",error_Text));
+//        BrowserGlobal.iAssertElementPresent("xpath=//span[contains(@id,'error-message')][contains(text(),'"+error_Text.trim()+"']");
     }
+    /**
+     * @param header_control_list_text [Header Control List Test (Top Right) to be Verified]
+     */
+    @QAFTestStep(description = "D365Global: Verify-Header-Control-List Text:{0} Page:{1}")
+    public static void verifyHeaderControlList(String header_control_list_text, String page) throws Exception {
+        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_header_control_list",header_control_list_text));
+    }
+
+    /**
+     * @param header_text [Header text to be Verified]
+     * @param column_number [Table column number from left to right starting from 1]
+     */
+    @QAFTestStep(description = "D365Global: Verify-Table-Header Text:{0} Column:{1} Page:{2}")
+    public static void verifyTableHeaderText(String header_text, String column_number, String page) throws Exception, InterruptedException{
+        int colNum = Integer.parseInt(column_number) + 1;
+        for (int i = 0; i < 25; i++) {
+            try {
+                BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header",header_text+":"+colNum),"2");
+                break;
+            } catch (Exception e) {
+                BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",loc.get(page,"d365_table_horizontal_scroll","scrollHorizontal"));
+            }
+        }
+        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header",header_text+":"+colNum));
+    }
+
+    /**
+     * @param header_text_all [Header text delimited by comma to be Verified Eg. "Id,Status,Address"]
+     */
+    @QAFTestStep(description = "D365Global: Verify-Table-Header-All Text:{0} Page:{1}")
+    public static void verifyTableHeaderAll(String header_text_all, String page) throws Exception {
+        String[] splitHeaderNames = header_text_all.split(",");
+        int colNum = 1;
+        for ( String tableHeaderName : splitHeaderNames )
+        {
+            colNum = colNum + 1;
+            for (int i = 0; i < 3; i++) {
+                try {
+                    BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header",tableHeaderName+":"+colNum),"2");
+                    break;
+                } catch (Exception e) {
+                    BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",loc.get(page,"d365_table_horizontal_scroll","scrollHorizontal"));
+                }
+            }
+            BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header",tableHeaderName+":"+colNum));
+        }
+    }
+
+    /**
+     * @param header_text [Header text to be Verified]
+     * @param column_number [Table column number from left to right starting from 1]
+     */
+    @QAFTestStep(description = "D365Global: Verify-Table-Header-By-Edit-Column Text:{0} Column:{1} Page:{2}")
+    public static void verifyTableHeaderByEditColumn(String header_text, String column_number, String page) throws Exception {
+        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_button","Edit columns"));
+        BrowserGlobal.iClickOn(loc.get(page,"d365_button","Edit columns"));
+        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_button","Add columns"));
+        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header_edit_column",header_text+":"+column_number));
+        BrowserGlobal.iClickOn(loc.get(page,"d365_button","Close"));
+    }
+
+    /**
+     * @param header_text_all [Header text delimited by comma to be Verified Eg. "Id,Status,Address"]
+     */
+    @QAFTestStep(description = "D365Global: Verify-Table-Header-All-By-Edit-Column Text:{0} Page:{1}")
+    public static void verifyTableHeaderAllByEditColumn(String header_text_all, String page) throws Exception {
+        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_button","Edit columns"));
+        BrowserGlobal.iClickOn(loc.get(page,"d365_button","Edit columns"));
+        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_button","Add columns"));
+
+        String[] splitHeaderNames = header_text_all.split(",");
+        int colNum = 0;
+        for ( String tableHeaderName : splitHeaderNames )
+        {
+            colNum = colNum + 1;
+            BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header_edit_column",tableHeaderName+":"+colNum));
+        }
+        BrowserGlobal.iClickOn(loc.get(page,"d365_button","Close"));
+    }
+
+    /**
+     * @param cell_value [cell value to be Verified]
+     * @param row_number [Table row number after header from top to bottom starting from 1]
+     * @param column_number [Table column number from left to right starting from 1]
+     */
+    @QAFTestStep(description = "D365Global: Verify-Table-Cell-Value Text:{0} Row:{1} Column:{2} Page:{3}")
+    public static void verifyTableCellValue(String cell_value, String row_number, String column_number, String page) throws Exception {
+//        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_header_control_list",header_control_list_text));
+    }
+
 
     /**
      * @param scroll_value [Scroll Value from the Visible Field]
