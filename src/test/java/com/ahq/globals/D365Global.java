@@ -302,6 +302,19 @@ public class D365Global {
     }
 
     /**
+     * @param mainView_text [Main System View Text/name to be clicked]
+     * @param subView_text [Sub System View Text/name to be clicked]
+     */
+    @QAFTestStep(description = "D365Global: Click-Main-System-View Text:{0} Then-Sub-System-View Text:{1} Page:{2}")
+    public static void clickMainAndSubSystemView(String mainView_text,String subView_text,String page) throws Exception {
+        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_system_view",mainView_text));
+        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_system_view",mainView_text));
+        BrowserGlobal.iClickOn(loc.get(page,"d365_system_view",mainView_text));
+        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_system_view_list",subView_text));
+        BrowserGlobal.iClickOn(loc.get(page,"d365_system_view_list",subView_text));
+    }
+
+    /**
      * @param dropdown_Text [Text to be selected in dropdown]
      * @param field [Field name]
      * @param page [Page name]

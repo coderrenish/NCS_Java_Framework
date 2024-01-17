@@ -40,8 +40,10 @@ public class loc {
                 locator = "auto."+ locator;
                 if (fieldType.trim().equalsIgnoreCase("d365_link") || fieldType.trim().equalsIgnoreCase("d365_tab")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//a[@aria-label='"+fieldName.trim()+"']\",\"xpath=//a[@title='"+fieldName.trim()+"']\",\"xpath=//li[@aria-label='"+fieldName.trim()+"']\",\"xpath=//li[@title='"+fieldName.trim()+"']\",\"xpath=//a[contains(@aria-label,'"+fieldName.trim()+"')]\",\"xpath=//a[contains(@title,'"+fieldName.trim()+"')]\",\"xpath=//li[contains(@aria-label,'"+fieldName.trim()+"')]\",\"xpath=//li[contains(@title,'"+fieldName.trim()+"')]\"],\"desc\":\""+fieldName+" field\"}");
-                } else if (fieldType.trim().equalsIgnoreCase("d365_header")){
+                } else if (fieldType.trim().equalsIgnoreCase("d365_header") || fieldType.trim().equalsIgnoreCase("d365_system_view") ){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//h1[@title='"+fieldName.trim()+"']\",\"xpath=//div[@aria-label='"+fieldName.trim()+"']\",\"xpath=//h1[contains(@title,'"+fieldName.trim()+"')]\",\"xpath=//div[contains(@aria-label,'"+fieldName.trim()+"')]\"],\"desc\":\""+fieldName+" field\"}");
+                } else if (fieldType.trim().equalsIgnoreCase("d365_system_view_list")){
+                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//div[@aria-label='View Options'][@role='dialog']//descendant::label[text()='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" field\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_date")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//input[@aria-label='Date of "+fieldName.trim()+"']\",\"xpath=//input[@aria-label='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" field\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_time")){
