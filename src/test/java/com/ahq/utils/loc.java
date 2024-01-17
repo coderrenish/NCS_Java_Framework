@@ -59,7 +59,7 @@ public class loc {
                 } else if (fieldType.trim().equalsIgnoreCase("d365_button")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//button[@aria-label='"+fieldName.trim()+"']\",\"xpath=//button[@title='"+fieldName.trim()+"']\",\"xpath=//button[contains(@title,'"+fieldName.trim()+"')]\"],\"desc\":\""+fieldName+" field\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_button_popup")){
-                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//div[contains(@id,'dialogView')]/descendant::button[@aria-label='"+fieldName.trim()+"']\",\"xpath=//div[contains(@id,'dialogView')]/descendant::span[text()='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" : Popup button field\"}");
+                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//div[contains(@id,'dialogView')]/descendant::button[@aria-label='"+fieldName.trim()+"']\",\"xpath=//div[contains(@id,'modalDialogView')]/descendant::button[@aria-label='"+fieldName.trim()+"']\",\"xpath=//div[contains(@id,'dialogView')]/descendant::span[text()='"+fieldName.trim()+"']\",\"xpath=//div[contains(@id,'modalDialogView')]/descendant::span[text()='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" : Popup button field\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_select")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//select[@aria-label='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" select field\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_header_control_list")){
@@ -69,10 +69,16 @@ public class loc {
                 } else if (fieldType.trim().equalsIgnoreCase("d365_show_hide_button")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//i[@title='Show/Hide "+fieldName.trim()+"']\",\"xpath=//i[contains(@title='Show/Hide "+fieldName.trim()+"')]\"],\"desc\":\""+fieldName+": Show Hide Button\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_table_header")){
-                    String[] headerElementSplit = fieldName.trim().split(":");
+                    String[] headerElementSplit = fieldName.trim().split("::");
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=((//div[@class='ag-header-container'])[1]/descendant::div[@aria-colindex='"+headerElementSplit[1]+"']/descendant::div[text()='"+headerElementSplit[0]+"'])[1]\"],\"desc\":\""+headerElementSplit[0]+" Table Header\"}");
+                } else if (fieldType.trim().equalsIgnoreCase("d365_table_cell")){
+                    String[] cellInfoSplit = fieldName.trim().split("::");
+                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//div[@aria-rowindex='"+cellInfoSplit[1]+"']/descendant::div[@aria-colindex='"+cellInfoSplit[2]+"']\"],\"desc\":\""+fieldName.trim() + " Table Cell\"}");
+                } else if (fieldType.trim().equalsIgnoreCase("d365_table_cell_value")){
+                    String[] cellInfoSplit = fieldName.trim().split("::");
+                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//div[@aria-rowindex='"+cellInfoSplit[1]+"']/descendant::div[@aria-colindex='"+cellInfoSplit[2]+"']//label[@aria-label='"+cellInfoSplit[3]+"']\"],\"desc\":\""+fieldName.trim() + " Table Cell\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_table_header_edit_column")){
-                    String[] headerElementSplit = fieldName.trim().split(":");
+                    String[] headerElementSplit = fieldName.trim().split("::");
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=(//div[@role='listitem'])["+headerElementSplit[1]+"][@aria-label='"+headerElementSplit[0]+"']/descendant::span[text()='"+headerElementSplit[0]+"']\"],\"desc\":\""+headerElementSplit[0]+" Table Header\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_table_horizontal_scroll")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=(//div[@class='ag-body-horizontal-scroll-viewport'])[1]\"],\"desc\":\""+fieldName+": Show Hide Button\"}");

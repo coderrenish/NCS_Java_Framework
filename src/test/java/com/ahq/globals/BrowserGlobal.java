@@ -1,5 +1,6 @@
 package com.ahq.globals;
 
+import com.ahq.utils.loc;
 import com.ahq.utils.pwd;
 import com.qmetry.qaf.automation.core.QAFTestBase;
 import com.qmetry.qaf.automation.step.QAFTestStep;
@@ -309,7 +310,22 @@ public class BrowserGlobal {
     public static void iClickOn(String locator) throws Exception {
         click(locator);
     }
-    
+
+
+    /**
+     * Clicking on a field/location/link
+     * : I click on {locator}
+     *
+     * @param locator [Locator of the field]
+     * @throws Exception
+     */
+    @QAFTestStep(description = "I double click on {locator}")
+    public static void iDoubleClickOn(String locator) throws Exception {
+        WebElement elementLocator = new WebDriverTestBase().getDriver().findElement(locator);
+        Actions actions = new Actions(new WebDriverTestBase().getDriver());
+        actions.doubleClick(elementLocator).perform();
+    }
+
     @QAFTestStep(description = "I click on {locator} if not selected")
     public static void iClickOnElementIfNotSelected(String locator) throws Exception {
         if (!new WebDriverTestBase().getDriver().findElement(locator).isSelected()) click(locator);
@@ -465,7 +481,9 @@ public class BrowserGlobal {
         click(locator);
         sendKeys(value, locator);
     }
-    
+
+
+
     /**
      * Double click and Fill text/value to a given field
      * : I double-click and fill {value} into {locator}
@@ -1047,6 +1065,8 @@ public class BrowserGlobal {
     public static boolean iVerifyElementAttributeValue(String locator, String attr_name, String value) throws Exception {
         return verifyAttribute(locator, attr_name, value);
     }
+
+
     
     /**
      * Verifying the element/field's attribute value is not the given value.
@@ -1436,6 +1456,25 @@ public class BrowserGlobal {
     @QAFTestStep(description = "I assert {locator} property {prop} color value is not {value}")
     public static void iAssertElementPropertyColorValueNot(String locator, String prop, String value) throws Exception {
         assertNotCssStyleColor(locator, prop, value);
+    }
+    /**
+     * Asserting the element/field's attribute is present.
+     * : I assert element/field {locator} with attribute {attr_name} present
+     *
+     * @param locator   [Locator of the element/field]
+     * @param attr_name [Attribute Name of the element/field]
+
+     */
+    // {verify}{input/checkbox/radio/select/link/td/etc.}{<name>}{attribute-name}{<attribute-name>}{value-is}{<value>}
+    @QAFTestStep(description = "I assert element/field {locator} with attribute {attr_name} present")
+    public static void iAssertElementAttributePresent(String locator, String attr_name) throws Exception {
+        System.out.println("/////////// > " + $(locator).getAttribute("readonly"));
+        WebElement elementToCheck = new WebDriverTestBase().getDriver().findElement(locator);
+        WebDriver driver = new WebDriverTestBase().getDriver();
+        JavascriptExecutor js=(JavascriptExecutor)driver;
+        String elementAttributes = js.executeScript("var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;",elementToCheck).toString();
+        System.out.println("=========> " + elementAttributes);
+        Validator.assertTrue(elementAttributes.contains(" " + attr_name.trim() + "="), attr_name.trim() + " - Attribute Not Present",attr_name.trim() + " - Attribute Present");
     }
     
     @QAFTestStep(description = "I assert {locator} is enabled")

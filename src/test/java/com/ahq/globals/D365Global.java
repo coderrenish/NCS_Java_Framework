@@ -390,6 +390,26 @@ public class D365Global {
         BrowserGlobal.iClickOn(locator_2);
     }
 
+    /**
+     * @param row_number [Table row number after header from top to bottom starting from 1]
+     * @param column_number [Table column number from left to right starting from 1]
+     */
+    @QAFTestStep(description = "D365Global: Double-Click-Table-Cell Row:{0} Column:{1} Page:{2}")
+    public static void doubleClickTableCell(String row_number, String column_number, String page) throws Exception {
+        int tempRowNum = Integer.parseInt(row_number) + 1;
+        int tempColNum = Integer.parseInt(column_number) + 1;
+        for (int i = 0; i < 10; i++) {
+            try {
+                BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_cell","cell::"+tempRowNum+"::"+tempColNum),"2");
+                break;
+            } catch (Exception e) {
+                BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",loc.get(page,"d365_table_horizontal_scroll","scrollHorizontal"));
+            }
+        }
+        BrowserGlobal.iMouseoverOn(loc.get(page,"d365_table_cell","cell::"+tempRowNum+"::"+tempColNum));
+        BrowserGlobal.iDoubleClickOn(loc.get(page,"d365_table_cell","cell::"+tempRowNum+"::"+tempColNum));
+    }
+
     //    /**
 //     * @param main_button_name [Main Menu name]
 //     * @param wait_in_secs [Wait in Secs before clicking second Button in dropdown]
@@ -407,6 +427,7 @@ public class D365Global {
     // ============= VERIFY ==============
     /**
      * @param header_text [Header text to be verified]
+     * @param page [Page name]
      */
     @QAFTestStep(description = "D365Global: Wait-And-Verify-Page-Header Text:{0} Page:{1}")
     public static void waitAndVerifyPageHeader(String header_text,String page) throws Exception {
@@ -425,7 +446,22 @@ public class D365Global {
     public static void verifyInputValue(String text,String field,String page) throws Exception {
         BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_input",field));
         BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_input",field));
+        BrowserGlobal.iMouseoverOn(loc.get(page,"d365_input",field));
+        BrowserGlobal.iWaitForSeconds("1");
         BrowserGlobal.iAssertElementValue(loc.get(page,"d365_input",field),text);
+    }
+    /**
+     * @param field [Field name]
+     * @param page [Page name]
+     */
+    @QAFTestStep(description = "D365Global: Verify-Input-Disabled Field:{0} Page:{1}")
+    public static void verifyInputDisabled(String field,String page) throws Exception {
+        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_input",field));
+        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_input",field));
+        BrowserGlobal.iMouseoverOn(loc.get(page,"d365_input",field));
+        BrowserGlobal.iWaitForSeconds("1");
+        BrowserGlobal.iClickOn(loc.get(page,"d365_input",field));
+        BrowserGlobal.iAssertElementAttributePresent(loc.get(page,"d365_input",field),"readonly");
     }
     /**
      * @param date [Date to Verify]
@@ -438,7 +474,37 @@ public class D365Global {
         BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_date",field));
         BrowserGlobal.iAssertElementValue(loc.get(page,"d365_date",field),date);
     }
-
+    /**
+     * @param field [Field name]
+     * @param page [Page name]
+     */
+    @QAFTestStep(description = "D365Global: Verify-Input-Date-Disabled Field:{0} Page:{1}")
+    public static void verifyInputDateDisabled(String field,String page) throws Exception {
+        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_date",field));
+        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_date",field));
+        BrowserGlobal.iAssertElementAttributePresent(loc.get(page,"d365_date",field),"disabled");
+    }
+    /**
+     * @param time [Time to Verify]
+     * @param field [Field name]
+     * @param page [Page name]
+     */
+    @QAFTestStep(description = "D365Global: Verify-Input-Time Text:{0} Field:{1} Page:{2}")
+    public static void verifyInputTime(String time,String field,String page) throws Exception {
+        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_time",field));
+        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_time",field));
+        BrowserGlobal.iAssertElementValue(loc.get(page,"d365_time",field),time);
+    }
+    /**
+     * @param field [Field name]
+     * @param page [Page name]
+     */
+    @QAFTestStep(description = "D365Global: Verify-Input-Time-Disabled Text:{0} Field:{1} Page:{2}")
+    public static void verifyInputTimeDisabled(String field,String page) throws Exception {
+        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_time",field));
+        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_time",field));
+        BrowserGlobal.iAssertElementAttributePresent(loc.get(page,"d365_time",field),"disabled");
+    }
     /**
      * @param lookup_text [Lookup text to be verified]
      * @param field [Field name]
@@ -451,6 +517,7 @@ public class D365Global {
         BrowserGlobal.iAssertElementText(loc.get(page,"d365_lookup_ext_value",field+":"+lookup_text),lookup_text);
     }
 
+
     /**
      * @param dropdown_Text [Text to be Verified]
      * @param field [Field name]
@@ -461,6 +528,17 @@ public class D365Global {
         BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_select",field));
         BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_select",field));
         BrowserGlobal.iAssertElementPresent("xpath=//select[@aria-label='"+field+"'][@title='"+dropdown_Text+"']");
+    }
+
+    /**
+     * @param field [Field name]
+     * @param page [Page name]
+     */
+    @QAFTestStep(description = "D365Global: Verify-Select-Disabled Field:{0} Page:{1}")
+    public static void verifySelectDisabled(String field, String page) throws Exception {
+        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_select",field));
+        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_select",field));
+        BrowserGlobal.iAssertElementAttributePresent(loc.get(page,"d365_select",field),"disabled");
     }
 
     /**
@@ -488,13 +566,13 @@ public class D365Global {
         int colNum = Integer.parseInt(column_number) + 1;
         for (int i = 0; i < 25; i++) {
             try {
-                BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header",header_text+":"+colNum),"2");
+                BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header",header_text+"::"+colNum),"2");
                 break;
             } catch (Exception e) {
                 BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",loc.get(page,"d365_table_horizontal_scroll","scrollHorizontal"));
             }
         }
-        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header",header_text+":"+colNum));
+        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header",header_text+"::"+colNum));
     }
 
     /**
@@ -509,13 +587,13 @@ public class D365Global {
             colNum = colNum + 1;
             for (int i = 0; i < 3; i++) {
                 try {
-                    BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header",tableHeaderName+":"+colNum),"2");
+                    BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header",tableHeaderName+"::"+colNum),"2");
                     break;
                 } catch (Exception e) {
                     BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",loc.get(page,"d365_table_horizontal_scroll","scrollHorizontal"));
                 }
             }
-            BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header",tableHeaderName+":"+colNum));
+            BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header",tableHeaderName+"::"+colNum));
         }
     }
 
@@ -528,7 +606,7 @@ public class D365Global {
         BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_button","Edit columns"));
         BrowserGlobal.iClickOn(loc.get(page,"d365_button","Edit columns"));
         BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_button","Add columns"));
-        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header_edit_column",header_text+":"+column_number));
+        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header_edit_column",header_text+"::"+column_number));
         BrowserGlobal.iClickOn(loc.get(page,"d365_button","Close"));
     }
 
@@ -546,7 +624,7 @@ public class D365Global {
         for ( String tableHeaderName : splitHeaderNames )
         {
             colNum = colNum + 1;
-            BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header_edit_column",tableHeaderName+":"+colNum));
+            BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header_edit_column",tableHeaderName+"::"+colNum));
         }
         BrowserGlobal.iClickOn(loc.get(page,"d365_button","Close"));
     }
@@ -558,7 +636,17 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Verify-Table-Cell-Value Text:{0} Row:{1} Column:{2} Page:{3}")
     public static void verifyTableCellValue(String cell_value, String row_number, String column_number, String page) throws Exception {
-//        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_header_control_list",header_control_list_text));
+        int tempRowNum = Integer.parseInt(row_number) + 1;
+        int tempColNum = Integer.parseInt(column_number) + 1;
+        for (int i = 0; i < 25; i++) {
+            try {
+                BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_cell_value","cell::"+tempRowNum+"::"+tempColNum+"::"+cell_value),"2");
+                break;
+            } catch (Exception e) {
+                BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",loc.get(page,"d365_table_horizontal_scroll","scrollHorizontal"));
+            }
+        }
+        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_cell_value","cell::"+tempRowNum+"::"+tempColNum+"::"+cell_value));
     }
 
 
