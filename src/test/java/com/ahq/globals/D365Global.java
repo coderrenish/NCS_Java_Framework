@@ -658,6 +658,7 @@ public class D365Global {
         int colNum = Integer.parseInt(header_column_number) + 1;
         for (int i = 0; i < 10; i++) {
             try {
+//                BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header_column",header_column_text+"::"+colNum),"3");
                 BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header_column",header_column_text+"::"+colNum),"3");
                 break;
             } catch (Exception e) {
@@ -668,6 +669,47 @@ public class D365Global {
         BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header_dropdown_sort",dropdown_text),"15");
     }
 
+    /**
+     *
+     * @param header_column_text [header column number of the Table to be clicked]
+     * @param header_column_number [header column number of the Table to be clicked]
+     * @param page [Page name]
+     *
+     */
+    @QAFTestStep(description = "D365Global: Verify-Table-Column-Sort-Up Header-Text:{0} Header-Column:{1} Page:{2}")
+    public static void verifyTableColumnSortUp(String header_column_text,String header_column_number, String page) throws Exception {
+        int colNum = Integer.parseInt(header_column_number) + 1;
+        for (int i = 0; i < 10; i++) {
+            try {
+                BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header_column",header_column_text+"::"+colNum),"3");
+                break;
+            } catch (Exception e) {
+                BrowserGlobal.iScrollHorizontalUsingScrollLocator("25",loc.get(page,"d365_table_horizontal_scroll","scrollHorizontal"));
+            }
+        }
+        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header_column_sort_up",header_column_text));
+    }
+
+    /**
+     *
+     * @param header_column_text [header column number of the Table to be clicked]
+     * @param header_column_number [header column number of the Table to be clicked]
+     * @param page [Page name]
+     *
+     */
+    @QAFTestStep(description = "D365Global: Verify-Table-Column-Sort-Down Header-Text:{0} Header-Column:{1} Page:{2}")
+    public static void verifyTableColumnSortDown(String header_column_text,String header_column_number, String page) throws Exception {
+        int colNum = Integer.parseInt(header_column_number) + 1;
+        for (int i = 0; i < 10; i++) {
+            try {
+                BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header_column",header_column_text+"::"+colNum),"3");
+                break;
+            } catch (Exception e) {
+                BrowserGlobal.iScrollHorizontalUsingScrollLocator("25",loc.get(page,"d365_table_horizontal_scroll","scrollHorizontal"));
+            }
+        }
+        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header_column_sort_down",header_column_text));
+    }
     /**
      * @param header_text [Header text to be Verified]
      * @param column_number [Table column number from left to right starting from 1]

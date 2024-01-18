@@ -77,7 +77,11 @@ public class loc {
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//div[contains(@class,'ms-ContextualMenu-container')]/descendant::button[@aria-label='"+fieldName+"']\"],\"desc\":\""+fieldName+": Table Header dropdown Button\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_table_header_dropdown_sort")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//div[contains(@class,'ms-ContextualMenu-container')]/descendant::button[@aria-label='"+fieldName+"']/descendant::i[@data-icon-name='CheckMark']\"],\"desc\":\""+fieldName+": Table Header dropdown sort button\"}");
-                } else if (fieldType.trim().equalsIgnoreCase("d365_table_cell")){
+                } else if (fieldType.trim().equalsIgnoreCase("d365_table_header_column_sort_up")){
+                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//div[@data-id='btnheaderselectcolumn']/following-sibling::div[@title='"+fieldName+"']/descendant::i[@data-icon-name='SortUp']\"],\"desc\":\""+fieldName+": TableColumn Sort up\"}");
+                } else if (fieldType.trim().equalsIgnoreCase("d365_table_header_column_sort_down")){
+                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//div[@data-id='btnheaderselectcolumn']/following-sibling::div[@title='"+fieldName+"']/descendant::i[@data-icon-name='SortDown']\"],\"desc\":\""+fieldName+": TableColumn Sort Down\"}");
+                }  else if (fieldType.trim().equalsIgnoreCase("d365_table_cell")){
                     String[] cellInfoSplit = fieldName.trim().split("::");
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//div[@aria-rowindex='"+cellInfoSplit[1]+"']/descendant::div[@aria-colindex='"+cellInfoSplit[2]+"']\"],\"desc\":\""+fieldName.trim() + " Table Cell\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_table_cell_value")){
