@@ -404,6 +404,29 @@ public class D365Global {
     }
 
     /**
+     *
+     * @param header_column_text [header column number of the Table to be clicked]
+     * @param header_column_number [header column number of the Table to be clicked]
+     * @param dropdown_text [dropdown /button text  to be clicked]
+     * @param page [Page name]
+     *
+     */
+    @QAFTestStep(description = "D365Global: Table-Click-Header Text:{0} Column:{1} Then-Click-Dropdown-Button Text:{2} Page:{3}")
+    public static void tableClickHeaderColumnThenClickDropdownButton(String header_column_text,String header_column_number,String dropdown_text, String page) throws Exception {
+        int colNum = Integer.parseInt(header_column_number) + 1;
+        for (int i = 0; i < 10; i++) {
+            try {
+                BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header_column",header_column_text+"::"+colNum),"3");
+                break;
+            } catch (Exception e) {
+                BrowserGlobal.iScrollHorizontalUsingScrollLocator("25",loc.get(page,"d365_table_horizontal_scroll","scrollHorizontal"));
+            }
+        }
+        BrowserGlobal.iClickOn(loc.get(page,"d365_table_header_column",header_column_text+"::"+colNum));
+        BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header_dropdown",dropdown_text),"15");
+        BrowserGlobal.iClickOn(loc.get(page,"d365_table_header_dropdown",dropdown_text));
+    }
+    /**
      * @param row_number [Table row number after header from top to bottom starting from 1]
      * @param column_number [Table column number from left to right starting from 1]
      */
@@ -422,6 +445,8 @@ public class D365Global {
         BrowserGlobal.iMouseoverOn(loc.get(page,"d365_table_cell","cell::"+tempRowNum+"::"+tempColNum));
         BrowserGlobal.iDoubleClickOn(loc.get(page,"d365_table_cell","cell::"+tempRowNum+"::"+tempColNum));
     }
+
+
 
     //    /**
 //     * @param main_button_name [Main Menu name]
@@ -448,6 +473,17 @@ public class D365Global {
 //        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_header",header_text));
         BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_header",header_text));
         BrowserGlobal.iAssertTitlePartialText(header_text);
+    }
+
+    /**
+     * @param field [Field name]
+     * @param page [Page name]
+     */
+    @QAFTestStep(description = "D365Global: Verify-field-locaked Field:{0} Page:{1}")
+    public static void verifyFieldLocked(String field, String page) throws Exception {
+        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_select",field));
+        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_select",field));
+        BrowserGlobal.iAssertElementAttributePresent(loc.get(page,"d365_select",field),"disabled");
     }
 
     /**
@@ -530,7 +566,6 @@ public class D365Global {
         BrowserGlobal.iAssertElementText(loc.get(page,"d365_lookup_ext_value",field+":"+lookup_text),lookup_text);
     }
 
-
     /**
      * @param dropdown_Text [Text to be Verified]
      * @param field [Field name]
@@ -579,13 +614,13 @@ public class D365Global {
         int colNum = Integer.parseInt(column_number) + 1;
         for (int i = 0; i < 25; i++) {
             try {
-                BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header",header_text+"::"+colNum),"2");
+                BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header_column",header_text+"::"+colNum),"2");
                 break;
             } catch (Exception e) {
                 BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",loc.get(page,"d365_table_horizontal_scroll","scrollHorizontal"));
             }
         }
-        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header",header_text+"::"+colNum));
+        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header_column",header_text+"::"+colNum));
     }
 
     /**
@@ -600,14 +635,37 @@ public class D365Global {
             colNum = colNum + 1;
             for (int i = 0; i < 3; i++) {
                 try {
-                    BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header",tableHeaderName+"::"+colNum),"2");
+                    BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header_column",tableHeaderName+"::"+colNum),"2");
                     break;
                 } catch (Exception e) {
                     BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",loc.get(page,"d365_table_horizontal_scroll","scrollHorizontal"));
                 }
             }
-            BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header",tableHeaderName+"::"+colNum));
+            BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header_column",tableHeaderName+"::"+colNum));
         }
+    }
+
+    /**
+     *
+     * @param header_column_text [header column number of the Table to be clicked]
+     * @param header_column_number [header column number of the Table to be clicked]
+     * @param dropdown_text [dropdown /button text  to be clicked]
+     * @param page [Page name]
+     *
+     */
+    @QAFTestStep(description = "D365Global: Verify-Table-Column-Sort Header-Text:{0} Header-Column:{1} Then-Check-Sort-Dropdown-Button Text:{2} Page:{3}")
+    public static void verifyTableColumnSort(String header_column_text,String header_column_number,String dropdown_text, String page) throws Exception {
+        int colNum = Integer.parseInt(header_column_number) + 1;
+        for (int i = 0; i < 10; i++) {
+            try {
+                BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header_column",header_column_text+"::"+colNum),"3");
+                break;
+            } catch (Exception e) {
+                BrowserGlobal.iScrollHorizontalUsingScrollLocator("25",loc.get(page,"d365_table_horizontal_scroll","scrollHorizontal"));
+            }
+        }
+        BrowserGlobal.iClickOn(loc.get(page,"d365_table_header_column",header_column_text+"::"+colNum));
+        BrowserGlobal.iWaitUntilElementPresentWithTimeout(loc.get(page,"d365_table_header_dropdown_sort",dropdown_text),"15");
     }
 
     /**

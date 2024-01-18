@@ -70,9 +70,13 @@ public class loc {
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//span[contains(@id,'error-message')][contains(text(),'"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+": Error Message Text\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_show_hide_button")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//i[@title='Show/Hide "+fieldName.trim()+"']\",\"xpath=//i[contains(@title='Show/Hide "+fieldName.trim()+"')]\"],\"desc\":\""+fieldName+": Show Hide Button\"}");
-                } else if (fieldType.trim().equalsIgnoreCase("d365_table_header")){
+                } else if (fieldType.trim().equalsIgnoreCase("d365_table_header_column")){
                     String[] headerElementSplit = fieldName.trim().split("::");
-                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=((//div[@class='ag-header-container'])[1]/descendant::div[@aria-colindex='"+headerElementSplit[1]+"']/descendant::div[text()='"+headerElementSplit[0]+"'])[1]\"],\"desc\":\""+headerElementSplit[0]+" Table Header\"}");
+                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=((//div[@class='ag-header-container'])[1]/descendant::div[@aria-colindex='"+headerElementSplit[1]+"']/descendant::div[text()='"+headerElementSplit[0]+"'])[1]\",\"xpath=//div[@aria-rowindex='1'][@aria-label='Header']/descendant::div[@aria-colindex='"+headerElementSplit[1]+"'][@title='"+headerElementSplit[0]+"']\"],\"desc\":\""+headerElementSplit[0]+" Table Header\"}");
+                } else if (fieldType.trim().equalsIgnoreCase("d365_table_header_dropdown")){
+                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//div[contains(@class,'ms-ContextualMenu-container')]/descendant::button[@aria-label='"+fieldName+"']\"],\"desc\":\""+fieldName+": Table Header dropdown Button\"}");
+                } else if (fieldType.trim().equalsIgnoreCase("d365_table_header_dropdown_sort")){
+                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//div[contains(@class,'ms-ContextualMenu-container')]/descendant::button[@aria-label='"+fieldName+"']/descendant::i[@data-icon-name='CheckMark']\"],\"desc\":\""+fieldName+": Table Header dropdown sort button\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_table_cell")){
                     String[] cellInfoSplit = fieldName.trim().split("::");
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//div[@aria-rowindex='"+cellInfoSplit[1]+"']/descendant::div[@aria-colindex='"+cellInfoSplit[2]+"']\"],\"desc\":\""+fieldName.trim() + " Table Cell\"}");
