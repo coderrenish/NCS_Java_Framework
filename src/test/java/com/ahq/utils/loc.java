@@ -3,7 +3,9 @@ package com.ahq.utils;
 import com.ahq.globals.BrowserGlobal;
 import org.apache.commons.text.CaseUtils;
 import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
+import static com.qmetry.qaf.automation.ui.webdriver.ElementFactory.$;
 
+import com.ahq.globals.BrowserGlobal;
 
 public class loc {
     /**
@@ -14,10 +16,45 @@ public class loc {
      * @throws Exception
      */
     public static String get(String page, String fieldType, String fieldName) throws Exception{
+
         String locator;
         String locVal;
-//        System.out.println("== fieldName ==> " + fieldName);
-        if (fieldName.contains(":") && !fieldType.contains("d365_")) {
+        System.out.println("== fieldName ==> " + fieldName);
+//        if (!fieldName.contains(":") && !fieldType.contains("d365_")) {
+//            locator = "loc." + CaseUtils.toCamelCase(page.replaceAll("[^a-zA-Z0-9]", " "), false, ' ') + "." + CaseUtils.toCamelCase(fieldType.replaceAll("d365_", "").replaceAll("[^a-zA-Z0-9]", " "), false, ' ').trim() + "." + CaseUtils.toCamelCase(fieldName.replaceAll("[^a-zA-Z0-9]", " "), false, ' ').trim();
+//            locVal = getBundle().getPropertyValue(locator);
+//            String forValue = null;
+//            if (locator.equals(locVal) || locVal.length() < 5) {
+//                locator = "auto." + locator;
+//                getBundle().setProperty("auto.loc.id","NO-ID");
+//                if (fieldType.toLowerCase().trim().equals("input") || fieldType.toLowerCase().trim().equals("inputselect")) {
+//                    try{
+//                        BrowserGlobal.iScrollToAnElement("xpath=//LABEL[text()='"+fieldName.trim()+"']");
+//                        BrowserGlobal.iWaitUntilElementVisibleWithTimeout("xpath=//LABEL[text()='"+fieldName.trim()+"']","2");
+//                        getBundle().setProperty("auto.loc.label","{\"locator\":[\"xpath=//LABEL[text()='"+fieldName.trim()+"']\",\"xpath=//LABEL[@title='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" AUTO GEN LABEL FIELD\"}");
+//                        forValue = $("auto.loc.label").getAttribute("for");
+//                    } catch (Exception e) {
+//
+//                    }
+//                }
+//                switch(fieldType.toLowerCase().trim()) {
+//                    case "input":
+//                        if (forValue != null && !forValue.equals(fieldName)) {
+//                            getBundle().setProperty(locator,"{\"locator\":[\"xpath=//input[@id='"+forValue.trim()+"'][@type='text']\",\"xpath=//textarea[@id='"+forValue.trim()+"']\"],\"desc\":\""+fieldName+" INPUT: AUTO GEN USING FOR LOCATOR\"}");
+//                        } else {
+//                            getBundle().setProperty(locator,"{\"locator\":[\"xpath=//input[@aria-label='"+fieldName.trim()+"']\",\"xpath=//input[@id='"+fieldName.trim()+"']\",\"xpath=//input[@title='"+fieldName.trim()+"']\",\"xpath=//input[@placeholder='"+fieldName.trim()+"']\",\"id="+fieldName+"\",\"id="+fieldName.replaceAll("\\s+","").toLowerCase()+"\",\"name="+fieldName.replaceAll("\\s+","").toLowerCase()+"\",\"xpath=//*[contains(@aria-label,'"+fieldName.trim()+"')]\",\"xpath=//*[contains(@title,'"+fieldName.trim()+"')]\",\"xpath=//*[contains(@value,'"+fieldName.trim()+"')]\",\"xpath=//*[contains(text(),'"+fieldName.trim()+"')]\"],\"desc\":\""+fieldName+" field\"}");
+//                        }
+//                        break;
+////                        case y:
+////                            // code block
+////                            break;
+//                    default:
+//                        getBundle().setProperty(locator,"{\"locator\":[\"xpath=//*[@aria-label='"+fieldName.trim()+"']\",\"xpath=//*[@title='"+fieldName.trim()+"']\",\"xpath=//*[@placeholder='"+fieldName.trim()+"']\",\"xpath=//*[@value='"+fieldName.trim()+"']\",\"id="+fieldName+"\",\"id="+fieldName.replaceAll("\\s+","").toLowerCase()+"\",\"name="+fieldName.replaceAll("\\s+","").toLowerCase()+"\",\"xpath=//*[contains(@aria-label,'"+fieldName.trim()+"')]\",\"xpath=//*[contains(@title,'"+fieldName.trim()+"')]\",\"xpath=//*[contains(@value,'"+fieldName.trim()+"')]\",\"xpath=//*[contains(text(),'"+fieldName.trim()+"')]\"],\"desc\":\""+fieldName+" field\"}");
+//                }
+//            }
+//
+//        } else
+            if (fieldName.contains(":") && !fieldType.contains("d365_")) {
             String[] fieldSplit = fieldName.split(":");
 
             locator = "loc." + CaseUtils.toCamelCase(page.replaceAll("[^a-zA-Z0-9]", " "), false, ' ') + "." + CaseUtils.toCamelCase(fieldType.replaceAll("d365_", "").replaceAll("[^a-zA-Z0-9]", " "), false, ' ').trim() + "." + CaseUtils.toCamelCase(fieldSplit[0].replaceAll("[^a-zA-Z0-9]", " "), false, ' ').trim();
