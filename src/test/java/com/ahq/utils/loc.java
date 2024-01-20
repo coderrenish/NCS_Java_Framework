@@ -19,7 +19,8 @@ public class loc {
 
         String locator;
         String locVal;
-        System.out.println("== fieldName ==> " + fieldName);
+        System.out.println("== fieldName ==> " + fieldName.trim());
+        getBundle().setProperty("loc.auto.fieldName",fieldName.trim());
 //        if (!fieldName.contains(":") && !fieldType.contains("d365_")) {
 //            locator = "loc." + CaseUtils.toCamelCase(page.replaceAll("[^a-zA-Z0-9]", " "), false, ' ') + "." + CaseUtils.toCamelCase(fieldType.replaceAll("d365_", "").replaceAll("[^a-zA-Z0-9]", " "), false, ' ').trim() + "." + CaseUtils.toCamelCase(fieldName.replaceAll("[^a-zA-Z0-9]", " "), false, ' ').trim();
 //            locVal = getBundle().getPropertyValue(locator);
@@ -29,10 +30,13 @@ public class loc {
 //                getBundle().setProperty("auto.loc.id","NO-ID");
 //                if (fieldType.toLowerCase().trim().equals("input") || fieldType.toLowerCase().trim().equals("inputselect")) {
 //                    try{
-//                        BrowserGlobal.iScrollToAnElement("xpath=//LABEL[text()='"+fieldName.trim()+"']");
-//                        BrowserGlobal.iWaitUntilElementVisibleWithTimeout("xpath=//LABEL[text()='"+fieldName.trim()+"']","2");
-//                        getBundle().setProperty("auto.loc.label","{\"locator\":[\"xpath=//LABEL[text()='"+fieldName.trim()+"']\",\"xpath=//LABEL[@title='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" AUTO GEN LABEL FIELD\"}");
-//                        forValue = $("auto.loc.label").getAttribute("for");
+//                        String locLabel = "{\"locator\":["+getBundle().getPropertyValue("loc.pattern.label")+"],\"desc\":\""+fieldName+" AUTO GEN LABEL FIELD\"}";
+////                        getBundle().setProperty("auto.loc.label","{\"locator\":["+locLabel+"],\"desc\":\""+fieldName+" AUTO GEN LABEL FIELD\"}");
+////                        getBundle().setProperty("auto.loc.label","{\"locator\":[\"xpath=//LABEL[text()='"+fieldName.trim()+"']\",\"xpath=//LABEL[@title='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" AUTO GEN LABEL FIELD\"}");
+//                        BrowserGlobal.iScrollToAnElement(locLabel);
+//                        BrowserGlobal.iWaitUntilElementVisibleWithTimeout(locLabel,"2");
+////                        getBundle().setProperty("auto.loc.label","{\"locator\":[\"xpath=//LABEL[text()='"+fieldName.trim()+"']\",\"xpath=//LABEL[@title='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" AUTO GEN LABEL FIELD\"}");
+//                        forValue = $(locLabel).getAttribute("for");
 //                    } catch (Exception e) {
 //
 //                    }
@@ -54,6 +58,7 @@ public class loc {
 //            }
 //
 //        } else
+
             if (fieldName.contains(":") && !fieldType.contains("d365_")) {
             String[] fieldSplit = fieldName.split(":");
 
@@ -129,6 +134,11 @@ public class loc {
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=(//div[@role='listitem'])["+headerElementSplit[1]+"][@aria-label='"+headerElementSplit[0]+"']/descendant::span[text()='"+headerElementSplit[0]+"']\"],\"desc\":\""+headerElementSplit[0]+" Table Header\"}");
                 } else if (fieldType.trim().equalsIgnoreCase("d365_table_horizontal_scroll")){
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=(//div[@class='ag-body-horizontal-scroll-viewport'])[1]\"],\"desc\":\""+fieldName+": Show Hide Button\"}");
+                } else if (fieldType.trim().equalsIgnoreCase("d365_table_select_instance")){
+//                    String[] tableInfoSplit = fieldName.trim().split("::");
+                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=(//button[contains(@aria-label,'More commands for')])["+fieldName.trim()+"]\"],\"desc\":\"Select Table Instance "+fieldName.trim() +"\"}");
+                } else if (fieldType.trim().equalsIgnoreCase("d365_table_see_all_records")){
+                    getBundle().setProperty(locator,"{\"locator\":[\"xpath=//button[@aria-label='See all records']\"],\"desc\":\"Table - See all records\"}");
                 } else{
                     getBundle().setProperty(locator,"{\"locator\":[\"xpath=//*[@aria-label='"+fieldName.trim()+"']\",\"xpath=//*[@title='"+fieldName.trim()+"']\",\"xpath=//*[@placeholder='"+fieldName.trim()+"']\",\"xpath=//*[@value='"+fieldName.trim()+"']\",\"id="+fieldName+"\",\"id="+fieldName.replaceAll("\\s+","").toLowerCase()+"\",\"name="+fieldName.replaceAll("\\s+","").toLowerCase()+"\",\"xpath=//*[contains(@aria-label,'"+fieldName.trim()+"')]\",\"xpath=//*[contains(@title,'"+fieldName.trim()+"')]\",\"xpath=//*[contains(@value,'"+fieldName.trim()+"')]\",\"xpath=//*[contains(text(),'"+fieldName.trim()+"')]\"],\"desc\":\""+fieldName+" field\"}");
                 }

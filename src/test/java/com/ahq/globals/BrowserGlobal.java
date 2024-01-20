@@ -15,6 +15,7 @@ import org.apache.commons.lang.NotImplementedException;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.WheelInput;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -433,7 +434,23 @@ public class BrowserGlobal {
     public static void iInputInTo(String value, String locator) throws Exception {
         sendKeys(pwd.check(value), locator);
     }
-    
+
+    /**
+     * Input text/value to a given field
+     * : I input {value} into {locator}
+     *
+     * @param value   [Value to enter/input in a field]
+     * @param locator [Locator of the field]
+     * @throws Exception
+     */
+    @QAFTestStep(description = "I input search {value} into {locator}")
+    public static void iInputSearch(String value, String locator) throws Exception {
+        BrowserGlobal.iClickOn(locator);
+        BrowserGlobal.iWaitForMilliseconds("1000");
+        BrowserGlobal.iInputInTo(value, locator);
+        BrowserGlobal.iWaitForMilliseconds("500");
+        BrowserGlobal.iPressReturnOrEnterKey();
+    }
     /**
      * Click and Fill text/value to a given lookup field with a delay
      * : I click and fill {value} into {locator} lookup field {delay}
@@ -1145,12 +1162,12 @@ public class BrowserGlobal {
      * : I wait until element/field {locator} is visible with timeout {sec} in seconds
      *
      * @param locator [Locator of the element/field]
-     * @param timeout [Timeout in seconds]
+     * @param timeout_secs [Timeout in seconds]
      * @throws Exception
      */
     @QAFTestStep(description = "I wait until element/field {locator} is visible with timeout {timeout} in seconds")
-    public static void iWaitUntilElementVisibleWithTimeout(String locator, long timeout) throws Exception {
-        waitForVisible(locator, timeout);
+    public static void iWaitUntilElementVisibleWithTimeout(String locator, String timeout_secs) throws Exception {
+        waitForVisible(locator, Long.parseLong(timeout_secs));
     }
     
     /**
@@ -1528,6 +1545,21 @@ public class BrowserGlobal {
         WebElement element = new WebDriverTestBase().getDriver().findElement(locator);
         new WebDriverTestBase().getDriver().executeScript("arguments[0].scrollIntoView(true);", element);
     }
+
+//    @QAFTestStep(description = "I scroll to an element {locator} with timeout in sec {secs}")
+//    public static void iScrollToAnElement(String locator, String timeout_secs) throws Exception {
+//        QAFWebDriver driver = new WebDriverTestBase().getDriver();
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(Long.parseLong(timeout_secs)));
+//        try {
+//            wait.until(d -> driver.findElement(locator).isDisplayed());
+//        } catch (TimeoutException e) {
+//            return false;
+//        }
+//        return true;
+//
+//        WebElement element = new WebDriverTestBase().getDriver().findElement(locator);
+//        new WebDriverTestBase().getDriver().executeScript("arguments[0].scrollIntoView(true);", element);
+//    }
     
     @QAFTestStep(description = "I scroll to an element {locator} and wait in seconds {seconds}")
     public static void iScrollToAnElementAndWaitInSeconds(String locator, String waitTimeInSeconds) throws Exception {
@@ -1553,6 +1585,13 @@ public class BrowserGlobal {
         click(locator);
     }
 
+    @QAFTestStep(description = "I scroll using mouse wheel by {value} from visible field {locator}")
+    public static void iScrollUsingMouseWheelByValueFromVisibleField(String scroll_value, String locator) throws Exception {
+        QAFWebDriver driver = new WebDriverTestBase().getDriver();
+        QAFWebElement point = new QAFExtendedWebElement(locator);
+        WheelInput.ScrollOrigin scrollOrigin = WheelInput.ScrollOrigin.fromElement(point);
+        new Actions(driver).scrollFromOrigin(scrollOrigin,0 , Integer.parseInt(scroll_value)).perform();
+    }
     /**
      * Scroll to the Bottom
      * I scroll to the Bottom {locator}
