@@ -1,11 +1,12 @@
-package com.ahq.utils;
+package com.ahq.addons;
 
 import com.ahq.globals.BrowserGlobal;
 import org.apache.commons.text.CaseUtils;
+
+import java.util.Optional;
+
 import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 import static com.qmetry.qaf.automation.ui.webdriver.ElementFactory.$;
-
-import com.ahq.globals.BrowserGlobal;
 
 public class loc {
     /**
@@ -146,5 +147,82 @@ public class loc {
             }
         }
         return locator;
+    }
+
+    /**
+     * @param page [Page of the locator]
+     * @param fieldType [“input”, “link”, “text”, “radio_button”, “checkbox”, “select”, “button”, "tab" - Should match with last part of pattern entry Eg: loc.XXXX.pattern.radio_button]
+     * @param fieldName [Field Name: Eg: First Name - Note for Radio button use ":" tell the value Eg: Choose Payment Type:Cash]
+     * @param fieldInstance [Field Instance: Only mention if multiple instance of the same field exists]
+     **/
+    public static String pattern(String page, String fieldType, String fieldName, String fieldInstance) throws Exception{
+
+        String locator;
+        String fieldNamePrint = "";
+        fieldType = fieldType.toLowerCase().trim();
+        String patternCode = getBundle().getPropertyValue("loc.pattern.code");
+        locator = patternCode + CaseUtils.toCamelCase(page.replaceAll("[^a-zA-Z0-9]", " "), false, ' ') + "." + CaseUtils.toCamelCase(fieldType.replaceAll("d365_", "").replaceAll("[^a-zA-Z0-9]", " "), false, ' ').trim() + "." + CaseUtils.toCamelCase(fieldName.replaceAll("[^a-zA-Z0-9]", " "), false, ' ').trim();
+        if (fieldName.contains(":")) {
+            String[] fieldNameSplit = fieldName.trim().split(":");
+            getBundle().setProperty("loc.auto.fieldName",fieldNameSplit[0].trim());
+            getBundle().setProperty("loc.auto.fieldValue",fieldNameSplit[1].trim());
+            fieldNamePrint = fieldNameSplit[0].trim() + " : " + fieldNameSplit[1].trim();
+        } else {
+            getBundle().setProperty("loc.auto.fieldName",fieldName.trim());
+            getBundle().setProperty("loc.auto.fieldValue","");
+            fieldNamePrint = fieldName;
+        }
+        if (fieldInstance != null && !fieldInstance.isBlank() && !fieldInstance.isEmpty()) {
+            getBundle().setProperty("loc.auto.fieldInstance",fieldInstance);
+        } else {
+            getBundle().setProperty("loc.auto.fieldInstance","1");
+        }
+        forValue(fieldName,fieldType);
+        String locVal = getBundle().getPropertyValue(locator);
+        String locPatternName = patternCode + ".pattern." + fieldType;
+        String locPatternVal = getBundle().getPropertyValue(locPatternName);
+        if (locPatternVal.equals(locPatternName) || locPatternVal.length() < 5) {
+            System.out.println("=====>[ERROR] => [Locator Pattern '"+ locPatternName + "' not available]");
+        } else {
+            if (locator.equals(locVal) || locVal.length() < 5) {
+                locator = "auto." + locator;
+                getBundle().setProperty(locator,"{\"locator\":["+locPatternVal+"],\"desc\":\""+fieldNamePrint + " : ["+fieldType+"] Field \"}");
+            }
+        }
+        // Locator Logging
+        if (getBundle().getPropertyValue("loc.pattern.log").trim().equalsIgnoreCase("true")) {
+            System.out.println("==== AUTO GENERATED: LOCATOR (Pattern) ====> " + locator.replace("auto.","") + "=" + getBundle().getPropertyValue(locator));
+        }
+        BrowserGlobal.iScrollToAnElement(locator);
+        return locator;
+    }
+
+
+    private static void forValue(String argFieldName, String argFieldType) {
+        if (!argFieldType.toLowerCase().contains("checkbox") && !argFieldType.toLowerCase().contains("switch")) {
+//            String locator;
+            String patternCode = getBundle().getPropertyValue("loc.pattern.code");
+            String locLabelPatternName = patternCode+".pattern.label";
+            String locLabelPatternVal = getBundle().getPropertyValue(locLabelPatternName);
+            String forValue;
+            if (locLabelPatternVal.equals(locLabelPatternName) || locLabelPatternVal.length() < 5) {
+                System.out.println("=====>[ERROR] => [Locator Pattern '"+ locLabelPatternName + "' not available]");
+            } else {
+                String locLabelValue = "{\"locator\":["+locLabelPatternVal+"],\"desc\":\""+argFieldName+" : [LABEL] Field \"}";
+                getBundle().setProperty("loc.auto.label",locLabelValue);
+                try {
+                    BrowserGlobal.iWaitUntilElementPresentWithTimeout("loc.auto.label","3");
+                    forValue = $("loc.auto.label").getAttribute("for");
+                    getBundle().setProperty("loc.auto.forValue",forValue);
+                } catch (Exception e) {
+
+                }
+                // Locator Logging
+                if (getBundle().getPropertyValue("loc.pattern.log").trim().equalsIgnoreCase("true")) {
+                    System.out.println("==== AUTO GENERATED: LOCATOR (Pattern) ====> " + "loc.auto.label" + "=" + getBundle().getPropertyValue("loc.auto.label"));
+                }
+            }
+        }
+
     }
 }
