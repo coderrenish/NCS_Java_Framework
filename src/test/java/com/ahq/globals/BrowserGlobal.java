@@ -1,7 +1,7 @@
 package com.ahq.globals;
 
-import com.ahq.utils.loc;
-import com.ahq.utils.pwd;
+import com.ahq.addons.d365Loc;
+import com.ahq.addons.pwd;
 import com.qmetry.qaf.automation.core.QAFTestBase;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.ui.WebDriverTestBase;
@@ -595,9 +595,19 @@ public class BrowserGlobal {
      */
     @QAFTestStep(description = "I get text from {locator}")
     public static String iGetText(String locator) throws Exception {
-        return getText(locator);
+        WebElement element = new WebDriverTestBase().getDriver().findElement(locator);
+        return (String) new WebDriverTestBase().getDriver().executeScript("return arguments[0].innerHTML", element);
+//        getBundle().setProperty(to_variable,new WebDriverTestBase().getDriver().executeScript("return arguments[0].innerHTML", element));
+//        return getText(locator);
     }
-    
+
+    @QAFTestStep(description = "I get text from inner html {locator}")
+    public static String iGetTextFromInnerHtml(String locator) throws Exception {
+        WebElement element = new WebDriverTestBase().getDriver().findElement(locator);
+        return (String) new WebDriverTestBase().getDriver().executeScript("return arguments[0].innerHTML", element);
+    }
+
+
     /**
      * Submit the specified page. This is particularly useful for page without submit buttons, e.g. single-input "Search" page.
      * : I submit {locator}
@@ -1010,7 +1020,20 @@ public class BrowserGlobal {
     public static boolean iVerifyElementTextNot(String locator, String text) throws Exception {
         return verifyNotText(locator, text);
     }
-    
+
+    @QAFTestStep(description = "I verify {locator} inner html is {text}")
+    public static void iVerifyInnerHtmlIs(String locator, String text) throws Exception {
+        WebElement element = new WebDriverTestBase().getDriver().findElement(locator);
+        String innerText = (String) new WebDriverTestBase().getDriver().executeScript("return arguments[0].innerHTML", element);
+        Validator.verifyTrue(text.equals(innerText),"Text match failed: [Actual: "+ innerText + "] [Expected: " + text + "]", "Text match passed: [Actual: "+ innerText + "] [Expected: " + text + "]" );
+    }
+
+    @QAFTestStep(description = "I verify {locator} inner html contains {text}")
+    public static void iVerifyInnerHtmlContains(String locator, String text) throws Exception {
+        WebElement element = new WebDriverTestBase().getDriver().findElement(locator);
+        String innerText = (String) new WebDriverTestBase().getDriver().executeScript("return arguments[0].innerHTML", element);
+        Validator.verifyTrue(innerText.contains(text),"Text match(contains) failed: [Actual: "+ innerText + "] [Expected: " + text + "]", "Text match(contains) passed: [Actual: "+ innerText + "] [Expected: " + text + "]" );
+    }
     /**
      * Verifying the element/field value is the given value.
      * : I verify element/field {locator} value is {value}
@@ -1241,8 +1264,8 @@ public class BrowserGlobal {
      * @throws Exception
      */
     @QAFTestStep(description = "I wait until element/field {locator} is not present with timeout {sec} in seconds")
-    public static void iWaitUntilElementNotPresentWithTimeout(String locator, long timeout) throws Exception {
-        waitForNotPresent(locator, timeout);
+    public static void iWaitUntilElementNotPresentWithTimeout(String locator, String timeout) throws Exception {
+        waitForNotPresent(locator, Long.parseLong(timeout));
     }
     
     @QAFTestStep(description = "I wait until {locator} is selected")
@@ -1409,17 +1432,34 @@ public class BrowserGlobal {
     public static void iAssertElementText(String locator, String text) throws Exception {
         assertText(locator, text);
     }
-    
+
+
     @QAFTestStep(description = "I assert {locator} text is not {text}")
     public static void iAssertElementTextNot(String locator, String text) throws Exception {
         assertNotText(locator, text);
     }
-    
+
+    @QAFTestStep(description = "I assert {locator} inner html is {text}")
+    public static void iAssertInnerHtmlIs(String locator, String text) throws Exception {
+        WebElement element = new WebDriverTestBase().getDriver().findElement(locator);
+        String innerText = (String) new WebDriverTestBase().getDriver().executeScript("return arguments[0].innerHTML", element);
+        Validator.assertTrue(text.equals(innerText),"Text match failed: [Actual: "+ innerText + "] [Expected: " + text + "]", "Text match passed: [Actual: "+ innerText + "] [Expected: " + text + "]" );
+    }
+
+    @QAFTestStep(description = "I assert {locator} inner html contains {text}")
+    public static void iAssertInnerHtmlContains(String locator, String text) throws Exception {
+        WebElement element = new WebDriverTestBase().getDriver().findElement(locator);
+        String innerText = (String) new WebDriverTestBase().getDriver().executeScript("return arguments[0].innerHTML", element);
+        Validator.assertTrue(innerText.contains(text),"Text match(contains) failed: [Actual: "+ innerText + "] [Expected: " + text + "]", "Text match(contains) passed: [Actual: "+ innerText + "] [Expected: " + text + "]" );
+    }
+
     @QAFTestStep(description = "I assert {locator} value is {value}")
     public static void iAssertElementValue(String locator, String value) throws Exception {
         assertValue(locator, value);
     }
-    
+
+
+
     @QAFTestStep(description = "I assert {locator} value is not {value}")
     public static void iAssertElementValueNot(String locator, String value) throws Exception {
         assertNotValue(locator, value);
