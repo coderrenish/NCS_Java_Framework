@@ -42,13 +42,6 @@ public class D365Global {
         BrowserGlobal.iWaitForMilliseconds(d365Global_input_text_select_all_wait);
         BrowserGlobal.iPressControlOrCommandAByOs();
         BrowserGlobal.iInputInTo(text,d365Loc.inputText(page,"main",field));
-//        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_input",field));
-//        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_input",field));
-//        BrowserGlobal.iClickOn(loc.get(page,"d365_input",field));
-//        BrowserGlobal.iWaitForMilliseconds(d365Global_input_text_select_all_wait);
-//        BrowserGlobal.iPressControlOrCommandAByOs();
-//        BrowserGlobal.iInputInTo(text,d365Loc.inputText(page,"main",field));
-//        BrowserGlobal.iInputInTo(text,loc.get(page,"d365_input",field));
     }
 
     /**
@@ -68,15 +61,6 @@ public class D365Global {
         BrowserGlobal.iPressControlOrCommandAByOs();
 //        BrowserGlobal.iWaitForMilliseconds(d365Global_input_date_fill_wait);
         BrowserGlobal.iInputInTo(date,d365Loc.inputDate(page,"main",field));
-//        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_date",field));
-//        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_date",field));
-//        BrowserGlobal.iClickOn(loc.get(page,"d365_date",field));
-//        BrowserGlobal.iWaitForMilliseconds(d365Global_input_date_double_click_wait);
-//        BrowserGlobal.iClickOn(loc.get(page,"d365_date",field));
-//        BrowserGlobal.iWaitForMilliseconds(d365Global_input_date_select_all_wait);
-//        BrowserGlobal.iPressControlOrCommandAByOs();
-//        BrowserGlobal.iWaitForMilliseconds(d365Global_input_date_fill_wait);
-//        BrowserGlobal.iInputInTo(date,loc.get(page,"d365_date",field));
     }
 
     /**
@@ -92,13 +76,6 @@ public class D365Global {
         BrowserGlobal.iWaitForMilliseconds(d365Global_input_text_select_all_wait);
         BrowserGlobal.iPressControlOrCommandAByOs();
         BrowserGlobal.iInputInTo(time,d365Loc.inputTime(page,"main",field));
-
-//        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_time",field));
-//        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_time",field));
-//        BrowserGlobal.iClickOn(loc.get(page,"d365_time",field));
-//        BrowserGlobal.iWaitForMilliseconds(d365Global_input_text_select_all_wait);
-//        BrowserGlobal.iPressControlOrCommandAByOs();
-//        BrowserGlobal.iInputInTo(time,loc.get(page,"d365_time",field));
     }
 
     /**
@@ -125,23 +102,6 @@ public class D365Global {
             BrowserGlobal.iPressReturnOrEnterKey();
         }
         BrowserGlobal.iWaitForMilliseconds(d365Global_input_lookup_select_wait);
-//        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_lookup",field));
-//        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_lookup",field));
-//        BrowserGlobal.iClickOn(loc.get(page,"d365_lookup",field));
-//        BrowserGlobal.iWaitForMilliseconds("500");
-//        BrowserGlobal.iPressControlOrCommandAByOs();
-//        BrowserGlobal.iWaitForMilliseconds("500");
-//        BrowserGlobal.iInputInTo(text, loc.get(page,"d365_lookup",field));
-//        BrowserGlobal.iWaitForMilliseconds(d365Global_input_lookup_load_wait);
-//        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_link",text));
-//        if (d365Global_input_lookup_select_type.equalsIgnoreCase("click")) {
-//            BrowserGlobal.iClickOn(loc.get(page,"text",text));
-//        } else {
-//            BrowserGlobal.iPressKey("ARROW_DOWN");
-//            BrowserGlobal.iWaitForMilliseconds("1000");
-//            BrowserGlobal.iPressReturnOrEnterKey();
-//        }
-//        BrowserGlobal.iWaitForMilliseconds(d365Global_input_lookup_select_wait);
     }
 //    /**
 //     * Clearing Existing value by name in Lookup ad then enter
@@ -273,19 +233,6 @@ public class D365Global {
             BrowserGlobal.iScrollToAnElement(d365Loc.link(page,"tab_dropdown",tab_text));
             BrowserGlobal.iClickOn(d365Loc.link(page,"tab_dropdown",tab_text));
         }
-        //        try{
-//            BrowserGlobal.iWaitUntilElementPresentWithTimeout(d365Loc.loc(page,"TAB",tab_text),"3");
-//            BrowserGlobal.iScrollToAnElement(d365Loc.loc(page,"TAB",tab_text));
-//            BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.loc(page,"TAB",tab_text),"3");
-//            BrowserGlobal.iClickOn(d365Loc.loc(page,"TAB",tab_text));
-//        } catch(Exception e) {
-//            BrowserGlobal.iWaitUntilElementPresent(d365Loc.loc(page,"TAB","More Tabs"));
-//            BrowserGlobal.iClickOn(d365Loc.loc(page,"TAB","More Tabs"));
-//            BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.loc(page,"TAB",tab_text),"3");
-////            BrowserGlobal.iWaitUntilElementPresent(d365Loc.loc(page,"TAB",tab_text));
-//            BrowserGlobal.iScrollToAnElement(d365Loc.loc(page,"TAB",tab_text));
-//            BrowserGlobal.iClickOn(d365Loc.loc(page,"TAB",tab_text));
-//        }
     }
 
     /**
@@ -375,11 +322,6 @@ public class D365Global {
         BrowserGlobal.iClickOn(d365Loc.loc(page,"SYSTEM_VIEW",mainView_text));
         BrowserGlobal.iWaitUntilElementPresent(d365Loc.loc(page,"SYSTEM_VIEW_LIST",subView_text));
         BrowserGlobal.iClickOn(d365Loc.loc(page,"SYSTEM_VIEW_LIST",subView_text));
-//        BrowserGlobal.iWaitUntilElementPresent(d365Loc.loc(page,"SYSTEM_VIEW",mainView_text));
-//        BrowserGlobal.iScrollToAnElement(d365Loc.loc(page,"SYSTEM_VIEW",mainView_text));
-//        BrowserGlobal.iClickOn(d365Loc.loc(page,"SYSTEM_VIEW",mainView_text));
-//        BrowserGlobal.iWaitUntilElementPresent(d365Loc.loc(page,"SYSTEM_VIEW_LIST",subView_text));
-//        BrowserGlobal.iClickOn(d365Loc.loc(page,"SYSTEM_VIEW_LIST",subView_text));
     }
 
     /**
@@ -444,12 +386,6 @@ public class D365Global {
         BrowserGlobal.iPressReturnOrEnterKey();
         BrowserGlobal.iWaitForMilliseconds("1000");
         BrowserGlobal.iWaitForPageToLoad();
-
-//        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_filter","1"));
-//        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_filter","1"));
-//        BrowserGlobal.iClickOn(loc.get(page,"d365_filter","1"));
-//        BrowserGlobal.iInputInTo(text,loc.get(page,"d365_filter","1"));
-//        BrowserGlobal.iPressReturnOrEnterKey();
     }
 
 //    /**
@@ -549,18 +485,6 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Table-Select By-Instance:{0} Page:{1}")
     public static void tableSelectByInstance(String instance, String page) throws Exception {
-//        String locator_1 = "xpath=(//button[@aria-label='More commands for Task'])["+instance+"]";
-//        String locator_2 = "xpath=//button[@aria-label='See all records']";
-//        QAFWebDriver driver = new WebDriverTestBase().getDriver();
-//        QAFWebElement point = new QAFExtendedWebElement("xpath=(//button[@aria-label='More commands for Task'])[1]");
-//        WheelInput.ScrollOrigin scrollOrigin = WheelInput.ScrollOrigin.fromElement(point);
-//        new Actions(driver).scrollFromOrigin(scrollOrigin,0 , Integer.parseInt("5000")).perform();
-//
-//        BrowserGlobal.iScrollToAnElement(locator_1);
-//        BrowserGlobal.iWaitUntilElementVisible(locator_1);
-//        BrowserGlobal.iClickOn(locator_1);
-//        BrowserGlobal.iWaitUntilElementVisible(locator_2);
-//        BrowserGlobal.iClickOn(locator_2);
         try {
             BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.button(page,"main","More commands for::"+instance),"3");
 //            BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.loc(page,"TABLE_OVERFLOW_MENU_INSTANCE",instance),"3");
@@ -583,12 +507,6 @@ public class D365Global {
         BrowserGlobal.iClickOn(d365Loc.button(page,"main","More commands for::"+instance));
         BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"menu_dropdown","See all records"));
         BrowserGlobal.iClickOn(d365Loc.button(page,"menu_dropdown","See all records"));
-//
-//        BrowserGlobal.iScrollToAnElement(d365Loc.loc(page,"TABLE_OVERFLOW_MENU_INSTANCE",instance));
-//        BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_OVERFLOW_MENU_INSTANCE",instance));
-//        BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_OVERFLOW_MENU_INSTANCE",instance));
-//        BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_OVERFLOW_SUB_MENU","See all records"));
-//        BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_OVERFLOW_SUB_MENU","See all records"));
     }
 
     /**
@@ -616,9 +534,6 @@ public class D365Global {
         BrowserGlobal.iClickOn(d365Loc.tableHeader(page,"main",header_column_text+":: ::"+colNum));
         BrowserGlobal.iWaitUntilElementPresent(d365Loc.button(page,"dropdown_table_column",dropdown_text));
         BrowserGlobal.iClickOn(d365Loc.button(page,"dropdown_table_column",dropdown_text));
-//        BrowserGlobal.iClickOn(loc.get(page,"d365_table_header_column",header_column_text+"::"+colNum));
-//        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_table_header_dropdown",dropdown_text));
-//        BrowserGlobal.iClickOn(loc.get(page,"d365_table_header_dropdown",dropdown_text));
     }
 
     /**
@@ -864,28 +779,19 @@ public class D365Global {
     @QAFTestStep(description = "D365Global: Verify-Table-Header-All Text:{0} Page:{1}")
     public static void verifyTableHeaderAll(String header_text_all, String page) throws Exception {
         String[] splitHeaderNames = header_text_all.split(",");
-        System.out.println("============/========= "+splitHeaderNames.length);
-        System.out.println("============//========= "+splitHeaderNames[0]);
-        System.out.println("============//========= "+splitHeaderNames[1]);
-        System.out.println("============//========= "+splitHeaderNames[2]);
-        System.out.println("============//========= "+splitHeaderNames[3]);
         int colNum = 1;
         for ( String tableHeaderName : splitHeaderNames )
         {
-            System.out.println("============//tableHeaderName/========= "+tableHeaderName);
             colNum = colNum + 1;
             for (int i = 0; i < 3; i++) {
                 try {
                     BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableHeader(page,"NONE",tableHeaderName+":: ::"+colNum),"5");
-//                    BrowserGlobal.iWaitUntilElementVisibleWithTimeout(loc.get(page,"d365_table_header_column",tableHeaderName+"::"+colNum),"2");
                     break;
                 } catch (Exception e) {
                     BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",d365Loc.scrollHorizontal(page));
-//                    BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",loc.get(page,"d365_table_horizontal_scroll","scrollHorizontal"));
                 }
             }
             BrowserGlobal.iAssertElementPresent(d365Loc.tableHeader(page,"NONE",tableHeaderName+":: ::"+colNum));
-//            BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header_column",tableHeaderName+"::"+colNum));
         }
     }
 
@@ -1044,23 +950,16 @@ public class D365Global {
     public static void storeTableCellValueToVariable(String row_number, String column_number, String to_variable, String page) throws Exception {
         int tempRowNum = Integer.parseInt(row_number) + 1;
         int tempColNum = Integer.parseInt(column_number) + 1;
-//        String tempLocator = ;
         for (int i = 0; i < 25; i++) {
             try {
                 BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum),"2");
-//                BrowserGlobal.iWaitUntilElementVisibleWithTimeout("xpath=//div[@aria-rowindex='"+tempRowNum+"']/descendant::div[@aria-colindex='"+tempColNum+"']","2");
                 break;
             } catch (Exception e) {
                 BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",d365Loc.scrollHorizontal(page));
-//                BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",loc.get(page,"d365_table_horizontal_scroll","scrollHorizontal"));
             }
         }
         BrowserGlobal.iStoreValueIntoVariable(BrowserGlobal.iGetTextFromInnerHtml(d365Loc.tableCellValue(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum)),to_variable);
 
-//        getBundle().setProperty(to_variable,BrowserGlobal.iGetText(tempLocator));
-//        WebElement element = new WebDriverTestBase().getDriver().findElement(d365Loc.tableCellValue(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum));
-//        WebElement element = new WebDriverTestBase().getDriver().findElement("xpath=//div[@aria-rowindex='"+tempRowNum+"']/descendant::div[@aria-colindex='"+tempColNum+"']/descendant::div[contains(@id,'tooltip')]");
-//        getBundle().setProperty(to_variable,new WebDriverTestBase().getDriver().executeScript("return arguments[0].innerHTML", element));
  }
 
 
