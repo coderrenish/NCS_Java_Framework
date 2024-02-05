@@ -837,7 +837,6 @@ public class D365Global {
                 break;
             } catch (Exception e) {
                 BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",d365Loc.scrollHorizontal(page));
-//                BrowserGlobal.iScrollHorizontalUsingScrollLocator("25",loc.get(page,"d365_table_horizontal_scroll","scrollHorizontal"));
             }
         }
         BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header_column_sort_up",header_column_text));
@@ -859,7 +858,6 @@ public class D365Global {
                 break;
             } catch (Exception e) {
                 BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",d365Loc.scrollHorizontal(page));
-//                BrowserGlobal.iScrollHorizontalUsingScrollLocator("25",loc.get(page,"d365_table_horizontal_scroll","scrollHorizontal"));
             }
         }
         BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header_column_sort_down",header_column_text));
