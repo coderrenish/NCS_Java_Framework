@@ -8,6 +8,7 @@ import com.qmetry.qaf.automation.ui.WebDriverTestBase;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElement;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
+import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.WheelInput;
@@ -723,12 +724,14 @@ public class D365Global {
 //    }
 
     /**
-     * @param error_Text [error_Text to be Verified]
+     * @param text [Text to be Verified]
      * @param page [Page name]
      */
-    @QAFTestStep(description = "D365Global: Verify-Error Text:{0} Page:{1}")
-    public static void verifyErrorText(String error_Text, String page) throws Exception {
-        BrowserGlobal.iAssertElementPresent(d365Loc.text(page,"MAIN",error_Text));
+    @QAFTestStep(description = "D365Global: Verify-Text:{0} Page:{1}")
+    public static void verifyText(String text, String page) throws Exception {
+        page = pageNameCheck(page);
+        String fieldLoc = fieldLocCheck(page,"OTHER");
+        BrowserGlobal.iAssertElementPresent(d365Loc.text(page,fieldLoc,text));
 //        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_error_text",error_Text));
 //        BrowserGlobal.iAssertElementPresent("xpath=//span[contains(@id,'error-message')][contains(text(),'"+error_Text.trim()+"']");
     }
@@ -876,7 +879,7 @@ public class D365Global {
     }
 
     /**
-     * @param header_text_all [Header text delimited by comma to be Verified Eg. "Id,Status,Address"]
+     * @param header_text_all [Header text delimited by comma to be Verified E.g. "id,status,address"]
      */
     @QAFTestStep(description = "D365Global: Verify-Table-Header-All-By-Edit-Column Text:{0} Page:{1}")
     public static void verifyTableHeaderAllByEditColumn(String header_text_all, String page) throws Exception {
@@ -944,7 +947,7 @@ public class D365Global {
      * @param column_number [Table column number from left to right starting from 1]
      * @param to_variable [Variable Name to store the value]
      */
-    @QAFTestStep(description = "D365Global: Store-Table-Cell-Value-To-Variable Row:{0} Column:{1} To-Variable:{2} Page:{3}")
+    @QAFTestStep(description = "D365Global: Assign-Table-Cell-Value-To-Variable Row:{0} Column:{1} To-Variable:{2} Page:{3}")
     public static void storeTableCellValueToVariable(String row_number, String column_number, String to_variable, String page) throws Exception {
         int tempRowNum = Integer.parseInt(row_number) + 1;
         int tempColNum = Integer.parseInt(column_number) + 1;
@@ -957,14 +960,51 @@ public class D365Global {
             }
         }
         BrowserGlobal.iStoreValueIntoVariable(BrowserGlobal.iGetTextFromInnerHtml(d365Loc.tableCellValue(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum)),to_variable);
-
- }
-
+    }
+//    /**
+//     * @param cell_value [cell value to be Verified]
+//     * @param row_number [Table row number after header from top to bottom starting from 1]
+//     * @param to_variable [Table column number from left to right starting from 1]
+//     */
+//    @QAFTestStep(description = "D365Global: Assign-Table-Row-Count To-Variable:{0} Page:{1}")
+    /**
+     * @param to_variable [Variable Name to store the value]
+     * @param page [Page name]
+     */
+    @QAFTestStep(description="D365Global: Assign-Table-Row-Count To-Variable:{0} Page:{1}")
+    public static void assignTableRowCountToVariable(String to_variable, String page) throws Exception {
+        BrowserGlobal.iWaitForSeconds("3");
+        BrowserGlobal.iWaitForPageToLoad();
+        BrowserGlobal.iWaitUntilElementVisible("xpath=(//div[contains(@class,'statusContainer')] | //span[contains(@class,'statusContainer')])");
+        String output = null;
+//        String output = BrowserGlobal.iGetTextFromInnerHtml("xpath=(//div[contains(@class,'statusContainer')] | //span[contains(@class,'statusContainer')])");
+        if ((BrowserGlobal.iGetTextFromInnerHtml("xpath=(//div[contains(@class,'statusContainer')] | //span[contains(@class,'statusContainer')])")).contains(" of ")) {
+            output = BrowserGlobal.iGetText("xpath=//span[contains(@class,'statusContainer')]/div/div");
+            BrowserGlobal.iStoreValueIntoVariable(output.substring(output.indexOf("f") + 1).trim(),to_variable);
+        } else {
+            output = BrowserGlobal.iGetText("xpath=//span[contains(@class,'statusTextContainer')]");
+            BrowserGlobal.iStoreValueIntoVariable(output.substring(output.indexOf(":") + 1).trim(),to_variable);
+        }
+    }
 
     /**
+     * @param column_number [Table column number from left to right starting from 1]
+     * @param to_variable [Variable Name to store the value]
+     * [Note: No instance feature available]
+     */
+    @QAFTestStep(description="D365Global: Store-Header-Control-List-Column-Value Column:{0} To-Variable:{1} Page:{2}")
+    public static void storeTableRowCountToVariable(String column_number, String to_variable, String page) throws Exception {
+        BrowserGlobal.iScrollToAnElement(d365Loc.headerControlListValue(page,"HEADER_CONTROL_LIST","column:: ::"+column_number));
+        BrowserGlobal.iWaitUntilElementVisible(d365Loc.headerControlListValue(page,"HEADER_CONTROL_LIST","column:: ::"+column_number));
+        BrowserGlobal.iStoreValueIntoVariable(BrowserGlobal.iGetText(d365Loc.headerControlListValue(page,"HEADER_CONTROL_LIST","column:: ::"+column_number)),to_variable);
+    }
+
+    /**
+     *
      * @param scroll_value [Scroll Value from the Visible Field]
      * @param field [Field name]
      * @param page [Page name]
+     * [Note: No instance feature available]
      */
     @QAFTestStep(description = "D365Global: Scroll Value:{0} From-Visible Field:{1} Page:{2}")
     public static void scrollFromVisibleField(String scroll_value, String field, String page) throws Exception {

@@ -527,9 +527,9 @@ public class d365Loc {
             }
         } else if (argFieldLocation.equalsIgnoreCase("POPUP_DIALOG")){
             switch (d365PlatformVersion) {
-                case ("v9.1"):  { filedLocation = "//div[contains(@id,'modalDialogView')]/descendant::"; break;}
-                case ("v9.2"): { filedLocation = "//div[contains(@id,'dialogView')]/descendant::"; break;}
-                default: { filedLocation = "//div[contains(@id,'modalDialogView')]/descendant::"; break; }
+                case ("v9.1"):
+                case ("v9.2"):
+                default: { filedLocation = "(//div[contains(@id,'dialogView')] | //div[contains(@id,'modalDialogView')])/descendant::"; break;}
             }
         }  else if (argFieldLocation.equalsIgnoreCase("TOP_BAR")){
             switch (d365PlatformVersion) {
@@ -689,7 +689,6 @@ public class d365Loc {
             locCounter = locCounter + 1;
             tempLocator.append((locCounter == 1) ? "\"" + locGenVal + "\"" : ",\"" + locGenVal + "\"");
         }
-        System.out.println("=====>[tempLocator] => " + tempLocator);
         if ((tempLocator.length() > 0) && !tempLocator.toString().isBlank()){
             getBundle().setProperty(locator,"{\"locator\":["+tempLocator+"],\"desc\":\""+locGeneratedField+"\"}");
         }
@@ -961,6 +960,20 @@ public class d365Loc {
                 case ("v9.2"):
                 default: {
                     locEntry("xpath","//div[@aria-rowindex='<field_additional_val_1>']/descendant::div[@aria-colindex='<field_additional_val_2>']/descendant::div[contains(@id,'tooltip')]");
+                    break;
+                }
+            }
+        }
+        return locGeneration(argCellDetails);
+    }
+
+    public static String headerControlListValue(String argPage, String argFieldLocation, String argCellDetails) throws Exception{
+        if (locCheck(argPage, argFieldLocation, "HEADER_CONTROL_LIST_VALUE", argCellDetails)) {
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: {
+                    locEntry("xpath","(//div[contains(@id,'headerControlsList')]/descendant::div[@data-preview_orientation='column'])[<field_additional_val_1>]/div/div");
                     break;
                 }
             }
