@@ -603,7 +603,13 @@ public class d365Loc {
                 case ("v9.2"):
                 default: { filedLocation = "//div[@id='mainContent']/descendant::"; break; }
             }
-        } else if (argFieldLocation.equalsIgnoreCase("NONE")){
+        } else if (argFieldLocation.equalsIgnoreCase("SWITCH_APP")){
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: { filedLocation = "//div[@id='AppLandingPageContentContainer']/descendant::"; break; }
+            }
+        }else if (argFieldLocation.equalsIgnoreCase("NONE")){
             filedLocation = "";
         } else {
             filedLocation = "//";

@@ -222,9 +222,9 @@ public class D365Global {
     @QAFTestStep(description = "D365Global: Click-Tab Text:{0} Page:{1}")
     public static void clickTabWithText(String tab_text, String page) throws Exception {
         try{
-            BrowserGlobal.iWaitUntilElementPresentWithTimeout(d365Loc.link(page,"tab_list",tab_text),"3");
+            BrowserGlobal.iWaitUntilElementPresentWithTimeout(d365Loc.link(page,"tab_list",tab_text),"10");
             BrowserGlobal.iScrollToAnElement(d365Loc.link(page,"tab_list",tab_text));
-            BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(page,"tab_list",tab_text),"3");
+            BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(page,"tab_list",tab_text),"5");
             BrowserGlobal.iClickOn(d365Loc.link(page,"tab_list",tab_text));
         } catch(Exception e) {
             BrowserGlobal.iWaitUntilElementPresent(d365Loc.link(page,"tab_list","More Tabs"));
@@ -644,6 +644,21 @@ public class D365Global {
         BrowserGlobal.iAssertElementValue(d365Loc.inputDate(page,fieldLoc,field),date);
     }
 
+    /**
+     * @param from_app [App you have presently logged in]
+     * @param to_app [App you want to switch to]
+     * [Check top left next to Dynamics logo]
+     */
+    @QAFTestStep(description = "D365Global: Switch-App From:{0} To:{1}")
+    public static void switchApp(String from_app, String to_app) throws Exception {
+        BrowserGlobal.iWaitUntilElementPresent(d365Loc.link("Switching App","TOP_BAR",from_app));
+        BrowserGlobal.iScrollToAnElement(d365Loc.link("Switching App","TOP_BAR",from_app));
+        BrowserGlobal.iClickOn(d365Loc.link("Switching App","TOP_BAR",from_app));
+
+        BrowserGlobal.iWaitUntilElementPresent("xpath=//iframe[@title='AppLandingPage']");
+        BrowserGlobal.iSwitchToIFrameByIdOrName("AppLandingPage");
+        BrowserGlobal.iClickOn(d365Loc.link("Switching App","SWITCH_APP",to_app));
+    }
 //    /**
 //     * @param field [Field name]
 //     * @param page [Page name]
