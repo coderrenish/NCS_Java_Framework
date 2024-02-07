@@ -716,6 +716,7 @@ public class d365Loc {
                     locEntry("xpath","//a[@title='<field_name>']");
                     locEntry("xpath","//li[@aria-label='<field_name>']");
                     locEntry("xpath","//li[contains(@aria-label,'<field_name>')]");
+                    locEntry("xpath","//span[text()='<field_name>']");
                     break;
                 }
             }
@@ -723,22 +724,22 @@ public class d365Loc {
         return locGeneration(argFieldName);
     }
 
-    public static String tab(String argPage, String argFieldLocation, String argFieldName) throws Exception{
-        if (locCheck(argPage, argFieldLocation, "TAB", argFieldName)) {
-            switch (d365PlatformVersion) {
-                case ("v9.1"):
-                case ("v9.2"):
-                default: {
-                    locEntry("xpath","//a[@aria-label='<field_name>']");
-                    locEntry("xpath","//a[@title='<field_name>']");
-                    locEntry("xpath","//li[@aria-label='<field_name>']");
-                    locEntry("xpath","//li[contains(@aria-label,'<field_name>')]");
-                    break;
-                }
-            }
-        }
-        return locGeneration(argFieldName);
-    }
+//    public static String tab(String argPage, String argFieldLocation, String argFieldName) throws Exception{
+//        if (locCheck(argPage, argFieldLocation, "TAB", argFieldName)) {
+//            switch (d365PlatformVersion) {
+//                case ("v9.1"):
+//                case ("v9.2"):
+//                default: {
+//                    locEntry("xpath","//a[@aria-label='<field_name>']");
+//                    locEntry("xpath","//a[@title='<field_name>']");
+//                    locEntry("xpath","//li[@aria-label='<field_name>']");
+//                    locEntry("xpath","//li[contains(@aria-label,'<field_name>')]");
+//                    break;
+//                }
+//            }
+//        }
+//        return locGeneration(argFieldName);
+//    }
     public static String systemViewHeader(String argPage, String argFieldLocation, String argFieldName) throws Exception{
         if (locCheck(argPage, argFieldLocation, "HEADER_SYSTEM_VIEW", argFieldName)) {
             switch (d365PlatformVersion) {

@@ -35,14 +35,16 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Input Text:{0} Field:{1} Page:{2}")
     public static void inputText(String text,String field,String page) throws Exception {
+        String pageName = pageNameCheck(page);
+        String fieldLoc = fieldLocCheck(page,"MAIN");
 
-        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputText(page,"MAIN",field));
-        BrowserGlobal.iScrollToAnElement(d365Loc.inputText(page,"main",field));
-        BrowserGlobal.iWaitUntilElementVisible(d365Loc.inputText(page,"main",field));
-        BrowserGlobal.iClickOn(d365Loc.inputText(page,"main",field));
+        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputText(pageName,fieldLoc,field));
+        BrowserGlobal.iScrollToAnElement(d365Loc.inputText(pageName,fieldLoc,field));
+        BrowserGlobal.iWaitUntilElementVisible(d365Loc.inputText(pageName,fieldLoc,field));
+        BrowserGlobal.iClickOn(d365Loc.inputText(pageName,fieldLoc,field));
         BrowserGlobal.iWaitForMilliseconds(d365Global_input_text_select_all_wait);
         BrowserGlobal.iPressControlOrCommandAByOs();
-        BrowserGlobal.iInputInTo(text,d365Loc.inputText(page,"main",field));
+        BrowserGlobal.iInputInTo(text,d365Loc.inputText(pageName,fieldLoc,field));
     }
 
     /**
@@ -52,16 +54,19 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Input-Date Text:{0} Field:{1} Page:{2}")
     public static void inputDate(String date,String field,String page) throws Exception {
-        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputDate(page,"main",field));
-        BrowserGlobal.iScrollToAnElement(d365Loc.inputDate(page,"main",field));
-        BrowserGlobal.iClickOn(d365Loc.inputDate(page,"main",field));
+        String pageName = pageNameCheck(page);
+        String fieldLoc = fieldLocCheck(page,"MAIN");
+
+        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputDate(pageName,fieldLoc,field));
+        BrowserGlobal.iScrollToAnElement(d365Loc.inputDate(pageName,fieldLoc,field));
+        BrowserGlobal.iClickOn(d365Loc.inputDate(pageName,fieldLoc,field));
         BrowserGlobal.iWaitForMilliseconds("500");
 //        BrowserGlobal.iWaitForMilliseconds(d365Global_input_date_double_click_wait);
-        BrowserGlobal.iClickOn(d365Loc.inputDate(page,"main",field));
+        BrowserGlobal.iClickOn(d365Loc.inputDate(pageName,fieldLoc,field));
         BrowserGlobal.iWaitForMilliseconds(d365Global_input_date_select_all_wait);
         BrowserGlobal.iPressControlOrCommandAByOs();
 //        BrowserGlobal.iWaitForMilliseconds(d365Global_input_date_fill_wait);
-        BrowserGlobal.iInputInTo(date,d365Loc.inputDate(page,"main",field));
+        BrowserGlobal.iInputInTo(date,d365Loc.inputDate(pageName,fieldLoc,field));
     }
 
     /**
@@ -71,12 +76,14 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Input-Time Text:{0} Field:{1} Page:{2}")
     public static void inputTime(String time,String field,String page) throws Exception {
-        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputTime(page,"main",field));
-        BrowserGlobal.iScrollToAnElement(d365Loc.inputTime(page,"main",field));
-        BrowserGlobal.iClickOn(d365Loc.inputTime(page,"main",field));
+        String pageName = pageNameCheck(page);
+        String fieldLoc = fieldLocCheck(page,"MAIN");
+        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputTime(pageName,fieldLoc,field));
+        BrowserGlobal.iScrollToAnElement(d365Loc.inputTime(pageName,fieldLoc,field));
+        BrowserGlobal.iClickOn(d365Loc.inputTime(pageName,fieldLoc,field));
         BrowserGlobal.iWaitForMilliseconds(d365Global_input_text_select_all_wait);
         BrowserGlobal.iPressControlOrCommandAByOs();
-        BrowserGlobal.iInputInTo(time,d365Loc.inputTime(page,"main",field));
+        BrowserGlobal.iInputInTo(time,d365Loc.inputTime(pageName,fieldLoc,field));
     }
 
     /**
@@ -86,13 +93,15 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Input-Lookup Text:{0} Field:{1} Page:{2}")
     public static void inputLookUp(String text, String field, String page) throws Exception {
-        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputLookup(page,"main",field));
-        BrowserGlobal.iScrollToAnElement(d365Loc.inputLookup(page,"main",field));
-        BrowserGlobal.iClickOn(d365Loc.inputLookup(page,"main",field));
+        String pageName = pageNameCheck(page);
+        String fieldLoc = fieldLocCheck(page,"MAIN");
+        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputLookup(pageName,fieldLoc,field));
+        BrowserGlobal.iScrollToAnElement(d365Loc.inputLookup(pageName,fieldLoc,field));
+        BrowserGlobal.iClickOn(d365Loc.inputLookup(pageName,fieldLoc,field));
         BrowserGlobal.iWaitForMilliseconds("500");
         BrowserGlobal.iPressControlOrCommandAByOs();
         BrowserGlobal.iWaitForMilliseconds("500");
-        BrowserGlobal.iInputInTo(text, d365Loc.inputLookup(page,"main",field));
+        BrowserGlobal.iInputInTo(text, d365Loc.inputLookup(pageName,fieldLoc,field));
         BrowserGlobal.iWaitForMilliseconds(d365Global_input_lookup_load_wait);
         BrowserGlobal.iWaitUntilElementPresent(d365Loc.link(page,"dropdown_list",text));
         if (d365Global_input_lookup_select_type.equalsIgnoreCase("click")) {
@@ -218,21 +227,22 @@ public class D365Global {
 
     /**
      * @param tab_text [Tab text/name to be clicked]
+     * @param page [Page Name]
      */
     @QAFTestStep(description = "D365Global: Click-Tab Text:{0} Page:{1}")
     public static void clickTabWithText(String tab_text, String page) throws Exception {
         try{
-            BrowserGlobal.iWaitUntilElementPresentWithTimeout(d365Loc.link(page,"tab_list",tab_text),"10");
-            BrowserGlobal.iScrollToAnElement(d365Loc.link(page,"tab_list",tab_text));
-            BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(page,"tab_list",tab_text),"5");
-            BrowserGlobal.iClickOn(d365Loc.link(page,"tab_list",tab_text));
+            BrowserGlobal.iWaitUntilElementPresentWithTimeout(d365Loc.link(page,"TAB_LIST",tab_text),"10");
+            BrowserGlobal.iScrollToAnElement(d365Loc.link(page,"TAB_LIST",tab_text));
+            BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(page,"TAB_LIST",tab_text),"5");
+            BrowserGlobal.iClickOn(d365Loc.link(page,"TAB_LIST",tab_text));
         } catch(Exception e) {
-            BrowserGlobal.iWaitUntilElementPresent(d365Loc.link(page,"tab_list","More Tabs"));
-            BrowserGlobal.iClickOn(d365Loc.link(page,"tab_list","More Tabs"));
-            BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(page,"tab_dropdown",tab_text),"5");
+            BrowserGlobal.iWaitUntilElementPresent(d365Loc.link(page,"TAB_LIST","More Tabs"));
+            BrowserGlobal.iClickOn(d365Loc.link(page,"TAB_LIST","More Tabs"));
+            BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(page,"TAB_DROPDOWN",tab_text),"5");
 //            BrowserGlobal.iWaitUntilElementPresent(d365Loc.loc(page,"TAB",tab_text));
-            BrowserGlobal.iScrollToAnElement(d365Loc.link(page,"tab_dropdown",tab_text));
-            BrowserGlobal.iClickOn(d365Loc.link(page,"tab_dropdown",tab_text));
+            BrowserGlobal.iScrollToAnElement(d365Loc.link(page,"TAB_DROPDOWN",tab_text));
+            BrowserGlobal.iClickOn(d365Loc.link(page,"TAB_DROPDOWN",tab_text));
         }
     }
 
@@ -332,9 +342,15 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Select Text:{0} Field:{1} Page:{2}")
     public static void selectByText(String dropdown_Text, String field, String page) throws Exception {
-        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_select",field));
-        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_select",field));
-        BrowserGlobal.iSelectDropdownWithText(loc.get(page,"d365_select",field),dropdown_Text);
+        String pageName = pageNameCheck(page);
+        String fieldLoc = fieldLocCheck(page,"MAIN");
+        BrowserGlobal.iWaitUntilElementPresent(d365Loc.select(pageName,fieldLoc,field));
+        BrowserGlobal.iScrollToAnElement(d365Loc.select(pageName,fieldLoc,field));
+        BrowserGlobal.iSelectDropdownWithText(d365Loc.select(pageName,fieldLoc,field),dropdown_Text);
+
+//        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_select",field));
+//        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_select",field));
+//        BrowserGlobal.iSelectDropdownWithText(loc.get(page,"d365_select",field),dropdown_Text);
     }
 
     /**
@@ -344,9 +360,11 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Select Index:{0} Field:{1} Page:{2}")
     public static void selectByIndex(String dropdown_Text_Index, String field, String page) throws Exception {
-        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_select",field));
-        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_select",field));
-        BrowserGlobal.iSelectDropdownWithIndex(loc.get(page,"d365_select",field),dropdown_Text_Index);
+        String pageName = pageNameCheck(page);
+        String fieldLoc = fieldLocCheck(page,"MAIN");
+        BrowserGlobal.iWaitUntilElementPresent(d365Loc.select(pageName,fieldLoc,field));
+        BrowserGlobal.iScrollToAnElement(d365Loc.select(pageName,fieldLoc,field));
+        BrowserGlobal.iSelectDropdownWithIndex(d365Loc.select(pageName,fieldLoc,field),dropdown_Text_Index);
     }
 
     /**
@@ -608,11 +626,11 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Verify-Input-Value Text:{0} Field:{1} Page:{2}")
     public static void verifyInputValue(String text,String field,String page) throws Exception {
-        page = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,"MAIN");
-        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputText(page,fieldLoc,field));
-        BrowserGlobal.iScrollToAnElement(d365Loc.inputText(page,fieldLoc,field));
-        BrowserGlobal.iAssertElementValue(d365Loc.inputText(page,fieldLoc,field),text);
+        String pageName = pageNameCheck(page);
+        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputText(pageName,fieldLoc,field));
+        BrowserGlobal.iScrollToAnElement(d365Loc.inputText(pageName,fieldLoc,field));
+        BrowserGlobal.iAssertElementValue(d365Loc.inputText(pageName,fieldLoc,field),text);
 
     }
 //
@@ -637,11 +655,11 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Verify-Input-Date Text:{0} Field:{1} Page:{2}")
     public static void verifyInputDate(String date,String field,String page) throws Exception {
-        page = pageNameCheck(page);
+        String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,"MAIN");
-        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputDate(page,fieldLoc,field));
-        BrowserGlobal.iScrollToAnElement(d365Loc.inputDate(page,fieldLoc,field));
-        BrowserGlobal.iAssertElementValue(d365Loc.inputDate(page,fieldLoc,field),date);
+        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputDate(pageName,fieldLoc,field));
+        BrowserGlobal.iScrollToAnElement(d365Loc.inputDate(pageName,fieldLoc,field));
+        BrowserGlobal.iAssertElementValue(d365Loc.inputDate(pageName,fieldLoc,field),date);
     }
 
     /**
@@ -717,13 +735,13 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Verify-Select Text:{0} Field:{1} Page:{2}")
     public static void verifySelectText(String dropdown_Text, String field, String page) throws Exception {
-        page = pageNameCheck(page);
+        String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,"MAIN");
         String fieldDetails = fieldInstanceCheckAndAddVal_1(field,dropdown_Text);
 
-        BrowserGlobal.iWaitUntilElementPresent(d365Loc.select(page,fieldLoc,field));
-        BrowserGlobal.iScrollToAnElement(d365Loc.select(page,fieldLoc,field));
-        BrowserGlobal.iAssertElementPresent(d365Loc.selectValue(page,fieldLoc,fieldDetails));
+        BrowserGlobal.iWaitUntilElementPresent(d365Loc.select(pageName,fieldLoc,field));
+        BrowserGlobal.iScrollToAnElement(d365Loc.select(pageName,fieldLoc,field));
+        BrowserGlobal.iAssertElementPresent(d365Loc.selectValue(pageName,fieldLoc,fieldDetails));
 
     }
 
@@ -1055,10 +1073,13 @@ public class D365Global {
     private static String fieldLocCheck(String argPage, String argDefaultLoc){
         if (argPage.contains("::")) {
             String[] pageSplit = argPage.trim().split("::");
+            System.out.println("==1==> " + pageSplit[0]);
+            System.out.println("==2==> " + pageSplit[1]);
             return pageSplit[1];
         } else {
-            return argDefaultLoc;
+//            return argDefaultLoc;
         }
+        return argPage;
     }
 
     private static String fieldInstanceCheckAndAddVal_1(String argFieldName, String argAdditionalVal_1){
