@@ -919,6 +919,20 @@ public class d365Loc {
         return locGeneration(argFieldName);
     }
 
+    public static String tableColumnSort(String argPage, String argFieldLocation, String argCellDetails) throws Exception{
+        if (locCheck(argPage, argFieldLocation, "TABLE_CELL_VALUE_GET", argCellDetails)) {
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: {//div[contains(@class,'ag-root-wrapper-body')]/descendant::
+                    locEntry("xpath","//div[@data-id='btnheaderselectcolumn']/following-sibling::div[@title='<field_name>']/descendant::i[@data-icon-name='<field_additional_val_1>']");
+                    break;
+                }
+            }
+        }
+        return locGeneration(argCellDetails);
+    }
+
 //
 //                        case ("TABLE_HEADER_COLUMN_SORT_UP"): {
 //        locGeneratedField = "TABLE_HEADER_COLUMN_SORT_UP Field: Icon";
@@ -973,6 +987,8 @@ public class d365Loc {
         }
         return locGeneration(argCellDetails);
     }
+
+
 
     public static String headerControlListValue(String argPage, String argFieldLocation, String argCellDetails) throws Exception{
         if (locCheck(argPage, argFieldLocation, "HEADER_CONTROL_LIST_VALUE", argCellDetails)) {

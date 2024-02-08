@@ -231,19 +231,32 @@ public class D365Global {
      */
     @QAFTestStep(description = "D365Global: Click-Tab Text:{0} Page:{1}")
     public static void clickTabWithText(String tab_text, String page) throws Exception {
+        Boolean moreTabsTrigger = false;
         try{
-            BrowserGlobal.iWaitUntilElementPresentWithTimeout(d365Loc.link(page,"TAB_LIST",tab_text),"10");
+            BrowserGlobal.iWaitUntilElementPresentWithTimeout(d365Loc.link(page,"TAB_LIST",tab_text),"5");
             BrowserGlobal.iScrollToAnElement(d365Loc.link(page,"TAB_LIST",tab_text));
             BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(page,"TAB_LIST",tab_text),"5");
             BrowserGlobal.iClickOn(d365Loc.link(page,"TAB_LIST",tab_text));
         } catch(Exception e) {
-            BrowserGlobal.iWaitUntilElementPresent(d365Loc.link(page,"TAB_LIST","More Tabs"));
-            BrowserGlobal.iClickOn(d365Loc.link(page,"TAB_LIST","More Tabs"));
-            BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(page,"TAB_DROPDOWN",tab_text),"5");
-//            BrowserGlobal.iWaitUntilElementPresent(d365Loc.loc(page,"TAB",tab_text));
-            BrowserGlobal.iScrollToAnElement(d365Loc.link(page,"TAB_DROPDOWN",tab_text));
-            BrowserGlobal.iClickOn(d365Loc.link(page,"TAB_DROPDOWN",tab_text));
+            moreTabsTrigger = true;
         }
+
+        if (moreTabsTrigger) {
+            try {
+                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(page,"TAB_LIST","More Tabs"),"2");
+                BrowserGlobal.iClickOn(d365Loc.link(page,"TAB_LIST","More Tabs"));
+                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(page,"TAB_DROPDOWN",tab_text),"5");
+                BrowserGlobal.iScrollToAnElement(d365Loc.link(page,"TAB_DROPDOWN",tab_text));
+                BrowserGlobal.iClickOn(d365Loc.link(page,"TAB_DROPDOWN",tab_text));
+            } catch(Exception error) {
+                BrowserGlobal.iWaitUntilElementVisible(d365Loc.link(page,"TAB_LIST","Related"));
+                BrowserGlobal.iClickOn(d365Loc.link(page,"TAB_LIST","Related"));
+                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(page,"TAB_DROPDOWN",tab_text),"5");
+                BrowserGlobal.iScrollToAnElement(d365Loc.link(page,"TAB_DROPDOWN",tab_text));
+                BrowserGlobal.iClickOn(d365Loc.link(page,"TAB_DROPDOWN",tab_text));
+            }
+        }
+
     }
 
     /**
@@ -542,7 +555,7 @@ public class D365Global {
         String tempLoc = d365Loc.scrollHorizontal(page);
         for (int i = 0; i < 10; i++) {
             try {
-                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableHeader(page,"other",header_column_text+":: ::"+colNum),"2");
+                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableHeader(page,"OTHER",header_column_text+":: ::"+colNum),"2");
 //                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(loc.get(page,"d365_table_header_column",header_column_text+"::"+colNum),"2");
                 break;
             } catch (Exception e) {
@@ -869,13 +882,16 @@ public class D365Global {
         int colNum = Integer.parseInt(header_column_number) + 1;
         for (int i = 0; i < 10; i++) {
             try {
-                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(loc.get(page,"d365_table_header_column",header_column_text+"::"+colNum),"3");
+                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableHeader(page,"OTHER",header_column_text+":: ::"+colNum),"5");
+//                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(loc.get(page,"d365_table_header_column",header_column_text+"::"+colNum),"3");
                 break;
             } catch (Exception e) {
                 BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",d365Loc.scrollHorizontal(page));
             }
         }
-        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header_column_sort_up",header_column_text));
+
+        BrowserGlobal.iAssertElementPresent(d365Loc.tableColumnSort(page,"OTHER",header_column_text));
+//        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_table_header_column_sort_up",header_column_text));
     }
 
     /**
