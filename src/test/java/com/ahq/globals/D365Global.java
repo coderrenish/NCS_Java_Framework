@@ -256,7 +256,6 @@ public class D365Global {
                 BrowserGlobal.iClickOn(d365Loc.link(page,"TAB_DROPDOWN",tab_text));
             }
         }
-
     }
 
     /**
@@ -467,7 +466,11 @@ public class D365Global {
                 System.out.println("======> " + singleFilter);
                 if (counter == 1) {
                     BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","field selector:"+filterCount));
-                    BrowserGlobal.iInputInTo(singleFilter,d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","field selector:"+filterCount));
+//                    BrowserGlobal.iInputInTo(singleFilter,d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","field selector:"+filterCount));
+                    BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","field selector:"+filterCount));
+                    BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST",singleFilter));
+                    BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST",singleFilter));
+//                    BrowserGlobal.iPressTabKeyTimes("1");
                 } else if (counter == 2) {
                     if (singleFilter != null && !singleFilter.equals("")) {
                         BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_BUTTON_INSTANCE","Operator:"+filterCount));
@@ -483,9 +486,11 @@ public class D365Global {
                             System.out.println("=> " + valFilter);
                             BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","Value:"+filterCount));
                             BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","Value:"+filterCount));
-                            BrowserGlobal.iInputInTo(valFilter,d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","Value:"+filterCount));
-                            BrowserGlobal.iWaitForSeconds("1");
-                            BrowserGlobal.iPressTabKeyTimes("1");
+                            BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST",valFilter));
+                            BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST",valFilter));
+//                            BrowserGlobal.iInputInTo(valFilter,d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","Value:"+filterCount));
+//                            BrowserGlobal.iWaitForSeconds("1");
+//                            BrowserGlobal.iPressTabKeyTimes("1");
                         }
                     }
                 }

@@ -416,6 +416,7 @@ public class d365Loc {
                             case ("v9.1"):
                             case ("v9.2"):
                             default: {
+                                locGeneratedVal.add("xpath=(//div[contains(@class,'ms-Panel-contentInner')]/descendant::input[@aria-label='"+fieldSplit[0].trim()+"'])["+fieldSplit[1].trim()+"]/following-sibling::button");
                                 locGeneratedVal.add("xpath=(//div[contains(@class,'ms-Panel-contentInner')]/descendant::input[@aria-label='"+fieldSplit[0].trim()+"'])["+fieldSplit[1].trim()+"]");
                                 break;
                             }
@@ -430,6 +431,7 @@ public class d365Loc {
                             default: {
                                 locGeneratedVal.add("xpath=//div[contains(@class,'ms-Callout-container')]/descendant::button[@name='"+fieldName.trim()+"']");
                                 locGeneratedVal.add("xpath=//div[contains(@class,'ms-Callout-container')]/descendant::span[text()='"+fieldName.trim()+"']");
+                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-Callout-container')]/descendant::label[text()='"+fieldName.trim()+"']");
                                 break;
                             }
                         }
