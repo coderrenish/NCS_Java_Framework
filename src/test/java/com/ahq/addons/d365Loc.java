@@ -521,7 +521,13 @@ public class d365Loc {
                 case ("v9.2"):
                 default: { filedLocation = "//section[@data-id='quickCreateRoot']/descendant::"; break; }
             }
-        } else if (argFieldLocation.equalsIgnoreCase("TABLE_EDIT_FILTER")){
+        }  else if (argFieldLocation.equalsIgnoreCase("LOOKUP_RECORDS")){
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: { filedLocation = "//section[@data-id='lookupDialogRoot']/descendant::"; break; }
+            }
+        }else if (argFieldLocation.equalsIgnoreCase("TABLE_EDIT_FILTER")){
             switch (d365PlatformVersion) {
                 case ("v9.1"):
                 case ("v9.2"):
