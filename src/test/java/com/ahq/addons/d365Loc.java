@@ -390,6 +390,7 @@ public class d365Loc {
                             default: {
                                 locGeneratedVal.add("xpath=//div[contains(@class,'ms-Panel-contentInner')]/descendant::button[@title='"+fieldName.trim()+"']");
                                 locGeneratedVal.add("xpath=//div[contains(@class,'ms-Panel-contentInner')]/descendant::button[@aria-label='"+fieldName.trim()+"']");
+                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-Panel-contentInner')]/descendant::button[text()='"+fieldName.trim()+"']");
                                 break;
                             }
                         }
@@ -511,45 +512,69 @@ public class d365Loc {
         fieldAdditionalVal_1="";
         fieldAdditionalVal_2="";
         fieldAdditionalVal_3="";
+        String fieldLoc_main = "";
+        String fieldLoc_sub = "";
+
+        if (argFieldLocation.contains("::")){
+            String[] arryFieldLocSplit = argFieldLocation.trim().split("::");
+            fieldLoc_main = arryFieldLocSplit[0];
+            fieldLoc_sub = arryFieldLocSplit[1];
+        } else {
+            fieldLoc_main = argFieldLocation;
+            fieldLoc_sub = "";
+        }
+
 //        fieldInstanceTagStart = "";
 //        fieldInstanceTagEnd = "";
 
 //      Setting field location Ef: Quick Create Panel, Pop Dialog, etc.
-        if (argFieldLocation.equalsIgnoreCase("QUICK_CREATE")){
+        if (fieldLoc_main.equalsIgnoreCase("QUICK_CREATE")){
             switch (d365PlatformVersion) {
                 case ("v9.1"):
                 case ("v9.2"):
                 default: { filedLocation = "//section[@data-id='quickCreateRoot']/descendant::"; break; }
             }
-        }  else if (argFieldLocation.equalsIgnoreCase("LOOKUP_RECORDS")){
+        }  else if (fieldLoc_main.equalsIgnoreCase("LOOKUP_RECORDS")){
             switch (d365PlatformVersion) {
                 case ("v9.1"):
                 case ("v9.2"):
                 default: { filedLocation = "//section[@data-id='lookupDialogRoot']/descendant::"; break; }
             }
-        }else if (argFieldLocation.equalsIgnoreCase("TABLE_EDIT_FILTER")){
+        } else if (fieldLoc_main.equalsIgnoreCase("DIALOG_WINDOW")){
             switch (d365PlatformVersion) {
                 case ("v9.1"):
                 case ("v9.2"):
-                default: { filedLocation = "//div[contains(@class,'ms-Panel-contentInner')]/descendant::"; break; }
+                default: { filedLocation = "//div[@role='dialog']/descendant::"; break; }
             }
-        } else if (argFieldLocation.equalsIgnoreCase("POPUP_DIALOG")){
+        } else if (fieldLoc_main.equalsIgnoreCase("MAIN")){
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: { filedLocation = "//div[@id='mainContent']/descendant::"; break; }
+            }
+        } else if (fieldLoc_main.equalsIgnoreCase("POPUP_DIALOG")){
             switch (d365PlatformVersion) {
                 case ("v9.1"):
                 case ("v9.2"):
                 default: { filedLocation = "(//div[contains(@id,'dialogView')] | //div[contains(@id,'modalDialogView')])/descendant::"; break;}
             }
-        }  else if (argFieldLocation.equalsIgnoreCase("TOP_BAR")){
+        } else if (fieldLoc_main.equalsIgnoreCase("TOP_BAR")){
             switch (d365PlatformVersion) {
                 case ("v9.1"): { filedLocation = "//div[@data-id='topBar']/descendant::"; break; }
                 case ("v9.2"): { filedLocation = "//div[@id='topBar']/descendant::"; break; }
                 default: { filedLocation = "//div[@id='topBar']/descendant::"; break; }
             }
-        } else if (argFieldLocation.equalsIgnoreCase("TOP_BAR_NOTIFICATION")){
+        } else if (fieldLoc_main.equalsIgnoreCase("TOP_BAR_NOTIFICATION")){
             switch (d365PlatformVersion) {
                 case ("v9.1"):
                 case ("v9.2"):
                 default: { filedLocation = "//div[contains(@id,'barnotificationlist')]/descendant::"; break; }
+            }
+        } else if (fieldLoc_main.equalsIgnoreCase("TABLE_EDIT_FILTER")){
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: { filedLocation = "//div[contains(@class,'ms-Panel-contentInner')]/descendant::"; break; }
             }
         } else if (argFieldLocation.equalsIgnoreCase("NAV_LEFT")){
             switch (d365PlatformVersion) {
@@ -557,70 +582,66 @@ public class d365Loc {
                 case ("v9.2"): { filedLocation = "//div[@role='navigation'][@data-id='navbar-container']/descendant::"; break; }
                 default: { filedLocation = "//div[@role='navigation'][@data-id='navbar-container']/descendant::"; break; }
             }
-        } else if (argFieldLocation.equalsIgnoreCase("DROPDOWN_LIST")){
-            switch (d365PlatformVersion) {
-                case ("v9.1"):
-                case ("v9.2"):
-                default: { filedLocation = "//div[@aria-label='Dropdown panel']/descendant::"; break; }
-            }
-        } else if (argFieldLocation.equalsIgnoreCase("MENU_TOP")){
-            switch (d365PlatformVersion) {
-                case ("v9.1"):
-                case ("v9.2"):
-                default: { filedLocation = "//div[@id='mainContent']/descendant::"; break; }
-            }
-        } else if (argFieldLocation.equalsIgnoreCase("MENU_DROPDOWN")){
-            switch (d365PlatformVersion) {
-                case ("v9.1"):
-                case ("v9.2"):
-                default: { filedLocation = "//ul[@role='menu']/descendant::"; break; }
-            }
-        } else if (argFieldLocation.equalsIgnoreCase("DROPDOWN_TABLE_COLUMN")){
-            switch (d365PlatformVersion) {
-                case ("v9.1"):
-                case ("v9.2"):
-                default: { filedLocation = "//div[contains(@class,'ms-ContextualMenu-container')]/descendant::"; break; }
-            }
-        }else if (argFieldLocation.equalsIgnoreCase("TAB_LIST")){
-            switch (d365PlatformVersion) {
-                case ("v9.1"):
-                case ("v9.2"):
-                default: { filedLocation = "//ul[@role='tablist']/descendant::"; break; }
-            }
-        } else if (argFieldLocation.equalsIgnoreCase("TAB_DROPDOWN")){
-            switch (d365PlatformVersion) {
-                case ("v9.1"):
-                case ("v9.2"):
-                default: { filedLocation = "//div[@role='menu']/descendant::"; break; }
-            }
-        } else if (argFieldLocation.equalsIgnoreCase("HEADER_CONTROL_LIST")){
-            switch (d365PlatformVersion) {
-                case ("v9.1"):
-                case ("v9.2"):
-                default: { filedLocation = "//div[contains(@id ,'headerControlsList')]/descendant::"; break; }
-            }
-        } else if (argFieldLocation.equalsIgnoreCase("TABLE")){
-            switch (d365PlatformVersion) {
-                case ("v9.1"):
-                case ("v9.2"):  { filedLocation = "//div[contains(@class,'ag-root-wrapper-body')]/descendant::"; break; }
-                default: { filedLocation = "//div[contains(@class,'ag-root-wrapper-body')]/descendant::"; break; }
-            }
-        } else if (argFieldLocation.equalsIgnoreCase("MAIN")){
-            switch (d365PlatformVersion) {
-                case ("v9.1"):
-                case ("v9.2"):
-                default: { filedLocation = "//div[@id='mainContent']/descendant::"; break; }
-            }
-        } else if (argFieldLocation.equalsIgnoreCase("SWITCH_APP")){
+        } else if (fieldLoc_main.equalsIgnoreCase("SWITCH_APP")){
             switch (d365PlatformVersion) {
                 case ("v9.1"):
                 case ("v9.2"):
                 default: { filedLocation = "//div[@id='AppLandingPageContentContainer']/descendant::"; break; }
             }
-        }else if (argFieldLocation.equalsIgnoreCase("NONE")){
+        }    else if (fieldLoc_main.equalsIgnoreCase("DROPDOWN_LIST")){
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: { filedLocation = "//div[@aria-label='Dropdown panel']/descendant::"; break; }
+            }
+        } else if (fieldLoc_main.equalsIgnoreCase("DROPDOWN_MENU")){
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: { filedLocation = "//ul[@role='menu']/descendant::"; break; }
+            }
+        } else if (fieldLoc_main.equalsIgnoreCase("DROPDOWN_TABLE_COLUMN")){
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: { filedLocation = "//div[contains(@class,'ms-ContextualMenu-container')]/descendant::"; break; }
+            }
+        } else if (fieldLoc_main.equalsIgnoreCase("DROPDOWN_TAB")){
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: { filedLocation = "//div[@role='menu']/descendant::"; break; }
+            }
+        } else if (fieldLoc_main.equalsIgnoreCase("DROPDOWN_SYSTEM_VIEW")){
+            switch (d365PlatformVersion) {
+                case ("v9.1"): { filedLocation = "//ul[@aria-label='Select a view.'][@role='listbox']//descendant::"; break; }
+                case ("v9.2"): { filedLocation = "//div[@aria-label='View Options'][@role='dialog']//descendant::"; break; }
+                default: { filedLocation = "//div[@aria-label='View Options'][@role='dialog']//descendant::"; break; }
+            }
+        } else if (fieldLoc_main.equalsIgnoreCase("NONE")){
             filedLocation = "";
         } else {
             filedLocation = "//";
+        }
+
+        if (fieldLoc_sub.equalsIgnoreCase("HEADER_CONTROL_LIST")){
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: { filedLocation = filedLocation + "div[contains(@id,'headerControlsList')]/descendant::"; break; }
+            }
+        } else if (fieldLoc_sub.equalsIgnoreCase("TABLE")){
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: { filedLocation = filedLocation + "div[contains(@class,'ag-root-wrapper-body')]/descendant::"; break; }
+            }
+        } else if (!fieldLoc_sub.isBlank()){
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: { filedLocation = filedLocation + "section[@aria-label='"+fieldLoc_sub+"']/descendant::"; break; }
+            }
         }
 
         //div[contains(@class,'ag-root-wrapper-body')]
@@ -724,7 +745,9 @@ public class d365Loc {
                     locEntry("xpath","//a[@title='<field_name>']");
                     locEntry("xpath","//li[@aria-label='<field_name>']");
                     locEntry("xpath","//li[contains(@aria-label,'<field_name>')]");
+                    locEntry("xpath","//li[@title='<field_name>']");
                     locEntry("xpath","//span[text()='<field_name>']");
+                    locEntry("xpath","//label[text()='<field_name>']");
                     break;
                 }
             }
@@ -732,41 +755,72 @@ public class d365Loc {
         return locGeneration(argFieldName);
     }
 
-//    public static String tab(String argPage, String argFieldLocation, String argFieldName) throws Exception{
-//        if (locCheck(argPage, argFieldLocation, "TAB", argFieldName)) {
-//            switch (d365PlatformVersion) {
-//                case ("v9.1"):
-//                case ("v9.2"):
-//                default: {
-//                    locEntry("xpath","//a[@aria-label='<field_name>']");
-//                    locEntry("xpath","//a[@title='<field_name>']");
-//                    locEntry("xpath","//li[@aria-label='<field_name>']");
-//                    locEntry("xpath","//li[contains(@aria-label,'<field_name>')]");
-//                    break;
-//                }
-//            }
-//        }
-//        return locGeneration(argFieldName);
-//    }
-    public static String systemViewHeader(String argPage, String argFieldLocation, String argFieldName) throws Exception{
-        if (locCheck(argPage, argFieldLocation, "HEADER_SYSTEM_VIEW", argFieldName)) {
+    public static String tab(String argPage, String argFieldLocation, String argFieldName) throws Exception{
+        if (locCheck(argPage, argFieldLocation, "TAB", argFieldName)) {
             switch (d365PlatformVersion) {
                 case ("v9.1"):
-                case ("v9.2"): {
-                    locEntry("xpath","//h1[@title='<field_name>']");
-                    locEntry("xpath","//button[contains(@data-id,'ViewSelector')]/descendant::span[text()='<field_name>']");
-                }
+                case ("v9.2"):
                 default: {
-                    locEntry("xpath","//h1[@aria-label='<field_name>']");
-                    locEntry("xpath","//div[@aria-label='<field_name>']");
-                    locEntry("xpath","//h1[contains(@title,'<field_name>')]");
-                    locEntry("xpath","//div[contains(@aria-label,'<field_name>')]");
+                    locEntry("xpath","//ul[@role='tablist']/descendant::li[@aria-label='<field_name>']");
+                    locEntry("xpath","//ul[@role='tablist']/descendant::li[contains(@aria-label,'<field_name>')]");
                     break;
                 }
             }
         }
         return locGeneration(argFieldName);
     }
+//    public static String systemViewHeader(String argPage, String argFieldLocation, String argFieldName) throws Exception{
+//        if (locCheck(argPage, argFieldLocation, "HEADER_SYSTEM_VIEW_VERIFY", argFieldName)) {
+//            switch (d365PlatformVersion) {
+//                case ("v9.1"):
+//                case ("v9.2"): {
+//                    locEntry("xpath","//h1[@title='<field_name>']");
+//                    locEntry("xpath","//button[contains(@data-id,'ViewSelector')]/descendant::span[text()='<field_name>']");
+//                }
+//                default: {
+//                    locEntry("xpath","//h1[@aria-label='<field_name>']");
+//                    locEntry("xpath","//div[@aria-label='<field_name>']");
+//                    locEntry("xpath","//h1[contains(@title,'<field_name>')]");
+//                    locEntry("xpath","//div[contains(@aria-label,'<field_name>')]");
+//                    break;
+//                }
+//            }
+//        }
+//        return locGeneration(argFieldName);
+//    }
+public static String systemViewOrHeaderTitle(String argPage, String argFieldLocation, String argFieldName) throws Exception{
+    if (locCheck(argPage, argFieldLocation, "HEADER_SYSTEM_VIEW_VERIFY", argFieldName)) {
+        switch (d365PlatformVersion) {
+            case ("v9.1"):
+            case ("v9.2"): {
+                locEntry("xpath", "//h1[@title='<field_name>']");
+                locEntry("xpath", "//button[contains(@data-id,'ViewSelector')]/descendant::span[text()='<field_name>']");
+            }
+            default: {
+                locEntry("xpath", "//h1[@aria-label='<field_name>']");
+                locEntry("xpath", "//div[@aria-label='<field_name>']");
+                locEntry("xpath", "//h1[contains(@title,'<field_name>')]");
+                locEntry("xpath", "//div[contains(@aria-label,'<field_name>')]");
+                break;
+            }
+        }
+    }
+    return locGeneration(argFieldName);
+}
+    public static String headerTitleFormPage(String argPage, String argFieldLocation, String argFieldName) throws Exception {
+        if (locCheck(argPage, argFieldLocation, "HEADER_TITLE_FORM_PAGE", argFieldName)) {
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: {
+                    locEntry("xpath", "//h1[@data-id='header_title']");
+                    locEntry("xpath", "//h1[contains(@id,'defaultDialog')]");
+                    break; }
+            }
+        }
+        return locGeneration(argFieldName);
+    }
+
 
     public static String inputText(String argPage, String argFieldLocation, String argFieldName) throws Exception{
         if (locCheck(argPage, argFieldLocation, "INPUT_TEXT", argFieldName)) {
@@ -876,7 +930,8 @@ public class d365Loc {
                 default: {
                     locEntry("xpath","//button[@aria-label='<field_name>']");
                     locEntry("xpath","//button[@title='<field_name>']");
-                    locEntry("xpath","//button[contains(@aria-label,'<field_name>')]");
+                    locEntry("xpath","//button[text()='<field_name>']");
+                      locEntry("xpath","//button[contains(@aria-label,'<field_name>')]");
                     locEntry("xpath","//button[contains(@title,'<field_name>')]");
                     break;
                 }
@@ -928,12 +983,13 @@ public class d365Loc {
     }
 
     public static String tableColumnSort(String argPage, String argFieldLocation, String argCellDetails) throws Exception{
-        if (locCheck(argPage, argFieldLocation, "TABLE_CELL_VALUE_GET", argCellDetails)) {
+        if (locCheck(argPage, argFieldLocation, "TABLE_COLUMN_SORT", argCellDetails)) {
             switch (d365PlatformVersion) {
                 case ("v9.1"):
                 case ("v9.2"):
                 default: {//div[contains(@class,'ag-root-wrapper-body')]/descendant::
                     locEntry("xpath","//div[@data-id='btnheaderselectcolumn']/following-sibling::div[@title='<field_name>']/descendant::i[@data-icon-name='<field_additional_val_1>']");
+                    //div[@role='columnheader'][@aria-sort='ascending']/descendant::div[contains(@class,"ms-TooltipHost")][text()='Member No.']
                     break;
                 }
             }
@@ -1011,6 +1067,7 @@ public class d365Loc {
         }
         return locGeneration(argCellDetails);
     }
+
 //    public static String verifyTableCellValue(String argPage, String argFieldLocation, String argFieldName) throws Exception{
 //        if (locCheck(argPage, argFieldLocation, "TABLE_HEADER", argFieldName)) {
 //            switch (d365PlatformVersion) {

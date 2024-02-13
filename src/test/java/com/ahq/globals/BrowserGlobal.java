@@ -1,7 +1,6 @@
 package com.ahq.globals;
 
-import com.ahq.addons.d365Loc;
-import com.ahq.addons.pwd;
+import com.ahq.globals.utilities.UtilPassword;
 import com.qmetry.qaf.automation.core.QAFTestBase;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.ui.WebDriverTestBase;
@@ -115,7 +114,6 @@ public class BrowserGlobal {
     /**
      * Zooming browser window to X percentage
      * I zoom browser window to {zoom} Percentage
-     * @throws Exception
      */
     @QAFTestStep(description = "I zoom browser window to {percentage} Percentage")
     public static void iZoomBrowserToPercentage(String zoom) throws Exception {
@@ -418,7 +416,7 @@ public class BrowserGlobal {
      */
     @QAFTestStep(description = "I fill {value} into {locator}")
     public static void iFillInTo(String value, String locator) throws Exception {
-        sendKeys(pwd.check(value), locator);
+        sendKeys(UtilPassword.check(value), locator);
     }
 
 
@@ -432,7 +430,7 @@ public class BrowserGlobal {
      */
     @QAFTestStep(description = "I input {value} into {locator}")
     public static void iInputInTo(String value, String locator) throws Exception {
-        sendKeys(pwd.check(value), locator);
+        sendKeys(UtilPassword.check(value), locator);
     }
 
     /**
@@ -581,7 +579,7 @@ public class BrowserGlobal {
      * @param value [Value to set in the comment]
      */
     @QAFTestStep(description = "I comment {value}")
-    public static void iComment(Object value) {
+    public static void iComment(String value) {
         System.out.printf("COMMENT: %s \n", value);
     }
     
@@ -607,6 +605,11 @@ public class BrowserGlobal {
         return (String) new WebDriverTestBase().getDriver().executeScript("return arguments[0].innerHTML", element);
     }
 
+    @QAFTestStep(description = "I get attribute {attribute_name} value from {locator}")
+    public static String iGetAttributeValueFrom(String attribute, String locator) throws Exception {
+        WebElement element = new WebDriverTestBase().getDriver().findElement(locator);
+        return element.getAttribute(attribute);
+    }
 
     /**
      * Submit the specified page. This is particularly useful for page without submit buttons, e.g. single-input "Search" page.
@@ -1702,7 +1705,6 @@ public class BrowserGlobal {
             move.perform();
         } catch (Exception e) {
         }
-
     }
     // {assert}
     @QAFTestStep(description = "I assert text present in page {text}")
@@ -1854,7 +1856,7 @@ public class BrowserGlobal {
     // Other Globals
     @QAFTestStep(description = "Utils: Encrypt password {0}")
     public static void UtilsEncryptPassword(String password) throws Exception {
-        iComment("== Encyrpted Password is: " + pwd.encrypt(password));
+        iComment("== Encyrpted Password is: " + UtilPassword.encrypt(password));
     }
 
     public static boolean isElementCurrentlyVisible(String locator) {
