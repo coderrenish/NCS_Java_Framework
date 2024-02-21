@@ -11,8 +11,9 @@ import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 public class d365Loc {
     private static String locator;
     private static String locVal;
-    private static String d365Platform;
-    private static String d365PlatformVersion;
+    private static String d365Platform = getBundle().getPropertyValue("d365.platform").equalsIgnoreCase("d365.platform") ? "crm" : getBundle().getPropertyValue("d365.platform").toLowerCase();
+    private static String d365PlatformVersion = getBundle().getPropertyValue("d365.platform.version").equalsIgnoreCase("d365.platform.version") ? null : "v"+getBundle().getPropertyValue("d365.platform.version").toLowerCase();
+
     private static String locGeneratedField = "";
     private static ArrayList<String> locGeneratedVal = new ArrayList<String>();
     private static String filedLocation = "";
@@ -505,8 +506,6 @@ public class d365Loc {
     private static void setVariables (String argFieldLocation, String argFieldName) throws Exception{
         locator = "";
         locVal = "";
-        d365Platform  = "";
-        d365PlatformVersion = "";
         locGeneratedField = "";
         locGeneratedVal.clear();
         fieldAdditionalVal_1="";
@@ -528,19 +527,20 @@ public class d365Loc {
 //        fieldInstanceTagEnd = "";
 
 //      Setting field location Ef: Quick Create Panel, Pop Dialog, etc.
-        if (fieldLoc_main.equalsIgnoreCase("QUICK_CREATE")){
+
+        if (fieldLoc_main.equalsIgnoreCase("QUICK_CREATE") || fieldLoc_main.equalsIgnoreCase("QUICK CREATE")){
             switch (d365PlatformVersion) {
                 case ("v9.1"):
                 case ("v9.2"):
                 default: { filedLocation = "//section[@data-id='quickCreateRoot']/descendant::"; break; }
             }
-        }  else if (fieldLoc_main.equalsIgnoreCase("LOOKUP_RECORDS")){
+        }  else if (fieldLoc_main.equalsIgnoreCase("LOOKUP_RECORDS") || fieldLoc_main.equalsIgnoreCase("LOOKUP RECORDS")){
             switch (d365PlatformVersion) {
                 case ("v9.1"):
                 case ("v9.2"):
                 default: { filedLocation = "//section[@data-id='lookupDialogRoot']/descendant::"; break; }
             }
-        } else if (fieldLoc_main.equalsIgnoreCase("DIALOG_WINDOW")){
+        } else if (fieldLoc_main.equalsIgnoreCase("DIALOG_WINDOW") || fieldLoc_main.equalsIgnoreCase("DIALOG WINDOW")){
             switch (d365PlatformVersion) {
                 case ("v9.1"):
                 case ("v9.2"):
@@ -552,7 +552,7 @@ public class d365Loc {
                 case ("v9.2"):
                 default: { filedLocation = "//div[@id='mainContent']/descendant::"; break; }
             }
-        } else if (fieldLoc_main.equalsIgnoreCase("POPUP_DIALOG")){
+        } else if (fieldLoc_main.equalsIgnoreCase("POPUP_DIALOG") || fieldLoc_main.equalsIgnoreCase("POPUP DIALOG")){
             switch (d365PlatformVersion) {
                 case ("v9.1"):
                 case ("v9.2"):
@@ -672,8 +672,6 @@ public class d365Loc {
     private static Boolean locCheck(String page, String location, String fieldType, String argFieldName) throws Exception{
         setVariables(location,argFieldName);
 //        fieldName = fieldName.trim();
-        d365Platform = getBundle().getPropertyValue("d365.platform").equalsIgnoreCase("d365.platform") ? "crm" : getBundle().getPropertyValue("d365.platform").toLowerCase();
-        d365PlatformVersion = getBundle().getPropertyValue("d365.platform.version").equalsIgnoreCase("d365.platform.version") ? null : "v"+getBundle().getPropertyValue("d365.platform.version").toLowerCase();
         locator = "loc.d365Loc." + d365Platform + "." + CaseUtils.toCamelCase(page.replaceAll("[^a-zA-Z0-9]", " "), false, ' ') + "." + CaseUtils.toCamelCase(location.replaceAll("[^a-zA-Z0-9]", " "), false, ' ') + "." +CaseUtils.toCamelCase(fieldType.replaceAll("d365_", "").replaceAll("[^a-zA-Z0-9]", " "), false, ' ').trim() + "." + CaseUtils.toCamelCase(argFieldName.replaceAll("[^a-zA-Z0-9]", " "), false, ' ').trim();
         locVal = getBundle().getPropertyValue(locator);
         Boolean returnVal;
@@ -931,7 +929,7 @@ public static String systemViewOrHeaderTitle(String argPage, String argFieldLoca
                     locEntry("xpath","//button[@aria-label='<field_name>']");
                     locEntry("xpath","//button[@title='<field_name>']");
                     locEntry("xpath","//button[text()='<field_name>']");
-                      locEntry("xpath","//button[contains(@aria-label,'<field_name>')]");
+                    locEntry("xpath","//button[contains(@aria-label,'<field_name>')]");
                     locEntry("xpath","//button[contains(@title,'<field_name>')]");
                     break;
                 }
