@@ -612,6 +612,12 @@ public class d365Loc {
                 case ("v9.2"):
                 default: { filedLocation = "//div[@role='menu']/descendant::"; break; }
             }
+        } else if (fieldLoc_main.equalsIgnoreCase("DROPDOWN_MORE_COMMANDS") || fieldLoc_main.equalsIgnoreCase("DROPDOWN MORE COMMANDS")){
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: { filedLocation = "//div[contains(@id,'OverflowButton')]/descendant::"; break; }
+            }
         } else if (fieldLoc_main.equalsIgnoreCase("DROPDOWN_SYSTEM_VIEW")){
             switch (d365PlatformVersion) {
                 case ("v9.1"): { filedLocation = "//ul[@aria-label='Select a view.'][@role='listbox']//descendant::"; break; }
@@ -1087,6 +1093,7 @@ public static String systemViewOrHeaderTitle(String argPage, String argFieldLoca
                 case ("v9.2"):
                 default: {
                     locEntry("xpath","(//div[@class='ag-body-horizontal-scroll-viewport'])[1]");
+                    locEntry("xpath","(//div[contains(@style,'webkit-overflow-scrolling')])[1]");
                     break;
                 }
             }
