@@ -1045,7 +1045,7 @@ public static String systemViewOrHeaderTitle(String argPage, String argFieldLoca
     public static String tableCellValue(String argPage, String argFieldLocation, String argCellDetails) throws Exception{
         if (locCheck(argPage, argFieldLocation, "TABLE_CELL_VALUE_GET", argCellDetails)) {
             switch (d365PlatformVersion) {
-                case ("v9.1"):
+                case ("v9.1"): {locEntry("xpath","//div[@aria-rowindex='<field_additional_val_1>']/descendant::div[@aria-colindex='<field_additional_val_2>']/label"); break;}
                 case ("v9.2"):
                 default: {
                     locEntry("xpath","//div[@aria-rowindex='<field_additional_val_1>']/descendant::div[@aria-colindex='<field_additional_val_2>']/descendant::div[contains(@id,'tooltip')]");
