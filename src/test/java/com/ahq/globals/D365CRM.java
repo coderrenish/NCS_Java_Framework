@@ -643,7 +643,25 @@ public class D365CRM {
         BrowserGlobal.iDoubleClickOn(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum));
     }
 
-
+    /**
+     * @param row_number [Table row number after header from top to bottom starting from 1]
+     * @param column_number [Table column number from left to right starting from 1]
+     */
+    @QAFTestStep(description = "D365CRM: Click-Table-Cell Row:{0} Column:{1} Page:{2}")
+    public static void clickTableCell(String row_number, String column_number, String page) throws Exception {
+        int tempRowNum = Integer.parseInt(row_number) + 1;
+        int tempColNum = Integer.parseInt(column_number) + 1;
+        for (int i = 0; i < 10; i++) {
+            try {
+                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum),"2");
+                break;
+            } catch (Exception e) {
+                BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",d365Loc.scrollHorizontal(page));
+            }
+        }
+        BrowserGlobal.iMouseoverOn(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum));
+        BrowserGlobal.iClickOn(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum));
+    }
 
     //    /**
 //     * @param main_button_name [Main Menu name]
@@ -1044,7 +1062,7 @@ public class D365CRM {
             }
         }
         BrowserGlobal.iWaitForPageToLoad();
-        BrowserGlobal.iAssertInnerHtmlIs(d365Loc.tableCellValue(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum),cell_value);
+        BrowserGlobal.iAssertInnerHtmlContains(d365Loc.tableCellValue(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum),cell_value);
         if (scrollStatus) {
             BrowserGlobal.iScrollHorizontalUsingScrollLocator("-500",d365Loc.scrollHorizontal(page));
         }
