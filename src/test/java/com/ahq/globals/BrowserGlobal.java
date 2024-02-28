@@ -4,6 +4,8 @@ import com.ahq.globals.utilities.UtilPassword;
 import com.qmetry.qaf.automation.core.QAFTestBase;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import com.qmetry.qaf.automation.ui.WebDriverTestBase;
+import com.qmetry.qaf.automation.ui.util.QAFWebElementExpectedConditions;
+import com.qmetry.qaf.automation.ui.util.QAFWebElementWait;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElement;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
@@ -29,7 +31,6 @@ import java.util.List;
 import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 import static com.qmetry.qaf.automation.step.CommonStep.*;
 import static com.qmetry.qaf.automation.ui.webdriver.ElementFactory.$;
-
 
 public class BrowserGlobal {
     
@@ -116,7 +117,7 @@ public class BrowserGlobal {
      * I zoom browser window to {zoom} Percentage
      */
     @QAFTestStep(description = "I zoom browser window to {percentage} Percentage")
-    public static void iZoomBrowserToPercentage(String zoom) throws Exception {
+    public static void iZoomBrowserToPercentage(String zoom) {
         WebDriver driver = new WebDriverTestBase().getDriver();
         JavascriptExecutor js=(JavascriptExecutor)driver;
         js.executeScript("document.body.style.zoom='"+zoom+"'");
@@ -126,12 +127,12 @@ public class BrowserGlobal {
      * : I press RETURN or ENTER key in {loc}
      *
      * @param locator [Locator of the field]
-     * @throws Exception
+     
      */
     //{press}{key}{return}
     //{press}{key}{enter}
     @QAFTestStep(description = "I press RETURN or ENTER key in {loc}")
-    public static void iPressReturnOrEnterKeyIn(String locator) throws Exception {
+    public static void iPressReturnOrEnterKeyIn(String locator) {
         QAFWebElement element = new QAFExtendedWebElement(locator);
         element.sendKeys(Keys.RETURN);
     }
@@ -140,12 +141,12 @@ public class BrowserGlobal {
      * Pressing on the RETURN or ENTER key in the current location
      * : I press RETURN or ENTER key
      *
-     * @throws Exception
+     
      */
     //{press}{key}{return}
     //{press}{key}{enter}
     @QAFTestStep(description = "I press RETURN or ENTER key")
-    public static void iPressReturnOrEnterKey() throws Exception {
+    public static void iPressReturnOrEnterKey() {
         Actions builder = new Actions(new WebDriverTestBase().getDriver());
         builder.sendKeys(Keys.RETURN);
         builder.build().perform();
@@ -156,10 +157,9 @@ public class BrowserGlobal {
      * : I press key {key}
      *
      * @param key [Key to press]
-     * @throws Exception
      */
     @QAFTestStep(description = "I press key {key}")
-    public static void iPressKey(String key) throws Exception {
+    public static void iPressKey(String key) {
         Actions builder = new Actions(new WebDriverTestBase().getDriver());
         builder.sendKeys(Keys.valueOf(key.toUpperCase()));
         builder.build().perform();
@@ -172,7 +172,7 @@ public class BrowserGlobal {
      * @param times [Press TAB n times]
      */
     @QAFTestStep(description = "I press Tab {times} times")
-    public static void iPressTabKeyTimes(String times) throws Exception {
+    public static void iPressTabKeyTimes(String times) {
         for (int i = 0; i < Integer.parseInt(times); i++) {
             BrowserGlobal.iPressKey("TAB");
             BrowserGlobal.iWaitForMilliseconds("1000");
@@ -198,10 +198,9 @@ public class BrowserGlobal {
      *
      * @param key   [Key to press]
      * @param value [Value to fill in the field]
-     * @throws Exception
      */
     @QAFTestStep(description = "I press a key {key} and fill {value}")
-    public static void iPressKeyAndFill(String key, String value) throws Exception {
+    public static void iPressKeyAndFill(String key, String value) {
         Actions builder = new Actions(new WebDriverTestBase().getDriver());
         builder.keyDown(Keys.valueOf(key.toUpperCase()));
         builder.sendKeys(value);
@@ -212,10 +211,9 @@ public class BrowserGlobal {
     /**
      * Select All by pressing Control or Command "a" Key
      * : I Press Control or Command A by OS
-     * @throws Exception
      */
     @QAFTestStep(description = "I Press Control or Command A by OS")
-    public static void iPressControlOrCommandAByOs() throws Exception {
+    public static void iPressControlOrCommandAByOs() {
         String keyType;
         if (System.getProperty("os.name").toLowerCase().contains("mac")) {
             keyType = "COMMAND";
@@ -231,10 +229,9 @@ public class BrowserGlobal {
      *
      * @param holdKey  [Key to hold]
      * @param pressKey [Key to press]
-     * @throws Exception
      */
     @QAFTestStep(description = "I hold down a key {holdKey} and press a key {pressKey}")
-    public static void iHoldKeyAndPressAKey(String holdKey, String pressKey) throws Exception {
+    public static void iHoldKeyAndPressAKey(String holdKey, String pressKey) {
         Actions builder = new Actions(new WebDriverTestBase().getDriver());
         builder.keyDown(Keys.valueOf(holdKey.toUpperCase()));
         builder.sendKeys(pressKey);
@@ -249,10 +246,9 @@ public class BrowserGlobal {
      * @param key_1 [First Key to press]
      * @param key_2 [Second Key to press]
      * @param value [Value to fill in the field]
-     * @throws Exception
      */
     @QAFTestStep(description = "I press two keys {key_1} {key_2} and fill {value}")
-    public static void iPressTwoKeysAndFill(String key_1, String key_2, String value) throws Exception {
+    public static void iPressTwoKeysAndFill(String key_1, String key_2, String value) {
         Actions builder = new Actions(new WebDriverTestBase().getDriver());
         builder.keyDown(Keys.valueOf(key_1.toUpperCase()));
         builder.keyDown(Keys.valueOf(key_2.toUpperCase()));
@@ -303,7 +299,7 @@ public class BrowserGlobal {
      * : I click on {locator}
      *
      * @param locator [Locator of the field]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I click on {locator}")
     public static void iClickOn(String locator) throws Exception {
@@ -316,22 +312,22 @@ public class BrowserGlobal {
      * : I click on {locator}
      *
      * @param locator [Locator of the field]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I double click on {locator}")
-    public static void iDoubleClickOn(String locator) throws Exception {
+    public static void iDoubleClickOn(String locator) {
         WebElement elementLocator = new WebDriverTestBase().getDriver().findElement(locator);
         Actions actions = new Actions(new WebDriverTestBase().getDriver());
         actions.doubleClick(elementLocator).perform();
     }
 
     @QAFTestStep(description = "I click on {locator} if not selected")
-    public static void iClickOnElementIfNotSelected(String locator) throws Exception {
+    public static void iClickOnElementIfNotSelected(String locator) {
         if (!new WebDriverTestBase().getDriver().findElement(locator).isSelected()) click(locator);
     }
     
     @QAFTestStep(description = "I click on {locator} if selected")
-    public static void iClickOnElementIfSelected(String locator) throws Exception {
+    public static void iClickOnElementIfSelected(String locator) {
         if (new WebDriverTestBase().getDriver().findElement(locator).isSelected()) click(locator);
     }
     
@@ -340,10 +336,10 @@ public class BrowserGlobal {
      * : I click on multiple elements {locator}
      *
      * @param locators [String[] type - Locators of the field]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I click on multiple elements {locator}")
-    public static void iClickOnMultipleElements(String[] locators) throws Exception {
+    public static void iClickOnMultipleElements(String[] locators) {
         for (String loc : locators) {
             click(loc);
         }
@@ -354,10 +350,10 @@ public class BrowserGlobal {
      * : I click on {locator} if present
      *
      * @param locator [Locator of the field]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I click on {locator} if present")
-    public static void iClickOnLocIfPresent(String locator) throws Exception {
+    public static void iClickOnLocIfPresent(String locator) {
         if (!new WebDriverTestBase().getDriver().findElements(locator).isEmpty()) {
             click(locator);
         }
@@ -368,10 +364,10 @@ public class BrowserGlobal {
      * : I click on {locator} once enabled
      *
      * @param locator [Locator of the field]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I click on {locator} once enabled")
-    public static void iClickOnLocOnceEnabled(String locator) throws Exception {
+    public static void iClickOnLocOnceEnabled(String locator) {
         waitForEnabled(locator);
         // iWaitUntilElementEnabled(locator);
         click(locator);
@@ -382,10 +378,10 @@ public class BrowserGlobal {
      * : I mouseover on {locator}
      *
      * @param locator [Locator of the field]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I mouseover on {locator}")
-    public static void iMouseoverOn(String locator) throws Exception {
+    public static void iMouseoverOn(String locator) {
         WebElement element = new WebDriverTestBase().getDriver().findElement(locator);
         Actions builder = new Actions(new WebDriverTestBase().getDriver());
         Action mouseOverHome = builder.moveToElement(element).build();
@@ -412,10 +408,10 @@ public class BrowserGlobal {
      *
      * @param value   [Value to enter/fill in a field]
      * @param locator [Locator of the field]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I fill {value} into {locator}")
-    public static void iFillInTo(String value, String locator) throws Exception {
+    public static void iFillInTo(String value, String locator) {
         sendKeys(UtilPassword.check(value), locator);
     }
 
@@ -426,10 +422,10 @@ public class BrowserGlobal {
      *
      * @param value   [Value to enter/input in a field]
      * @param locator [Locator of the field]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I input {value} into {locator}")
-    public static void iInputInTo(String value, String locator) throws Exception {
+    public static void iInputInTo(String value, String locator) {
         sendKeys(UtilPassword.check(value), locator);
     }
 
@@ -439,7 +435,7 @@ public class BrowserGlobal {
      *
      * @param value   [Value to enter/input in a field]
      * @param locator [Locator of the field]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I input search {value} into {locator}")
     public static void iInputSearch(String value, String locator) throws Exception {
@@ -448,6 +444,7 @@ public class BrowserGlobal {
         BrowserGlobal.iInputInTo(value, locator);
         BrowserGlobal.iWaitForMilliseconds("500");
         BrowserGlobal.iPressReturnOrEnterKey();
+
     }
     /**
      * Click and Fill text/value to a given lookup field with a delay
@@ -456,7 +453,7 @@ public class BrowserGlobal {
      * @param value   [Value to enter/fill in a field]
      * @param locator [Locator of the field]
      * @param delay   [wait time necessary between entering the value and clicking down in the search]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I click and fill {value} into {locator} lookup field {delay}")
     public static void iClickAndFillInToLookupField(String value, String locator, String delay) throws Exception {
@@ -474,10 +471,10 @@ public class BrowserGlobal {
      *
      * @param value   [Value to enter/fill in a field]
      * @param locator [Locator of the field]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I click and fill {value} into {locator}")
-    public static void iClickAndFillInTo(String value, String locator) throws Exception {
+    public static void iClickAndFillInTo(String value, String locator) {
         click(locator);
         sendKeys(value, locator);
     }
@@ -488,16 +485,14 @@ public class BrowserGlobal {
      *
      * @param value   [Value to enter/fill in a field]
      * @param locator [Locator of the field]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I double click and fill {value} into {locator}")
-    public static void iDoubleClickAndFillInTo(String value, String locator) throws Exception {
+    public static void iDoubleClickAndFillInTo(String value, String locator) {
         click(locator);
         click(locator);
         sendKeys(value, locator);
     }
-
-
 
     /**
      * Double click and Fill text/value to a given field
@@ -506,7 +501,7 @@ public class BrowserGlobal {
      * @param value    [Value to enter/fill in a field]
      * @param locator  [Locator of the field]
      * @param waitTime [milliseconds to wait before entering value]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I double click, wait and fill {value} into {locator}")
     public static void iDoubleClickWaitAndFillInTo(String value, String locator, String waitTime) throws Exception {
@@ -519,9 +514,8 @@ public class BrowserGlobal {
     /**
      * Click into the locator and press the shift tab key and then ENTER key
      * : I click and shift tab then ENTER key
-     *
      * @param locator [locator of the field]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I click and shift tab then ENTER key")
     public static void iClickAndTabInToThenEnter(String locator) throws Exception {
@@ -534,10 +528,9 @@ public class BrowserGlobal {
     /**
      * Clear the specified element value and Fill text/value
      * : I clear and fill {value} into {locator}
-     *
      * @param value   [Value to enter/fill in a field]
      * @param locator [Locator of the field to clear and fill]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I clear and fill {value} into {locator}")
     public static void iClearAndFillInTo(String value, String locator) throws Exception {
@@ -548,11 +541,10 @@ public class BrowserGlobal {
     /**
      * Set a Field attribute value
      * : I set field {locator} attribute {attr-name} value as {value}
-     *
      * @param locator   [Locator of the field]
      * @param attr_name [Attribute Name of the field]
      * @param value     [Value to set in the attribute]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I set field {locator} attribute {attr_name} value as {value}")
     public static void iSetFieldAttributeValue(String locator, String attr_name, String value) {
@@ -563,9 +555,7 @@ public class BrowserGlobal {
      * Clear the specified element value from the field
      * Ex. Clearing text from textbox
      * : I clear text from field{locator}
-     *
      * @param locator [Locator of the field]
-     * @throws Exception
      */
     @QAFTestStep(description = "I clear text from {locator}")
     public static void iClearTextFrom(String locator) throws Exception {
@@ -575,7 +565,6 @@ public class BrowserGlobal {
     /**
      * Commenting inside test/scenario
      * : I comment {value}
-     *
      * @param value [Value to set in the comment]
      */
     @QAFTestStep(description = "I comment {value}")
@@ -586,10 +575,9 @@ public class BrowserGlobal {
     /**
      * Get the text from an element or field
      * : I get text from {locator}
-     *
      * @param locator [Locator of the field]
      * @return The text specified in the locator/field
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I get text from {locator}")
     public static String iGetText(String locator) throws Exception {
@@ -614,9 +602,7 @@ public class BrowserGlobal {
     /**
      * Submit the specified page. This is particularly useful for page without submit buttons, e.g. single-input "Search" page.
      * : I submit {locator}
-     *
      * @param locator [Locator of the field]
-     * @throws Exception
      */
     @QAFTestStep(description = "I submit {locator}")
     public static void iSubmit(String locator) throws Exception {
@@ -636,7 +622,6 @@ public class BrowserGlobal {
     /**
      * Taking current screenshot of the page with comment
      * : I take screenshot with comment {comment}
-     *
      * @param comment [Comment for the screenshot]
      */
     @QAFTestStep(description = "I take screenshot with comment {comment}")
@@ -648,10 +633,8 @@ public class BrowserGlobal {
     /**
      * Selecting a value in the Dropdown/Select field
      * : I select dropdown {locator} with value {value}
-     *
      * @param locator [Locator of the field]
      * @param value   [Value in the Dropdown/select field]
-     * @throws Exception
      */
     @QAFTestStep(description = "I select dropdown {locator} with value {value}")
     public static void iSelectDropdownWithValue(String locator, String value) throws Exception {
@@ -663,10 +646,8 @@ public class BrowserGlobal {
     /**
      * Selecting a value index in the Dropdown/Select field
      * : I select dropdown {locator} with index {number}
-     *
      * @param locator [Locator of the field]
      * @param index   [Index of the text/value in Dropdown/select field starting with 1]
-     * @throws Exception
      */
     @QAFTestStep(description = "I select dropdown {locator} with index {index}")
     public static void iSelectDropdownWithIndex(String locator, String index) throws Exception {
@@ -678,10 +659,8 @@ public class BrowserGlobal {
     /**
      * Selecting a text in the Dropdown/Select field
      * : I select dropdown {locator} with text {text}
-     *
      * @param locator [Locator of the field]
      * @param text    [Text in the Dropdown/select field]
-     * @throws Exception
      */
     @QAFTestStep(description = "I select dropdown {locator} with text {text}")
     public static void iSelectDropdownWithText(String locator, String text) throws Exception {
@@ -693,10 +672,8 @@ public class BrowserGlobal {
     /**
      * Deselecting using value in the Dropdown/Select field
      * : I deselect dropdown {locator} with value {value}
-     *
      * @param locator [Locator of the field]
      * @param value   [Value in the Dropdown/select field]
-     * @throws Exception
      */
     @QAFTestStep(description = "I deselect dropdown {locator} with value {value}")
     public static void iDeselectDropdownWithValue(String locator, String value) throws Exception {
@@ -708,10 +685,8 @@ public class BrowserGlobal {
     /**
      * Deselecting using value index in the Dropdown/Select field
      * : I select dropdown {locator} with index {number}
-     *
      * @param locator [Locator of the field]
      * @param index   [Index of the text/value in Dropdown/select field starting with 0]
-     * @throws Exception
      */
     @QAFTestStep(description = "I deselect dropdown {locator} with index {index}")
     public static void iDeselectDropdownWithIndex(String locator, String index) throws Exception {
@@ -723,10 +698,8 @@ public class BrowserGlobal {
     /**
      * Deselecting using text in the Dropdown/Select field
      * : I deselect dropdown {locator} with text {text}
-     *
      * @param locator [Locator of the field]
      * @param text    [Text in the Dropdown/select field]
-     * @throws Exception
      */
     @QAFTestStep(description = "I deselect dropdown {locator} with text {text}")
     public static void iDeselectDropdownWithText(String locator, String text) throws Exception {
@@ -738,9 +711,7 @@ public class BrowserGlobal {
     /**
      * Deselecting all values/text in Dropdown/Select field (inc. multi select dropdown)
      * : I deselect all in dropdown {locator}
-     *
      * @param locator [Locator of the field]
-     * @throws Exception
      */
     @QAFTestStep(description = "I deselect all in dropdown {locator}")
     public static void iDeselectAllInDropdown(String locator) throws Exception {
@@ -756,7 +727,6 @@ public class BrowserGlobal {
      * call this step. Stored value in the variable can be
      * retrieved in other steps as ${varname}
      * : I store last step result into variable {var}
-     *
      * @param var [Variable to store the value]
      */
     @QAFTestStep(description = "I store last step result into variable {var}")
@@ -768,7 +738,6 @@ public class BrowserGlobal {
      * Store a value in variable to use later on. Stored value in the variable can be
      * retrieved in other steps as ${varname}
      * : I store value {val} into variable {var}
-     *
      * @param value    [Value to be stored]
      * @param variable [Variable to store the value]
      */
@@ -782,7 +751,6 @@ public class BrowserGlobal {
      * Switch to new window by name Example:<br/>
      * switchToWindow 'Forgot Password Popup'<br/>
      * : I switch window by name {name}
-     *
      * @param name [Name of the window E.g. 'Forgot Password Popup']
      */
     @QAFTestStep(description = "I switch window by name {name}")
@@ -794,7 +762,6 @@ public class BrowserGlobal {
      * Switch to new window by Index<br/>
      * Example switchToWindow '3'<br/>
      * : I switch window by name {name}
-     *
      * @param index [Index of the window E.g. '2']
      */
     @QAFTestStep(description = "I switch window by index {index}")
@@ -805,8 +772,7 @@ public class BrowserGlobal {
     /**
      * Switches the webdriver context to the parent frame
      * : I switch to parent window
-     *
-     * @return
+     * [Note: Returns value]
      */
     @QAFTestStep(description = "I switch to parent window or frame")
     public static Object iSwitchToParentWindowFrame() {
@@ -816,8 +782,6 @@ public class BrowserGlobal {
     /**
      * Switches the webdriver context to the default frame
      * : I switch to default window or frame
-     *
-     * @return
      */
     @QAFTestStep(description = "I switch to default window or frame")
     public static Object iSwitchToDefaultWindow() {
@@ -854,9 +818,7 @@ public class BrowserGlobal {
     /**
      * Getting the value of existing cookie by name
      * : I get cookie value with the name {name}
-     *
      * @param name [Name of the existing cookie]
-     *             \
      */
     @QAFTestStep(description = "I get a cookie value with the name {name}")
     public static void iGetCookieWithValue(String name) {
@@ -866,9 +828,7 @@ public class BrowserGlobal {
     /**
      * Deleting the existing cookie by name
      * : I delete cookie with name {name}
-     *
      * @param name [Name of the existing cookie to be deleted]
-     *             \
      */
     @QAFTestStep(description = "I delete cookie with name {name}")
     public static void iDeleteCookie(String name) {
@@ -878,7 +838,6 @@ public class BrowserGlobal {
     /**
      * Deleting all cookies
      * : I delete all cookies
-     * \
      */
     @QAFTestStep(description = "I delete all cookies")
     public static void iDeleteAllCookies() {
@@ -890,7 +849,6 @@ public class BrowserGlobal {
      * Start time tracking which can be stopped by subsequent call to
      * {@link #iStopTransaction()}. It will group all steps and track time.
      * : I start transaction with name {name}
-     *
      * @param name [Name of the transaction]
      */
     @QAFTestStep(description = "I start transaction with name {name}")
@@ -902,7 +860,6 @@ public class BrowserGlobal {
      * Start time tracking with Threshold which can be stopped by subsequent call to
      * {@link #iStopTransaction()}. It will group all steps and track time with given threshold comparison.
      * : I start transaction {name} with {second} seconds threshold
-     *
      * @param name             [Name of the transaction]
      * @param secondsThreshold [Threshold of the transaction in seconds]
      */
@@ -924,10 +881,7 @@ public class BrowserGlobal {
     /**
      * Verifying the element/field is present
      * : I verify {locator} is present
-     *
      * @param locator [Locator of the element/field]
-     * @return
-     * @throws Exception
      */
     @QAFTestStep(description = "I verify {locator} is present")
     public static boolean iVerifyElementPresent(String locator) throws Exception {
@@ -937,10 +891,7 @@ public class BrowserGlobal {
     /**
      * Verifying the element/field is not present
      * : I verify {locator} is not present
-     *
      * @param locator [Locator of the element/field]
-     * @return
-     * @throws Exception
      */
     @QAFTestStep(description = "I verify {locator} is not present")
     public static boolean iVerifyElementNotPresent(String locator) throws Exception {
@@ -950,10 +901,7 @@ public class BrowserGlobal {
     /**
      * Verifying the element/field is visible
      * : I verify {locator} is visible
-     *
      * @param locator [Locator of the element/field]
-     * @return
-     * @throws Exception
      */
     @QAFTestStep(description = "I verify {locator} is visible")
     public static boolean iVerifyElementVisible(String locator) throws Exception {
@@ -963,10 +911,7 @@ public class BrowserGlobal {
     /**
      * Verifying the element/field is not visible
      * : I verify {locator} is not visible
-     *
      * @param locator [Locator of the element/field]
-     * @return
-     * @throws Exception
      */
     @QAFTestStep(description = "I verify {locator} is not visible")
     public static boolean iVerifyElementNotVisible(String locator) throws Exception {
@@ -976,10 +921,7 @@ public class BrowserGlobal {
     /**
      * Verifying the link with text is present
      * : I verify link with text {text} is present
-     *
      * @param text [Text in the link]
-     * @return
-     * @throws Exception
      */
     @QAFTestStep(description = "I verify link with text {text} is present")
     public static boolean iVerifyLinkWithTextPresent(String text) throws Exception {
@@ -989,9 +931,7 @@ public class BrowserGlobal {
     /**
      * Verifying the link with partial text is present
      * : I verify link with partial text {text} is present
-     *
      * @param text [Partial Text of the link]
-     * @return
      */
     @QAFTestStep(description = "I verify link with partial text {text} is present")
     public static boolean iVerifyLinkWithPartialTextPresent(String text) {
@@ -1001,10 +941,7 @@ public class BrowserGlobal {
     /**
      * Verifying the element/field text is text.
      * : I verify {locator} text is {text}
-     *
      * @param text [Partial Text in the link]
-     * @return
-     * @throws Exception
      */
     @QAFTestStep(description = "I verify {locator} text is {text}")
     public static boolean iVerifyElementText(String locator, String text) throws Exception {
@@ -1014,10 +951,7 @@ public class BrowserGlobal {
     /**
      * Verifying the element/field text is not text.
      * : I verify {locator} text is not {text}
-     *
      * @param text [Partial Text in the link]
-     * @return
-     * @throws Exception
      */
     @QAFTestStep(description = "I verify {locator} text is not {text}")
     public static boolean iVerifyElementTextNot(String locator, String text) throws Exception {
@@ -1040,11 +974,8 @@ public class BrowserGlobal {
     /**
      * Verifying the element/field value is the given value.
      * : I verify element/field {locator} value is {value}
-     *
      * @param locator [Locator of the element/field]
      * @param value   [Value which needs to be compared]
-     * @return
-     * @throws Exception
      */
     @QAFTestStep(description = "I verify element/field {locator} value is {value}")
     public static boolean iVerifyElementValue(String locator, String value) throws Exception {
@@ -1054,11 +985,8 @@ public class BrowserGlobal {
     /**
      * Verifying the element/field value is not the given value.
      * : I verify element/field {locator} value is not {value}
-     *
      * @param locator [Locator of the element/field]
      * @param value   [Value which needs to be compared]
-     * @return
-     * @throws Exception
      */
     @QAFTestStep(description = "I verify element/field {locator} value is not {value}")
     public static boolean iVerifyElementValueNot(String locator, String value) throws Exception {
@@ -1068,10 +996,7 @@ public class BrowserGlobal {
     /**
      * Verifying the element/field value is selected in the page.
      * : I verify element/field {locator} is selected
-     *
      * @param locator [Locator of the element/field]
-     * @return
-     * @throws Exception
      */
     // {verify}{checkbox/radio/select}{<name>}{selected}
     @QAFTestStep(description = "I verify element/field {locator} is selected")
@@ -1082,10 +1007,7 @@ public class BrowserGlobal {
     /**
      * Verifying the element/field value is not selected in the page.
      * : I verify element/field {locator} is not selected
-     *
      * @param locator [Locator of the element/field]
-     * @return
-     * @throws Exception
      */
     // {verify}{checkbox/radio/select}{<name>}{not-selected}
     @QAFTestStep(description = "I verify element/field {locator} is not selected")
@@ -1096,12 +1018,9 @@ public class BrowserGlobal {
     /**
      * Verifying the element/field's attribute value is the given value.
      * : I verify element/field {locator} with attribute {attr_name} value is {value}
-     *
      * @param locator   [Locator of the element/field]
      * @param attr_name [Attribute Name of the element/field]
      * @param value     [Attribute Value of the element/field to be compared]
-     * @return
-     * @throws Exception
      */
     // {verify}{input/checkbox/radio/select/link/td/etc.}{<name>}{attribute-name}{<attribute-name>}{value-is}{<value>}
     @QAFTestStep(description = "I verify element/field {locator} with attribute {attr_name} value is {value}")
@@ -1114,12 +1033,9 @@ public class BrowserGlobal {
     /**
      * Verifying the element/field's attribute value is not the given value.
      * : I verify element/field {locator} with attribute {attr-name} value is not {value}
-     *
      * @param locator [Locator of the element/field]
      * @param attr    [Attribute Name of the element/field]
      * @param value   [Attribute Value of the element/field to be compared]
-     * @return
-     * @throws Exception
      */
     // {verify}{input/checkbox/radio/select/link/td/etc.}{<element-name>}{attribute}{<attribute-name>}{value-is-not}{<value>}
     @QAFTestStep(description = "I verify element/field {locator} with attribute {attr-name} value is not {value}")
@@ -1130,11 +1046,8 @@ public class BrowserGlobal {
     /**
      * Verifying the element/field's value/text is partially present.
      * : I verify element/field {locator} with partial text {text} is present
-     *
      * @param locator [Locator of the element/field]
      * @param text    [Partial value/text of the element/field to be compared]
-     * @return
-     * @throws Exception
      */
     // {verify}{link/label/text/etc.}{<element-name>}{partial-text}{<partial-text>}{is-present}
     @QAFTestStep(description = "I verify element/field {locator} with partial text {text} is present")
@@ -1173,9 +1086,7 @@ public class BrowserGlobal {
     /**
      * Wait until the element/field is visible.
      * : I wait until element/field {locator} is visible
-     *
      * @param locator [Locator of the element/field]
-     * @throws Exception
      */
     //{wait}{until}{input/checkbox/radio/select/link/td/etc.}{<element-name>}{is-visible}
     @QAFTestStep(description = "I wait until element/field {locator} is visible")
@@ -1186,10 +1097,8 @@ public class BrowserGlobal {
     /**
      * Wait until the element/field is visible with timeout in seconds.
      * : I wait until element/field {locator} is visible with timeout {sec} in seconds
-     *
      * @param locator [Locator of the element/field]
      * @param timeout_secs [Timeout in seconds]
-     * @throws Exception
      */
     @QAFTestStep(description = "I wait until element/field {locator} is visible with timeout {timeout} in seconds")
     public static void iWaitUntilElementVisibleWithTimeout(String locator, String timeout_secs) throws Exception {
@@ -1201,7 +1110,7 @@ public class BrowserGlobal {
      * : I wait until element/field {locator} is not visible
      *
      * @param locator [Locator of the element/field]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I wait until element/field {locator} is not visible")
     public static void iWaitUntilElementNotVisible(String locator) throws Exception {
@@ -1211,10 +1120,8 @@ public class BrowserGlobal {
     /**
      * Wait until the element/field is not visible with timeout in seconds.
      * : I wait until element/field {locator} is not visible with timeout {sec} in seconds
-     *
      * @param locator     [Locator of the element/field]
      * @param timeout_sec [Timeout in seconds]
-     * @throws Exception
      */
     @QAFTestStep(description = "I wait until element/field {locator} is not visible with timeout {timeout} in seconds")
     public static void iWaitUntilElementNotVisibleWithTimeout(String locator, long timeout_sec) throws Exception {
@@ -1224,9 +1131,7 @@ public class BrowserGlobal {
     /**
      * Wait until the element/field is present.
      * : I wait until element/field {locator} is present
-     *
      * @param locator [Locator of the element/field]
-     * @throws Exception
      */
     @QAFTestStep(description = "I wait until element/field {locator} is present")
     public static void iWaitUntilElementPresent(String locator) throws Exception {
@@ -1236,10 +1141,8 @@ public class BrowserGlobal {
     /**
      * Wait until the element/field is present with timeout in seconds.
      * : I wait until element/field {locator} is present with timeout {timeout_sec} in seconds
-     *
      * @param locator     [Locator of the element/field]
      * @param timeout_sec [Timeout in seconds]
-     * @throws Exception
      */
     @QAFTestStep(description = "I wait until element/field {locator} is present with timeout {timeout_sec} in seconds")
     public static void iWaitUntilElementPresentWithTimeout(String locator, String timeout_sec) throws Exception {
@@ -1249,9 +1152,7 @@ public class BrowserGlobal {
     /**
      * Wait until the element/field is not present.
      * : I wait until element/field {locator} is not present
-     *
      * @param locator [Locator of the element/field]
-     * @throws Exception
      */
     @QAFTestStep(description = "I wait until element/field {locator} is not present")
     public static void iWaitUntilElementNotPresent(String locator) throws Exception {
@@ -1264,7 +1165,7 @@ public class BrowserGlobal {
      *
      * @param locator [Locator of the element/field]
      * @param timeout [Timeout in seconds]
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I wait until element/field {locator} is not present with timeout {sec} in seconds")
     public static void iWaitUntilElementNotPresentWithTimeout(String locator, String timeout) throws Exception {
@@ -1638,7 +1539,7 @@ public class BrowserGlobal {
     /**
      * Scroll to the Bottom
      * I scroll to the Bottom {locator}
-     * @throws Exception
+     
      */
     @QAFTestStep(description = "I scroll to the bottom of the page")
     public static void iScrollToTheBottomOfThePage() throws Exception {
@@ -1874,16 +1775,56 @@ public class BrowserGlobal {
     }
     
     public static boolean isElementVisibleWithTimeout(String locator, Long msTimeout) {
-        QAFWebDriver driver = new WebDriverTestBase().getDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(msTimeout));
         try {
+            QAFWebDriver driver = new WebDriverTestBase().getDriver();
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(msTimeout));
+            wait.until(d -> driver.findElement(locator).isDisplayed());
+            System.out.println("===========> True");
+            return true;
+        } catch (TimeoutException e) {
+            System.out.println("===========> False");
+            return false;
+        }
+
+
+
+//        return isElementVisibleWithTimeoutInternal(locator,msTimeout);
+//        new QAFWebElementWait(this, msTimeout).ignoring(NoSuchElementException.class, RuntimeException.class)
+//                .withMessage("Wait time out for " + getDescription() + " text not: " + matcher.toString())
+//                .until(QAFWebElementExpectedConditions.elementTextNotEq(matcher));
+//
+
+//        QAFWebDriver driver = new WebDriverTestBase().getDriver();
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(msTimeout));
+//        try {
+//            wait.until(d -> driver.findElement(locator).isDisplayed());
+//        } catch (TimeoutException e) {
+//            return false;
+//        }
+//        return true;
+    }
+
+    private static boolean isElementVisibleWithTimeoutInternal(String locator, Long msTimeout) {
+//        WebDriver driver = new WebDriverTestBase().getDriver();
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(msTimeout));
+//
+//        driver.manage().timeouts().pageLoadTimeout(Duration.ofMillis(Long.parseLong(getBundle().getPropertyValue("custom.page.timeout"))));
+//        driver.manage().window().setSize(new Dimension(Integer.parseInt(width.trim()), Integer.parseInt(height.trim())));
+//
+//        new QAFWebElementWait(this, msTimeout).ignoring(NoSuchElementException.class, RuntimeException.class)
+//                .until(QAFWebElementExpectedConditions.elementVisible(locator));
+//
+
+        try {
+            QAFWebDriver driver = new WebDriverTestBase().getDriver();
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(msTimeout));
             wait.until(d -> driver.findElement(locator).isDisplayed());
         } catch (TimeoutException e) {
             return false;
         }
         return true;
     }
-    
+
     /**
      * Store a list object to use later on. Stored list object can be
      * retrieved in other steps as ${varname}
