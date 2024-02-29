@@ -488,80 +488,90 @@ public class D365CRM {
     public static void tableEditFilterDeleteAllAndInputNew(String filters, String page) throws Exception {
         String editFilterButtonName = "Edit filters";
         switch (getD365CrmVersion()) {
-            case ("v9.1"): { editFilterButtonName = "Open advanced filtering panel"; break;}
-            case ("v9.2"): { editFilterButtonName = "Edit filters"; break;}
-        }
-
-        BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"MAIN",editFilterButtonName));
-        BrowserGlobal.iClickOn(d365Loc.button(page,"MAIN",editFilterButtonName));
-        BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"TABLE_EDIT_FILTER_PANEL_BUTTON","Apply"));
-
-
-//        BrowserGlobal.iWaitUntilElementVisible(d365Loc.tableEditFilterPanelButton(page,"Delete all filters"));
-//        BrowserGlobal.iClickOn(d365Loc.tableEditFilterPanelButton(page,"Delete all filters"));
-//        BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER","Delete all filters"));
-//        BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER","Delete all filters"));
-        for (int i = 0; i < 10; i++) {
-            if (BrowserGlobal.isElementCurrentlyVisible(d365Loc.button(page,"TABLE_EDIT_FILTER","More commands::1"))){
-                BrowserGlobal.iClickOn(d365Loc.button(page,"TABLE_EDIT_FILTER","More commands::1"));
-                BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU","Delete"));
-                BrowserGlobal.iClickOn(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU","Delete"));
-                BrowserGlobal.iWaitForSeconds("1");
-            } else {
+            case ("v9.1"): { editFilterButtonName = "Open advanced filtering panel";
+                BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"MAIN","Open advanced filtering panel"));
+                BrowserGlobal.iClickOn(d365Loc.button(page,"MAIN","Open advanced filtering panel"));
+                BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"TABLE_EDIT_FILTER","Apply"));
+                for (int i = 0; i < 50; i++) {
+                    if (BrowserGlobal.isElementCurrentlyVisible(d365Loc.button(page,"TABLE_EDIT_FILTER","More commands::1"))){
+                        BrowserGlobal.iClickOn(d365Loc.button(page,"TABLE_EDIT_FILTER","More commands::1"));
+                        BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU","Delete"));
+                        BrowserGlobal.iClickOn(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU","Delete"));
+                        BrowserGlobal.iWaitForSeconds("1");
+                    } else {
+                        break;
+                    }
+                }
+                break;}
+            default: {
+                BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"MAIN","Edit filters"));
+                BrowserGlobal.iClickOn(d365Loc.button(page,"MAIN","Edit filters"));
+                BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"TABLE_EDIT_FILTER","Apply"));
+                BrowserGlobal.iClickOn(d365Loc.button(page,"TABLE_EDIT_FILTER","Delete all filters"));
                 break;
             }
-
         }
+
+//        BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"MAIN",editFilterButtonName));
+//        BrowserGlobal.iClickOn(d365Loc.button(page,"MAIN",editFilterButtonName));
+//        BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"TABLE_EDIT_FILTER_PANEL_BUTTON","Apply"));
+//        for (int i = 0; i < 50; i++) {
+//            if (BrowserGlobal.isElementCurrentlyVisible(d365Loc.button(page,"TABLE_EDIT_FILTER","More commands::1"))){
+//                BrowserGlobal.iClickOn(d365Loc.button(page,"TABLE_EDIT_FILTER","More commands::1"));
+//                BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU","Delete"));
+//                BrowserGlobal.iClickOn(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU","Delete"));
+//                BrowserGlobal.iWaitForSeconds("1");
+//            } else {
+//                break;
+//            }
+//        }
         String[] filterArray = filters.split("],\\[");
         int filterCount = 0;
         for ( String filter : filterArray )
         {
             filterCount = filterCount + 1;
-            BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_BUTTON","Add new level 1 expression"));
-            BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST","Add row"));
-            BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST","Add row"));
-//            System.out.println("=========> " + filter.replace("[","").replace("]",""));
+
+            BrowserGlobal.iClickOn(d365Loc.button(page,"TABLE_EDIT_FILTER","Add new level 1 expression"));
+            BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU","Add row"));
+            BrowserGlobal.iClickOn(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU","Add row"));
             int counter = 0;
             String[] rowFilter = filter.replace("[","").replace("]","").split("','");
             for (String singleFilter : rowFilter)
             {
                 counter = counter + 1;
                 singleFilter = singleFilter.replace("'","").trim();
-//                System.out.println("======> " + singleFilter);
                 if (counter == 1) {
-                    BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","field selector:"+filterCount));
-//                    BrowserGlobal.iInputInTo(singleFilter,d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","field selector:"+filterCount));
-                    BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","field selector:"+filterCount));
-                    BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST",singleFilter));
-                    BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST",singleFilter));
-//                    BrowserGlobal.iPressTabKeyTimes("1");
+                    BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"TABLE_EDIT_FILTER","field selector::"+filterCount));
+                    BrowserGlobal.iClickOn(d365Loc.button(page,"TABLE_EDIT_FILTER","field selector::"+filterCount));
+                    BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU",singleFilter));
+                    BrowserGlobal.iClickOn(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU",singleFilter));
+
                 } else if (counter == 2) {
                     if (!singleFilter.isEmpty()) {
-                        BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_BUTTON_INSTANCE","Operator:"+filterCount));
-                        BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_BUTTON_INSTANCE","Operator:"+filterCount));
-                        BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST",singleFilter));
-                        BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST",singleFilter));
+                        BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"TABLE_EDIT_FILTER","Operator::"+filterCount));
+                        BrowserGlobal.iClickOn(d365Loc.button(page,"TABLE_EDIT_FILTER","Operator::"+filterCount));
+                        BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU",singleFilter));
+                        BrowserGlobal.iClickOn(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU",singleFilter));
                     }
                 } else if (counter == 3) {
                     if (!singleFilter.isEmpty()) {
                         String[] valueFilters = singleFilter.replace("'","").split(",");
                         for (String valFilter : valueFilters)
                         {
-//                            System.out.println("=> " + valFilter);
-                            BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","Value:"+filterCount));
-                            BrowserGlobal.iWaitForSeconds("1");
-                            if (BrowserGlobal.isElementCurrentlyVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST",valFilter))) {
-                                BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST",valFilter));
+                            BrowserGlobal.iClickOn(d365Loc.inputText(page,"TABLE_EDIT_FILTER","Value::"+filterCount));
+                            if (BrowserGlobal.isElementVisibleWithTimeout(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU",valFilter),"2000")) {
+                                BrowserGlobal.iClickOn(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU",valFilter));
                             } else {
-                                BrowserGlobal.iInputInTo(valFilter,d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","Value:"+filterCount));
+                                BrowserGlobal.iInputInTo(valFilter,d365Loc.inputText(page,"TABLE_EDIT_FILTER","Value::"+filterCount));
                             }
                         }
                     }
                 }
             }
         }
-        BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_BUTTON","Apply the current advanced filters"));
-        BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_BUTTON","Apply the current advanced filters"));
+        BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"TABLE_EDIT_FILTER","Apply"));
+        BrowserGlobal.iClickOn(d365Loc.button(page,"TABLE_EDIT_FILTER","Apply"));
+
     }
 
     /**

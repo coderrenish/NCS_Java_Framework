@@ -600,11 +600,11 @@ public class d365Loc {
                 case ("v9.2"):
                 default: { filedLocation = "//ul[@role='menu']/descendant::"; break; }
             }
-        } else if (fieldLoc_main.equalsIgnoreCase("DROPDOWN_TABLE_EDIT_FILTER_MENU")){
+        }  else if (fieldLoc_main.equalsIgnoreCase("DROPDOWN_TABLE_EDIT_FILTER_MENU")){
             switch (d365PlatformVersion) {
                 case ("v9.1"):
                 case ("v9.2"):
-                default: { filedLocation = "//div[contains(@class,'ms-ContextualMenu-Callout')]/descendant::"; break; }
+                default: { filedLocation = "//div[contains(@class,'ms-Callout-container')]/descendant::"; break; }
             }
         } else if (fieldLoc_main.equalsIgnoreCase("DROPDOWN_TABLE_COLUMN")){
             switch (d365PlatformVersion) {
@@ -944,6 +944,8 @@ public static String systemViewOrHeaderTitle(String argPage, String argFieldLoca
                     locEntry("xpath","//button[text()='<field_name>']");
                     locEntry("xpath","//button[contains(@aria-label,'<field_name>')]");
                     locEntry("xpath","//button[contains(@title,'<field_name>')]");
+                    locEntry("xpath","//button/descendant::span[text()='<field_name>']");
+                    locEntry("xpath","//button/descendant::label[text()='<field_name>']");
                     break;
                 }
             }
