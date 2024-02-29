@@ -486,12 +486,32 @@ public class D365CRM {
      */
     @QAFTestStep(description = "D365CRM: Table-Edit-Filter-Delete-All-And-Input-New filters:{0} Page:{1}")
     public static void tableEditFilterDeleteAllAndInputNew(String filters, String page) throws Exception {
-        BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"MAIN","Edit filters"));
-        BrowserGlobal.iClickOn(d365Loc.button(page,"MAIN","Edit filters"));
+        String editFilterButtonName = "Edit filters";
+        switch (getD365CrmVersion()) {
+            case ("v9.1"): { editFilterButtonName = "Open advanced filtering panel"; break;}
+            case ("v9.2"): { editFilterButtonName = "Edit filters"; break;}
+        }
+
+        BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"MAIN",editFilterButtonName));
+        BrowserGlobal.iClickOn(d365Loc.button(page,"MAIN",editFilterButtonName));
+        BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"TABLE_EDIT_FILTER_PANEL_BUTTON","Apply"));
+
+
 //        BrowserGlobal.iWaitUntilElementVisible(d365Loc.tableEditFilterPanelButton(page,"Delete all filters"));
 //        BrowserGlobal.iClickOn(d365Loc.tableEditFilterPanelButton(page,"Delete all filters"));
-        BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_BUTTON","Delete all filters"));
-        BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_BUTTON","Delete all filters"));
+//        BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER","Delete all filters"));
+//        BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER","Delete all filters"));
+        for (int i = 0; i < 10; i++) {
+            if (BrowserGlobal.isElementCurrentlyVisible(d365Loc.button(page,"TABLE_EDIT_FILTER","More commands::1"))){
+                BrowserGlobal.iClickOn(d365Loc.button(page,"TABLE_EDIT_FILTER","More commands::1"));
+                BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU","Delete"));
+                BrowserGlobal.iClickOn(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU","Delete"));
+                BrowserGlobal.iWaitForSeconds("1");
+            } else {
+                break;
+            }
+
+        }
         String[] filterArray = filters.split("],\\[");
         int filterCount = 0;
         for ( String filter : filterArray )
@@ -500,15 +520,14 @@ public class D365CRM {
             BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_BUTTON","Add new level 1 expression"));
             BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST","Add row"));
             BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST","Add row"));
-
-            System.out.println("=========> " + filter.replace("[","").replace("]",""));
+//            System.out.println("=========> " + filter.replace("[","").replace("]",""));
             int counter = 0;
             String[] rowFilter = filter.replace("[","").replace("]","").split("','");
             for (String singleFilter : rowFilter)
             {
                 counter = counter + 1;
                 singleFilter = singleFilter.replace("'","").trim();
-                System.out.println("======> " + singleFilter);
+//                System.out.println("======> " + singleFilter);
                 if (counter == 1) {
                     BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","field selector:"+filterCount));
 //                    BrowserGlobal.iInputInTo(singleFilter,d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","field selector:"+filterCount));
@@ -517,25 +536,25 @@ public class D365CRM {
                     BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST",singleFilter));
 //                    BrowserGlobal.iPressTabKeyTimes("1");
                 } else if (counter == 2) {
-                    if (singleFilter != null && !singleFilter.equals("")) {
+                    if (!singleFilter.isEmpty()) {
                         BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_BUTTON_INSTANCE","Operator:"+filterCount));
                         BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_BUTTON_INSTANCE","Operator:"+filterCount));
                         BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST",singleFilter));
                         BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST",singleFilter));
                     }
                 } else if (counter == 3) {
-                    if (singleFilter != null && !singleFilter.equals("")) {
+                    if (!singleFilter.isEmpty()) {
                         String[] valueFilters = singleFilter.replace("'","").split(",");
                         for (String valFilter : valueFilters)
                         {
-                            System.out.println("=> " + valFilter);
-                            BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","Value:"+filterCount));
+//                            System.out.println("=> " + valFilter);
                             BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","Value:"+filterCount));
-                            BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST",valFilter));
-                            BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST",valFilter));
-//                            BrowserGlobal.iInputInTo(valFilter,d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","Value:"+filterCount));
-//                            BrowserGlobal.iWaitForSeconds("1");
-//                            BrowserGlobal.iPressTabKeyTimes("1");
+                            BrowserGlobal.iWaitForSeconds("1");
+                            if (BrowserGlobal.isElementCurrentlyVisible(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST",valFilter))) {
+                                BrowserGlobal.iClickOn(d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_MENU_LIST",valFilter));
+                            } else {
+                                BrowserGlobal.iInputInTo(valFilter,d365Loc.loc(page,"TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE","Value:"+filterCount));
+                            }
                         }
                     }
                 }
@@ -683,7 +702,7 @@ public class D365CRM {
      * @param page [Page name]
      */
     @QAFTestStep(description = "D365CRM: Wait-And-Verify-Page-Header Text:{0} Page:{1}")
-    public static void waitAndVerifyPageHeader(String header_text,String page) throws Exception {
+    public static void WaitAndVerifyPageHeader(String header_text,String page) throws Exception {
         BrowserGlobal.iWaitForPageToLoad();
         BrowserGlobal.iWaitUntilElementVisible(d365Loc.systemViewOrHeaderTitle(page,"main", header_text));
         BrowserGlobal.iAssertElementPresent(d365Loc.systemViewOrHeaderTitle(page,"main", header_text));
@@ -850,6 +869,7 @@ public class D365CRM {
     public static void verifyText(String text, String page) throws Exception {
         page = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,text,"OTHER");
+        BrowserGlobal.iWaitUntilElementVisible(d365Loc.text(page,fieldLoc,text));
         BrowserGlobal.iAssertElementPresent(d365Loc.text(page,fieldLoc,text));
 //        BrowserGlobal.iAssertElementPresent(loc.get(page,"d365_error_text",error_Text));
 //        BrowserGlobal.iAssertElementPresent("xpath=//span[contains(@id,'error-message')][contains(text(),'"+error_Text.trim()+"']");
@@ -1051,21 +1071,36 @@ public class D365CRM {
     public static void verifyTableCellValueIs(String cell_value, String row_number, String column_number, String page) throws Exception {
         int tempRowNum = Integer.parseInt(row_number) + 1;
         int tempColNum = Integer.parseInt(column_number) + 1;
-        boolean scrollStatus = false;
-        for (int i = 0; i < 25; i++) {
-            try {
-                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum),"3");
-                break;
-            } catch (Exception e) {
-                BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",d365Loc.scrollHorizontal(page));
-                scrollStatus = true;
-            }
+        BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::1"),"2");
+        BrowserGlobal.iClickOn(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::1"));
+        for (int i = 1; i < tempColNum; i++) {
+            BrowserGlobal.iPressKey("ARROW_RIGHT");
+            BrowserGlobal.iWaitForMilliseconds("150");
         }
-        BrowserGlobal.iWaitForPageToLoad();
-        BrowserGlobal.iAssertInnerHtmlContains(d365Loc.tableCellValue(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum),cell_value);
-        if (scrollStatus) {
-            BrowserGlobal.iScrollHorizontalUsingScrollLocator("-500",d365Loc.scrollHorizontal(page));
+        BrowserGlobal.iAssertInnerHtmlIs(d365Loc.tableCellValue(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum),cell_value);
+        for (int i = 1; i < tempColNum; i++) {
+            BrowserGlobal.iPressKey("ARROW_LEFT");
+            BrowserGlobal.iWaitForMilliseconds("150");
         }
+        BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::1"),"2");
+        BrowserGlobal.iClickOn(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::1"));
+
+
+//        boolean scrollStatus = false;
+//        for (int i = 0; i < 25; i++) {
+//            try {
+//                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum),"3");
+//                break;
+//            } catch (Exception e) {
+//                BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",d365Loc.scrollHorizontal(page));
+//                scrollStatus = true;
+//            }
+//        }
+//        BrowserGlobal.iWaitForPageToLoad();
+//        BrowserGlobal.iAssertInnerHtmlIs(d365Loc.tableCellValue(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum),cell_value);
+//        if (scrollStatus) {
+//            BrowserGlobal.iScrollHorizontalUsingScrollLocator("-500",d365Loc.scrollHorizontal(page));
+//        }
     }
 
     /**
@@ -1073,25 +1108,42 @@ public class D365CRM {
      * @param row_number [Table row number after header from top to bottom starting from 1]
      * @param column_number [Table column number from left to right starting from 1]
      */
-    @QAFTestStep(description = "D365CRM: Verify-Table-Cell-Value Text:{0} Row:{1} Column:{2} Page:{3}")
+    @QAFTestStep(description = "D365CRM: Verify-Table-Cell-Value-Contains Text:{0} Row:{1} Column:{2} Page:{3}")
     public static void verifyTableCellValueContains(String cell_value, String row_number, String column_number, String page) throws Exception {
         int tempRowNum = Integer.parseInt(row_number) + 1;
         int tempColNum = Integer.parseInt(column_number) + 1;
-        boolean scrollStatus = false;
-        for (int i = 0; i < 25; i++) {
-            try {
-                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum),"3");
-                break;
-            } catch (Exception e) {
-                BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",d365Loc.scrollHorizontal(page));
-                scrollStatus = true;
-            }
+        BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::1"),"2");
+        BrowserGlobal.iClickOn(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::1"));
+        for (int i = 1; i < tempColNum; i++) {
+            BrowserGlobal.iPressKey("ARROW_RIGHT");
+            BrowserGlobal.iWaitForMilliseconds("150");
         }
-        BrowserGlobal.iWaitForPageToLoad();
         BrowserGlobal.iAssertInnerHtmlContains(d365Loc.tableCellValue(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum),cell_value);
-        if (scrollStatus) {
-            BrowserGlobal.iScrollHorizontalUsingScrollLocator("-500",d365Loc.scrollHorizontal(page));
+        for (int i = 1; i < tempColNum; i++) {
+            BrowserGlobal.iPressKey("ARROW_LEFT");
+            BrowserGlobal.iWaitForMilliseconds("150");
         }
+        BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::1"),"2");
+        BrowserGlobal.iClickOn(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::1"));
+
+
+//        int tempRowNum = Integer.parseInt(row_number) + 1;
+//        int tempColNum = Integer.parseInt(column_number) + 1;
+//        boolean scrollStatus = false;
+//        for (int i = 0; i < 25; i++) {
+//            try {
+//                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum),"3");
+//                break;
+//            } catch (Exception e) {
+//                BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",d365Loc.scrollHorizontal(page));
+//                scrollStatus = true;
+//            }
+//        }
+//        BrowserGlobal.iWaitForPageToLoad();
+//        BrowserGlobal.iAssertInnerHtmlContains(d365Loc.tableCellValue(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum),cell_value);
+//        if (scrollStatus) {
+//            BrowserGlobal.iScrollHorizontalUsingScrollLocator("-500",d365Loc.scrollHorizontal(page));
+//        }
 
     }
 
@@ -1106,20 +1158,37 @@ public class D365CRM {
     public static void storeTableCellValueToVariable(String row_number, String column_number, String to_variable, String page) throws Exception {
         int tempRowNum = Integer.parseInt(row_number) + 1;
         int tempColNum = Integer.parseInt(column_number) + 1;
-        boolean scrollStatus = false;
-        for (int i = 0; i < 25; i++) {
-            try {
-                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum),"2");
-                break;
-            } catch (Exception e) {
-                BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",d365Loc.scrollHorizontal(page));
-                scrollStatus = true;
-            }
+        BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::1"),"2");
+        BrowserGlobal.iClickOn(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::1"));
+        for (int i = 1; i < tempColNum; i++) {
+            BrowserGlobal.iPressKey("ARROW_RIGHT");
+            BrowserGlobal.iWaitForMilliseconds("150");
         }
         BrowserGlobal.iStoreValueIntoVariable(BrowserGlobal.iGetTextFromInnerHtml(d365Loc.tableCellValue(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum)),to_variable);
-        if (scrollStatus) {
-            BrowserGlobal.iScrollHorizontalUsingScrollLocator("-500",d365Loc.scrollHorizontal(page));
+        for (int i = 1; i < tempColNum; i++) {
+            BrowserGlobal.iPressKey("ARROW_LEFT");
+            BrowserGlobal.iWaitForMilliseconds("150");
         }
+        BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::1"),"2");
+        BrowserGlobal.iClickOn(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::1"));
+
+//
+//        int tempRowNum = Integer.parseInt(row_number) + 1;
+//        int tempColNum = Integer.parseInt(column_number) + 1;
+//        boolean scrollStatus = false;
+//        for (int i = 0; i < 25; i++) {
+//            try {
+//                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum),"2");
+//                break;
+//            } catch (Exception e) {
+//                BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",d365Loc.scrollHorizontal(page));
+//                scrollStatus = true;
+//            }
+//        }
+//        BrowserGlobal.iStoreValueIntoVariable(BrowserGlobal.iGetTextFromInnerHtml(d365Loc.tableCellValue(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum)),to_variable);
+//        if (scrollStatus) {
+//            BrowserGlobal.iScrollHorizontalUsingScrollLocator("-500",d365Loc.scrollHorizontal(page));
+//        }
 
     }
 //    /**
@@ -1244,6 +1313,8 @@ public class D365CRM {
         return argFieldName.contains("::") ? argFieldName.trim() + "::"+ argAdditionalVal_1 : argFieldName.trim() + ":: ::"+ argAdditionalVal_1;
     }
 
-
+    private static String getD365CrmVersion(){
+        return getBundle().getPropertyValue("d365.crm.version").equalsIgnoreCase("d365.crm.version") ? "v9.1" : "v"+getBundle().getPropertyValue("d365.crm.version").toLowerCase();
+    }
 
 }
