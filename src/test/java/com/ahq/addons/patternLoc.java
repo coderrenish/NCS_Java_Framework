@@ -243,6 +243,16 @@ public class patternLoc {
      * @param page [Page of the locator]
      * @param fieldName [Field Name: Eg: First Name - Note for Radio button use ":" tell the value Eg: Choose Payment Type:Cash]
      **/
+    public static String text(String page, String fieldName) throws Exception{
+        String fieldType = "text";
+        String locator = checkLoc(page, fieldType, fieldName);
+        if (locator.contains("auto.")) {  generateLoc(locator,fieldName,fieldType); }
+        return locator;
+    }
+    /**
+     * @param page [Page of the locator]
+     * @param fieldName [Field Name: Eg: First Name - Note for Radio button use ":" tell the value Eg: Choose Payment Type:Cash]
+     **/
     public static String breadcrumb(String page, String fieldName) throws Exception{
         String fieldType = "breadcrumb";
         String locator = checkLoc(page, fieldType, fieldName);
