@@ -454,11 +454,22 @@ public class D365CRM {
         String[] tempFieldVal = fieldValueCheck(text);
         text = tempFieldVal[0];
         String instance = (tempFieldVal[1].isEmpty()) ? "::1" : tempFieldVal[1];
+        switch (getD365CrmVersion()) {
+            case ("v9.1"): {  BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputText(page,"MAIN","Search this view"+instance));
+                BrowserGlobal.iScrollToAnElement(d365Loc.inputText(page,"MAIN","Search this view"+instance));
+                BrowserGlobal.iClickOn(d365Loc.inputText(page,"MAIN","Search this view"+instance));
+                BrowserGlobal.iInputInTo(text,d365Loc.inputText(page,"MAIN","Search this view"+instance));
+                break;
+            }
+            case ("v9.2"):
+            default: {
+                BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputText(page,"MAIN","Filter by keyword"+instance));
+                BrowserGlobal.iScrollToAnElement(d365Loc.inputText(page,"MAIN","Filter by keyword"+instance));
+                BrowserGlobal.iClickOn(d365Loc.inputText(page,"MAIN","Filter by keyword"+instance));
+                BrowserGlobal.iInputInTo(text,d365Loc.inputText(page,"MAIN","Filter by keyword"+instance));
+            }
+        }
 
-        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputText(page,"MAIN","Filter by keyword"+instance));
-        BrowserGlobal.iScrollToAnElement(d365Loc.inputText(page,"MAIN","Filter by keyword"+instance));
-        BrowserGlobal.iClickOn(d365Loc.inputText(page,"MAIN","Filter by keyword"+instance));
-        BrowserGlobal.iInputInTo(text,d365Loc.inputText(page,"MAIN","Filter by keyword"+instance));
         BrowserGlobal.iPressReturnOrEnterKey();
         BrowserGlobal.iWaitForMilliseconds("1000");
         BrowserGlobal.iWaitForPageToLoad();
@@ -531,7 +542,7 @@ public class D365CRM {
         {
             filterCount = filterCount + 1;
 
-            BrowserGlobal.iClickOn(d365Loc.button(page,"TABLE_EDIT_FILTER","Add new level 1 expression"));
+            BrowserGlobal.iClickOn(d365Loc.button(page,"TABLE_EDIT_FILTER","Add"));
             BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU","Add row"));
             BrowserGlobal.iClickOn(d365Loc.button(page,"DROPDOWN_TABLE_EDIT_FILTER_MENU","Add row"));
             int counter = 0;
