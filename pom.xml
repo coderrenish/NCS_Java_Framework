@@ -7,7 +7,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>qaf-blank-project-maven</name>
+  <name>ncs-blank-project-maven</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -16,6 +16,7 @@
     <sourceVersion>11</sourceVersion>
     <targetVersion>11</targetVersion>
     <qaf.version>4.0.0-RC2</qaf.version>
+    <qaf-support-ws.version>4.0.0-RC2</qaf-support-ws.version>
     <selenium.version>4.15.0</selenium.version>
     <test.results.dir>test-results</test.results.dir>
     <run.time>${maven.build.timestamp}</run.time>
@@ -54,6 +55,11 @@
         </exclusion>
       </exclusions>
     </dependency>
+        <dependency>
+          <groupId>com.qmetry</groupId>
+          <artifactId>qaf-support-ws</artifactId>
+          <version>${qaf-support-ws.version}</version>
+        </dependency>
     <!--Used by Custom Report Generator -->
     <dependency>
       <groupId>com.googlecode.json-simple</groupId>
