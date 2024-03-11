@@ -1773,18 +1773,32 @@ public class BrowserGlobal {
         getBundle().setProperty("selenium.wait.timeout", defaultTimeout);
         return status;
     }
-    
-    public static boolean isElementVisibleWithTimeout(String locator, Long msTimeout) {
+
+    public static boolean isElementVisibleWithTimeout(String locator, String msTimeout) {
+        boolean status;
+        int defaultTimeout = getBundle().getInt("selenium.wait.timeout");
+        getBundle().setProperty("selenium.wait.timeout", Long.parseLong(msTimeout));
         try {
-            QAFWebDriver driver = new WebDriverTestBase().getDriver();
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(msTimeout));
-            wait.until(d -> driver.findElement(locator).isDisplayed());
-            System.out.println("===========> True");
-            return true;
+            status = $(locator).isDisplayed();
         } catch (TimeoutException e) {
-            System.out.println("===========> False");
+            getBundle().setProperty("selenium.wait.timeout", defaultTimeout);
             return false;
         }
+        getBundle().setProperty("selenium.wait.timeout", defaultTimeout);
+        return status;
+    }
+    
+//    public static boolean isElementVisibleWithTimeout(String locator, Long msTimeout) {
+//        try {
+//            QAFWebDriver driver = new WebDriverTestBase().getDriver();
+//            WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(msTimeout));
+//            wait.until(d -> driver.findElement(locator).isDisplayed());
+//            System.out.println("===========> True");
+//            return true;
+//        } catch (TimeoutException e) {
+//            System.out.println("===========> False");
+//            return false;
+//        }
 
 
 
@@ -1802,7 +1816,7 @@ public class BrowserGlobal {
 //            return false;
 //        }
 //        return true;
-    }
+//    }
 
     private static boolean isElementVisibleWithTimeoutInternal(String locator, Long msTimeout) {
 //        WebDriver driver = new WebDriverTestBase().getDriver();
