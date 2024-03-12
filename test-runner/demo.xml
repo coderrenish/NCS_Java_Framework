@@ -8,11 +8,11 @@
     <parameter name="log4j.logger.freemarker.cache" value="INFO, CONSOLE"/>
     <parameter name="exec.name" value="Config-1 Execution 1"/>
     <parameter name="exec.index" value="1"/>
-    <parameter name="env.code" value="${env.code}"/>
-    <parameter name="env.resources" value="resources;environment-config/${env.code};execution-config/${env.code}"/>
-    <parameter name="include" value="{'groups':['TST-04']}"/>
+    <parameter name="env.code" value="DEMO"/>
+    <parameter name="env.resources" value="resources;environment-config/DEMO;execution-config/DEMO"/>
+    <parameter name="include" value="{'groups':['TST-01']}"/>
     <classes>
       <class name="com.qmetry.qaf.automation.step.client.text.BDDTestFactory2"/>
     </classes>
   </test>
-</suite>
+ </suite>
