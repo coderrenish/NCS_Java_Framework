@@ -1,10 +1,11 @@
 # Locator for Demo site : https://www.saucedemo.com/
-# “Input”, “link”, “text”, “radioButton”, “checkbox”, “select”, “button”, "tab"
+# “Input”, "textarea", "“link”, “text”, “radioButton”, “checkbox”, “select”, “button”, "tab"
+
 
 
 #Login Page
-loc.login.input.username = {"locator":["id=user-name","name=user-name"],"desc":"Username field"}
-#loc.login.input.password = {"locator":["id=password","name=password"],"desc":"Password field"}
+loc.login.input.username = {"locator":["id=user-name1","name=user-name"],"desc":"Username field"}
+loc.login.input.password = {"locator":["id=password","name=password"],"desc":"Password field"}
 
 loc.login.button.login = {"locator":["id=login-button","name=login-button"],"desc":"Login button"}
 
