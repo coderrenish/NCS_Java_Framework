@@ -9,6 +9,7 @@ public class Utils {
     public static String password_encrypt(String encryptedPassword) { return UtilPassword.encrypt(encryptedPassword);}
     public static String password_decrypt(String password) { return UtilPassword.decrypt(password);}
     public static String password_check(String password) { return UtilPassword.check(password);}
+    public static String base64_decrypt(String base64String) { return UtilBase64.decrypt(base64String);}
 
     //Date & Time Utils
     public static String dateTime_currentDate() { return UtilDateTime.currentDate();}

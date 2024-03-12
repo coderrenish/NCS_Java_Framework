@@ -36,10 +36,10 @@ public class UtilDateTime {
      * @param numberOfAdditionalDays [int] [Additional number of Days to the current date]
      */
     public static String currentTimeWithFormatPlusAdditionalDays(String format, int numberOfAdditionalDays) {
-        LocalDate localDate = LocalDate.now();
-        LocalDate localDatePlusAdditionalDays = localDate.plusDays(numberOfAdditionalDays);
+        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDateTime localDateTimePlusAdditionalDays = localDateTime.plusDays(numberOfAdditionalDays);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-        return formatter.format(localDatePlusAdditionalDays);
+        return formatter.format(localDateTimePlusAdditionalDays);
     }
     
     public static String dateWithFormatAndBusinessDaysFromCurrent(String format, int numberOfAdditionalDays) {
