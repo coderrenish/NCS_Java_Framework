@@ -1,7 +1,7 @@
 package com.ahq.listeners;
 
 import com.ahq.objects.ExtentReportManager;
-import com.ahq.utils.stringManipulation;
+import com.ahq.addons.stringManipulation;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
@@ -11,9 +11,6 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
