@@ -1,4 +1,4 @@
-package com.ahq.utils;
+package com.ahq.addons;
 
 public class stringManipulation {
     
