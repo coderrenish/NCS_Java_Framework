@@ -31,7 +31,7 @@ public class patternLoc {
         String fieldType = "input";
         String locator = checkLoc(page, fieldType, fieldName);
         if (locator.contains("auto.")) {
-            generateLoc(locator,fieldNameCheck(fieldName),fieldType); // Note: Instance is removed as it is checked in forValue
+            generateLoc(locator,fieldName,fieldType);
         }
         return locator;
     }
@@ -56,6 +56,20 @@ public class patternLoc {
      **/
     public static String link(String page, String fieldName) throws Exception{
         String fieldType = "link";
+        String locator = checkLoc(page, fieldType, fieldName);
+        if (locator.contains("auto.")) {
+            generateLoc(locator,fieldName,fieldType);
+        }
+        return locator;
+    }
+
+    /**
+     * @param page [Page of the locator]
+     * @param fieldName [Link Name]
+     *
+     **/
+    public static String link(String page, String fieldName, String section) throws Exception{
+        String fieldType = section.trim().toLowerCase() + ".link";
         String locator = checkLoc(page, fieldType, fieldName);
         if (locator.contains("auto.")) {
             generateLoc(locator,fieldName,fieldType);
