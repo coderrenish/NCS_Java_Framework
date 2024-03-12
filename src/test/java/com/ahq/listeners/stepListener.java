@@ -1,6 +1,6 @@
 package com.ahq.listeners;
 
-import com.ahq.utils.stringManipulation;
+import com.ahq.addons.stringManipulation;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.markuputils.ExtentColor;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.ahq.utils.pwd.SECRET_STRINGS;
+import static com.ahq.globals.utilities.UtilPassword.SECRET_STRINGS;
 
 
 public class stepListener implements QAFTestStepListener {
