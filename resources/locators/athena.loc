@@ -1,1 +1,11 @@
+# “Input”, "textarea", "“link”, “text”, “radioButton”, “checkbox”, “select”, “button”, "tab"
+
  #loc.login.button.next={"locator":["id=idSIButton9"],"desc":"Next field"}
+#loc.memberships.lookupExtValue.person={"locator":["xpath=//div[contains(@data-id,'fieldControl-LookupResultsDropdown')][@title='AFFAR MEDIA'][contains(@id,'person')]"],"desc":"Person field"}
+
+loc.general.loader.saving={"locator":["xpath=//span[@aria-live='polite'][@role='alert]"],"desc":"Saving loader field"}
+
+
+# View Dropdown option: //div[@aria-label='View Options']//descendant::label[text()='Social Memberships']
+
+ loc.d365Loc.crm.membershipApplications.none.tableHeader.recordCreatedOn4={"locator":["xpath=((//div[@class='ag-header-container'])[1]/descendant::div[@aria-colindex='4']/descendant::div[text()='Record Created On'])[1]","xpath=div[@aria-rowindex='1'][@aria-label='Header']/descendant::div[@aria-colindex='4'][@title='Record Created On']"],"desc":"TABLE_HEADER Field: Record Created On:: ::4"}
