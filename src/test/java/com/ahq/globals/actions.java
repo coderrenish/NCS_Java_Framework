@@ -1,7 +1,7 @@
 package com.ahq.globals;
 
-import com.ahq.utils.loc;
-import com.ahq.utils.pwd;
+import com.ahq.addons.loc;
+import com.ahq.addons.pwd;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import org.openqa.selenium.ElementClickInterceptedException;
 
