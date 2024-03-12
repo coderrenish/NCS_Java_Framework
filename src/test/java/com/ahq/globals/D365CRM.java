@@ -454,22 +454,13 @@ public class D365CRM {
         String[] tempFieldVal = fieldValueCheck(text);
         text = tempFieldVal[0];
         String instance = (tempFieldVal[1].isEmpty()) ? "::1" : tempFieldVal[1];
-        switch (getD365CrmVersion()) {
-            case ("v9.1"): {  BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputText(page,"MAIN","Search this view"+instance));
-                BrowserGlobal.iScrollToAnElement(d365Loc.inputText(page,"MAIN","Search this view"+instance));
-                BrowserGlobal.iClickOn(d365Loc.inputText(page,"MAIN","Search this view"+instance));
-                BrowserGlobal.iInputInTo(text,d365Loc.inputText(page,"MAIN","Search this view"+instance));
-                break;
-            }
-            case ("v9.2"):
-            default: {
-                BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputText(page,"MAIN","Filter by keyword"+instance));
-                BrowserGlobal.iScrollToAnElement(d365Loc.inputText(page,"MAIN","Filter by keyword"+instance));
-                BrowserGlobal.iClickOn(d365Loc.inputText(page,"MAIN","Filter by keyword"+instance));
-                BrowserGlobal.iInputInTo(text,d365Loc.inputText(page,"MAIN","Filter by keyword"+instance));
-            }
-        }
+        String filterFieldName = "Filter by keyword";
+        if (getD365CrmVersion().equals("v9.1")) { filterFieldName = "Search this view"; }
 
+        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputText(page,"MAIN",filterFieldName+instance));
+        BrowserGlobal.iScrollToAnElement(d365Loc.inputText(page,"MAIN",filterFieldName+instance));
+        BrowserGlobal.iClickOn(d365Loc.inputText(page,"MAIN",filterFieldName+instance));
+        BrowserGlobal.iInputInTo(text,d365Loc.inputText(page,"MAIN",filterFieldName+instance));
         BrowserGlobal.iPressReturnOrEnterKey();
         BrowserGlobal.iWaitForMilliseconds("1000");
         BrowserGlobal.iWaitForPageToLoad();
