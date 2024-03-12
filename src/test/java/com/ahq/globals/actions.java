@@ -1,7 +1,7 @@
 package com.ahq.globals;
 
 import com.ahq.addons.loc;
-import com.ahq.addons.pwd;
+import com.ahq.globals.utilities.UtilPassword;
 import com.qmetry.qaf.automation.step.QAFTestStep;
 import org.openqa.selenium.ElementClickInterceptedException;
 
@@ -122,7 +122,7 @@ public class actions {
     private void performInputFill(String page, String param_1, String param_3) throws Exception {
         BrowserGlobal.iWaitUntilElementVisible(loc.get(page, "input", param_3));
         String inputText = param_1.replace("|", ",");
-        BrowserGlobal.iFillInTo(pwd.check(inputText), loc.get(page, "input", param_3));
+        BrowserGlobal.iFillInTo(UtilPassword.check(inputText), loc.get(page, "input", param_3));
     }
     
     private void performWaitAction(String page, String param_1, String param_2, String param_3, String param_4, String param_5, String param_6) throws Exception {
