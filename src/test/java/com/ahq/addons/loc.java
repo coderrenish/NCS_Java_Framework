@@ -31,7 +31,7 @@ public class loc {
 //                getBundle().setProperty("auto.loc.id","NO-ID");
 //                if (fieldType.toLowerCase().trim().equals("input") || fieldType.toLowerCase().trim().equals("inputselect")) {
 //                    try{
-//                        String locLabel = "{\"locator\":["+getBundle().getPropertyValue("loc.pattern.label")+"],\"desc\":\""+fieldName+" AUTO GEN LABEL FIELD\"}";
+//                        String locLabel = "{\"locator\":["+getBundle().getPropertyValue("loc.patternLoc.label")+"],\"desc\":\""+fieldName+" AUTO GEN LABEL FIELD\"}";
 ////                        getBundle().setProperty("auto.loc.label","{\"locator\":["+locLabel+"],\"desc\":\""+fieldName+" AUTO GEN LABEL FIELD\"}");
 ////                        getBundle().setProperty("auto.loc.label","{\"locator\":[\"xpath=//LABEL[text()='"+fieldName.trim()+"']\",\"xpath=//LABEL[@title='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" AUTO GEN LABEL FIELD\"}");
 //                        BrowserGlobal.iScrollToAnElement(locLabel);
@@ -151,7 +151,7 @@ public class loc {
 
     /**
      * @param page [Page of the locator]
-     * @param fieldType [“input”, “link”, “text”, “radio_button”, “checkbox”, “select”, “button”, "tab" - Should match with last part of pattern entry Eg: loc.XXXX.pattern.radio_button]
+     * @param fieldType [“input”, “link”, “text”, “radio_button”, “checkbox”, “select”, “button”, "tab" - Should match with last part of patternLoc entry Eg: loc.XXXX.patternLoc.radio_button]
      * @param fieldName [Field Name: Eg: First Name - Note for Radio button use ":" tell the value Eg: Choose Payment Type:Cash]
      * @param fieldInstance [Field Instance: Only mention if multiple instance of the same field exists]
      **/
@@ -179,7 +179,7 @@ public class loc {
         }
         forValue(fieldName,fieldType);
         String locVal = getBundle().getPropertyValue(locator);
-        String locPatternName = patternCode + ".pattern." + fieldType;
+        String locPatternName = patternCode + ".patternLoc." + fieldType;
         String locPatternVal = getBundle().getPropertyValue(locPatternName);
         if (locPatternVal.equals(locPatternName) || locPatternVal.length() < 5) {
             System.out.println("=====>[ERROR] => [Locator Pattern '"+ locPatternName + "' not available]");
@@ -202,7 +202,7 @@ public class loc {
         if (!argFieldType.toLowerCase().contains("checkbox") && !argFieldType.toLowerCase().contains("switch")) {
 //            String locator;
             String patternCode = getBundle().getPropertyValue("loc.pattern.code");
-            String locLabelPatternName = patternCode+".pattern.label";
+            String locLabelPatternName = patternCode+".patternLoc.label";
             String locLabelPatternVal = getBundle().getPropertyValue(locLabelPatternName);
             String forValue;
             if (locLabelPatternVal.equals(locLabelPatternName) || locLabelPatternVal.length() < 5) {

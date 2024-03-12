@@ -5,6 +5,7 @@
     <listener class-name="com.ahq.listeners.testListener"/>
   </listeners>
   <test name="LHUB Automation Tests" enabled="true" preserve-order="true">
+    <parameter name="org.freemarker.loggerLibrary" value=""/>
     <parameter name="exec.name" value="Config-1 Execution 1"/>
     <parameter name="exec.index" value="1"/>
     <parameter name="env.code" value="SIT"/>
