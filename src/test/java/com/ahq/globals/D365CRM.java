@@ -658,8 +658,9 @@ public class D365CRM {
         int tempRowNum = Integer.parseInt(row_number) + 1;
         int tempColNum = Integer.parseInt(column_number) + 1;
 
+        tableScrollDown(tempRowNum, page);
         tableScrollRight(tempRowNum, tempColNum, page);
-        BrowserGlobal.iMouseoverOn(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum));
+        BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::1"),"2");
         BrowserGlobal.iDoubleClickOn(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum));
     }
 
