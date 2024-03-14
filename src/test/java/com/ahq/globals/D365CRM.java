@@ -703,16 +703,12 @@ public class D365CRM {
     public static void clickTableCell(String row_number, String column_number, String page) throws Exception {
         int tempRowNum = Integer.parseInt(row_number) + 1;
         int tempColNum = Integer.parseInt(column_number) + 1;
-        for (int i = 0; i < 10; i++) {
-            try {
-                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum),"2");
-                break;
-            } catch (Exception e) {
-                BrowserGlobal.iScrollHorizontalUsingScrollLocator("50",d365Loc.scrollHorizontal(page));
-            }
-        }
-        BrowserGlobal.iMouseoverOn(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum));
+
+        tableScrollDown(tempRowNum, page);
+        tableScrollRight(tempRowNum, tempColNum, page);
+        BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::1"),"2");
         BrowserGlobal.iClickOn(d365Loc.tableCell(page,"TABLE","cell::none::"+tempRowNum+"::"+tempColNum));
+
     }
 
     //    /**
