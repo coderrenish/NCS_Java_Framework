@@ -840,6 +840,7 @@ public static String systemViewOrHeaderTitle(String argPage, String argFieldLoca
                 default: {
                     locEntry("xpath","//input[@aria-label='<field_name>']");
                     locEntry("xpath","//input[@placeholder='<field_name>']");
+                    locEntry("xpath","//input[@id='<field_name>']");
                     break;
                 }
             }
@@ -894,7 +895,10 @@ public static String systemViewOrHeaderTitle(String argPage, String argFieldLoca
     public static String inputLookupValue(String argPage, String argFieldLocation, String argFieldName) throws Exception{
         if (locCheck(argPage, argFieldLocation, "INPUT_LOOKUP_VALUE", argFieldName)) {
             switch (d365PlatformVersion) {
-                case ("v9.1"):
+                case ("v9.1"): {
+                    locEntry("xpath","//div[contains(text(),'<field_name>, Lookup')]/parent::div/descendant::div[text()='<field_additional_val_1>']");
+                    break;
+                }
                 case ("v9.2"):
                 default: {
                     locEntry("xpath","//ul[@title='<field_name>']/descendant::div[contains(@data-id,'fieldControl-LookupResultsDropdown')][@title='<field_additional_val_1>']");
@@ -1000,9 +1004,8 @@ public static String systemViewOrHeaderTitle(String argPage, String argFieldLoca
             switch (d365PlatformVersion) {
                 case ("v9.1"):
                 case ("v9.2"):
-                default: {//div[contains(@class,'ag-root-wrapper-body')]/descendant::
-                    locEntry("xpath","//div[@data-id='btnheaderselectcolumn']/following-sibling::div[@title='<field_name>']/descendant::i[@data-icon-name='<field_additional_val_1>']");
-                    //div[@role='columnheader'][@aria-sort='ascending']/descendant::div[contains(@class,"ms-TooltipHost")][text()='Member No.']
+                default: {
+                    locEntry("xpath","//div[@aria-rowindex='1']/descendant::div[@aria-colindex='<field_additional_val_1>' and @aria-sort='<field_name>']");
                     break;
                 }
             }
@@ -1044,6 +1047,8 @@ public static String systemViewOrHeaderTitle(String argPage, String argFieldLoca
                 case ("v9.1"):
                 case ("v9.2"):
                 default: {
+
+//                    locEntry("xpath","//div[@aria-rowindex='<field_additional_val_1>']/descendant::div[@aria-colindex='<field_additional_val_2>']/descendant::div[@class='ag-header-cell-comp-wrapper']");
                     locEntry("xpath","//div[@aria-rowindex='<field_additional_val_1>']/descendant::div[@aria-colindex='<field_additional_val_2>']");
                     break;
                 }
