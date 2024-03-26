@@ -956,6 +956,7 @@ public static String systemViewOrHeaderTitle(String argPage, String argFieldLoca
         }
         return locGeneration(argFieldName);
     }
+
     public static String text(String argPage, String argFieldLocation, String argFieldName) throws Exception{
         if (locCheck(argPage, argFieldLocation, "TEXT", argFieldName)) {
             switch (d365PlatformVersion) {
