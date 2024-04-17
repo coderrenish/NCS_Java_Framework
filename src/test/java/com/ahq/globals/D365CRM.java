@@ -173,11 +173,16 @@ public class D365CRM {
             delField = splitFields[0].replace(", Lookup","");
         }
         if (!field.contains(", Lookup")) { field = field +", Lookup"; }
-        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputLookup(page,"main",field));
-        BrowserGlobal.iScrollToAnElement(d365Loc.inputLookup(page,"main",field));
-        BrowserGlobal.iClickOn("xpath=(//*[@title='"+delField+"'])[2]");
+//        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputLookup(page,"main",field));
+//        BrowserGlobal.iScrollToAnElement(d365Loc.inputLookup(page,"main",field));
+//        BrowserGlobal.iClickOn("xpath=(//*[@title='"+delField+"'])[2]");
+
+        BrowserGlobal.iMouseoverOn(d365Loc.link(page,"main",clear_value));
+        BrowserGlobal.iWaitUntilElementPresent(d365Loc.button(page,"main","Delete "+clear_value));
+        BrowserGlobal.iScrollToAnElement(d365Loc.button(page,"main","Delete "+clear_value));
         BrowserGlobal.iWaitForMilliseconds(d365Global_input_lookup_clear_wait);
-        BrowserGlobal.iClickOn(loc.get(page,"input","Delete"));
+        BrowserGlobal.iClickOn(d365Loc.button(page,"main","Delete "+clear_value));
+//        BrowserGlobal.iClickOn(loc.get(page,"input","Delete"));
         BrowserGlobal.iWaitForMilliseconds("500");
         BrowserGlobal.iPressControlOrCommandAByOs();
         BrowserGlobal.iWaitForMilliseconds("500");

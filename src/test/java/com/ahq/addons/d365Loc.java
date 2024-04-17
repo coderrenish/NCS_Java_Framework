@@ -758,6 +758,7 @@ public class d365Loc {
                     locEntry("xpath","//li[@title='<field_name>']");
                     locEntry("xpath","//span[text()='<field_name>']");
                     locEntry("xpath","//label[text()='<field_name>']");
+                    locEntry("xpath","//div[@aria-label='<field_name>']");
                     break;
                 }
             }
@@ -1050,6 +1051,7 @@ public static String systemViewOrHeaderTitle(String argPage, String argFieldLoca
                 default: {
 
 //                    locEntry("xpath","//div[@aria-rowindex='<field_additional_val_1>']/descendant::div[@aria-colindex='<field_additional_val_2>']/descendant::div[@class='ag-header-cell-comp-wrapper']");
+                    locEntry("xpath","(//div[@aria-rowindex='<field_additional_val_1>']/descendant::div[@aria-colindex='<field_additional_val_2>'])[2]"); // This entry is added for table present inside the application in v9.2
                     locEntry("xpath","//div[@aria-rowindex='<field_additional_val_1>']/descendant::div[@aria-colindex='<field_additional_val_2>']");
                     break;
                 }
