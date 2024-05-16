@@ -420,9 +420,21 @@ public class D365CRM {
     public static void selectByText_D365CRM(String dropdown_Text, String field, String page) throws Exception {
         String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,field,"MAIN");
-        BrowserGlobal.iWaitUntilElementPresent(d365Loc.select(pageName,fieldLoc,field));
-        BrowserGlobal.iScrollToAnElement(d365Loc.select(pageName,fieldLoc,field));
-        BrowserGlobal.iSelectDropdownWithText(d365Loc.select(pageName,fieldLoc,field),dropdown_Text);
+        String fieldName = fieldNameCheck(field);
+
+        if (getD365CrmVersion().equals("v9.2.nl")) {
+            BrowserGlobal.iWaitUntilElementPresent(d365Loc.button(pageName,fieldLoc,fieldName));
+            BrowserGlobal.iScrollToAnElement(d365Loc.button(pageName,fieldLoc,fieldName));
+            BrowserGlobal.iClickOn(d365Loc.button(pageName,fieldLoc,fieldName));
+            BrowserGlobal.iWaitUntilElementPresent(d365Loc.selectListBox(page,"DROPDOWN_LISTBOX",dropdown_Text));
+            BrowserGlobal.iClickOn(d365Loc.selectListBox(page,"DROPDOWN_LISTBOX",dropdown_Text));
+        } else {
+            BrowserGlobal.iWaitUntilElementPresent(d365Loc.select(pageName,fieldLoc,fieldName));
+            BrowserGlobal.iScrollToAnElement(d365Loc.select(pageName,fieldLoc,fieldName));
+            BrowserGlobal.iSelectDropdownWithText(d365Loc.select(pageName,fieldLoc,field),dropdown_Text);
+        }
+
+
 
 //        BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"d365_select",field));
 //        BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_select",field));
@@ -938,7 +950,7 @@ public class D365CRM {
      * @param header_control_list_text [Header Control List Test (Top Right) to be Verified]
      */
     @QAFTestStep(description = "D365CRM: Verify-Header-Control-List Text:{0} Page:{1}")
-    public static void verifyHeaderControlList_D365CRM(String header_control_list_text, String page) throws Exception {
+    public static void verifyHeaderContHeaderControlList_D365CRM(String header_control_list_text, String page) throws Exception {
         String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,header_control_list_text,"MAIN")+"::HEADER_CONTROL_LIST";
         String fieldName = fieldNameCheck(header_control_list_text);
@@ -964,15 +976,17 @@ public class D365CRM {
      */
     @QAFTestStep(description = "D365CRM: Verify-Table-Header-All Text:{0} Page:{1}")
     public static void verifyTableHeaderAll_D365CRM(String header_text_all, String page) throws Exception {
-        String[] splitHeaderNames = header_text_all.split(",");
+        String[] splitHeaderNames = header_text_all.split(";");
         int colNum = 1;
-        BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::1::1"),"2");
+//        Below command has visibility issue in v9.1
+//        BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::1::1"),"2");
         BrowserGlobal.iDoubleClickOn(d365Loc.tableCell(page,"TABLE","cell::none::1::1"));
         for ( String tableHeaderName : splitHeaderNames ) {
             colNum = colNum + 1;
             BrowserGlobal.iPressKey("ARROW_RIGHT");
             BrowserGlobal.iWaitForMilliseconds("150");
-            BrowserGlobal.iAssertInnerHtmlIs(d365Loc.tableCellValue(page,"TABLE","cell::none::1::"+colNum),tableHeaderName);
+            BrowserGlobal.iAssertElementPresent(d365Loc.tableHeader(page,"NONE",tableHeaderName+"::none::"+colNum));
+//            BrowserGlobal.iAssertInnerHtmlIs(d365Loc.tableCellValue(page,"TABLE","cell::none::1::"+colNum),tableHeaderName);
         }
         tableHeaderScrollLeft(colNum);
     }
@@ -1189,6 +1203,48 @@ public class D365CRM {
         new Actions(driver).scrollFromOrigin(scrollOrigin,0 , Integer.parseInt(scroll_value)).perform();
     }
 
+    @QAFTestStep(description="D365CRM: Login to {0} with following details {1}, {2} and {3}")
+    public void loginTo_D365CRM(String name, String urlToOpen, String username, String password) throws Exception{
+
+        BrowserGlobal.iOpenWebBrowser(urlToOpen);
+        BrowserGlobal.iInputInTo(username, loc.get("Login","input","Enter your email address, phone number or Skype."));
+        BrowserGlobal.iClickOn(loc.get("Login","button","Next"));
+        BrowserGlobal.iWaitForSeconds("2");
+        BrowserGlobal.iInputInTo(password, loc.get("Login","input","Password"));
+        BrowserGlobal.iClickOn(loc.get("Login","button","Sign in"));
+        BrowserGlobal.iWaitForSeconds("2");
+        BrowserGlobal.iClickOn(loc.get("Login","button","Yes"));
+        BrowserGlobal.iWaitForSeconds("5");
+        BrowserGlobal.iWaitForPageToLoad();
+
+
+        int signinCount = 0;
+        for (int i = 0; i < 10; i++) {
+            signinCount = signinCount + 1;
+            try {
+                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(loc.get("ReLogin","button","Sign In"),"15");
+                BrowserGlobal.iClickOn(loc.get("ReLogin","button","Sign In"));
+                BrowserGlobal.iWaitForPageToLoad();
+            } catch (Exception e) {
+                break;
+            }
+        }
+        System.out.println("==signinCount=> "+signinCount);
+        if (signinCount > 2) {
+            int count = signinCount;
+            for (int j = 0; j < signinCount; j++) {
+                try {
+                    count = count - 1;
+                    BrowserGlobal.iWaitUntilElementVisibleWithTimeout("xpath=(//button[@aria-label='Sign in'])["+count+"]","3");
+                    BrowserGlobal.iClickOn("xpath=(//button[@aria-label='Sign in'])["+count+"]");
+                    BrowserGlobal.iWaitForPageToLoad();
+                } catch (Exception e) {
+                }
+            }
+        }
+
+    }
+
     private static String[] fieldValueCheck(String argFieldVal){
         String[] fVal = new String[2];
         if (argFieldVal.contains("::")) {
@@ -1253,7 +1309,8 @@ public class D365CRM {
     }
 //    tableHeaderColumnScrollForward
     private static void tableHeaderScrollRight(int colNumber, String page) throws Exception{
-        BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::1::2"),"2");
+        //        Below command has visibility issue in v9.1
+//        BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tableCell(page,"TABLE","cell::none::1::2"),"2");
         BrowserGlobal.iDoubleClickOn(d365Loc.tableCell(page,"TABLE","cell::none::1::2"));
         BrowserGlobal.iPressKey("ARROW_RIGHT");
         for (int i = 1; i < (colNumber - 1); i++) {
