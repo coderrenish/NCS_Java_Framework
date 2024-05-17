@@ -950,7 +950,7 @@ public class D365CRM {
      * @param header_control_list_text [Header Control List Test (Top Right) to be Verified]
      */
     @QAFTestStep(description = "D365CRM: Verify-Header-Control-List Text:{0} Page:{1}")
-    public static void verifyHeaderContHeaderControlList_D365CRM(String header_control_list_text, String page) throws Exception {
+    public static void verifyHeaderControlList_D365CRM(String header_control_list_text, String page) throws Exception {
         String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,header_control_list_text,"MAIN")+"::HEADER_CONTROL_LIST";
         String fieldName = fieldNameCheck(header_control_list_text);

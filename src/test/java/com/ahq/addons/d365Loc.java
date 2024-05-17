@@ -761,6 +761,7 @@ public class d365Loc {
                     locEntry("xpath","//a[@aria-label='<field_name>']");
                     locEntry("xpath","//a[@title='<field_name>']");
                     locEntry("xpath","//li[@aria-label='<field_name>']");
+                    locEntry("xpath","//li[contains(@aria-label,'<field_name>,')]"); // Added for Lookup selection with comma. (Avoid incorrect same name selection like "ABC" and "ABC Organics"
                     locEntry("xpath","//li[contains(@aria-label,'<field_name>')]");
                     locEntry("xpath","//li[@title='<field_name>']");
                     locEntry("xpath","//span[text()='<field_name>']");
