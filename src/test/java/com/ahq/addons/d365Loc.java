@@ -710,7 +710,6 @@ public class d365Loc {
             if (argLocValue.trim().charAt(0) == '/' && argLocValue.trim().charAt(1) == '/' && !filedLocation.equals("//") && !filedLocation.isEmpty()){
                 varLocValue = argLocValue.substring(2);
                 varLocValue = filedLocation + varLocValue;
-
             } else {
                 varLocValue = argLocValue;
             }
