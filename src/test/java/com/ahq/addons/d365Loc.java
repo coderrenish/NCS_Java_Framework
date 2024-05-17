@@ -707,7 +707,7 @@ public class d365Loc {
     private static void locEntry(String argLocType,String argLocValue) throws Exception{
         String varLocValue = "";
         if (argLocType.equalsIgnoreCase("xpath")) {
-            if (argLocValue.trim().charAt(0) == '/' && argLocValue.trim().charAt(1) == '/'){
+            if (argLocValue.trim().charAt(0) == '/' && argLocValue.trim().charAt(1) == '/' && !filedLocation.equals("//") && !filedLocation.isEmpty()){
                 varLocValue = argLocValue.substring(2);
                 varLocValue = filedLocation + varLocValue;
             } else {
