@@ -258,8 +258,9 @@ public class D365CRM {
      */
     @QAFTestStep(description = "D365CRM: Click-Popup-Button Text:{0}")
     public static void clickPopupButton_D365CRM(String button_text) throws Exception {
-        BrowserGlobal.iWaitUntilElementPresent(d365Loc.loc("popup","BUTTON_POPUP",button_text));
-        BrowserGlobal.iClickOn(d365Loc.loc("popup","BUTTON_POPUP",button_text));
+        BrowserGlobal.iWaitUntilElementVisible(d365Loc.button("popup","POPUP_DIALOG",button_text));
+        BrowserGlobal.iWaitUntilElementEnabled(d365Loc.button("popup","POPUP_DIALOG",button_text));
+        BrowserGlobal.iClickOn(d365Loc.button("popup","POPUP_DIALOG",button_text));
     }
 
 //    /**
@@ -281,7 +282,7 @@ public class D365CRM {
      * @param tab_text [Tab text/name to be clicked]
      * @param page [Page Name]
      */
-    @QAFTestStep(description = "D365CRM: Click-Tab Text:{0} Page:{1}")
+    @QAFTestStep(description = "D365CRM: Click-Tab Text:{0} ")
     public static void clickTabWithText_D365CRM(String tab_text, String page) throws Exception {
         String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,tab_text,"MAIN");
@@ -320,6 +321,22 @@ public class D365CRM {
         BrowserGlobal.iWaitUntilElementPresent(d365Loc.link(page,"main",link_text));
         BrowserGlobal.iScrollToAnElement(d365Loc.link(page,"main",link_text));
         BrowserGlobal.iClickOn(d365Loc.link(page,"main",link_text));
+    }
+
+    /**
+     * @param field [Field name]
+     * @param page [Page name]
+     * Note: It will work only for 1 record selection lookup
+     */
+    @QAFTestStep(description = "D365CRM: Click-Lookup-Record-Link Field:{0} Page:{1}")
+    public static void clickLookupRecordLink_D365CRM(String field,String page) throws Exception {
+        String pageName = pageNameCheck(page);
+        String fieldLoc = fieldLocCheck(page,field,"MAIN");
+        String fieldName = fieldNameCheck(field);
+
+        BrowserGlobal.iWaitUntilElementPresent(d365Loc.link(pageName,fieldLoc,fieldName+", Lookup"));
+        BrowserGlobal.iScrollToAnElement(d365Loc.link(pageName,fieldLoc,fieldName+", Lookup"));
+        BrowserGlobal.iClickOn(d365Loc.link(pageName,fieldLoc,fieldName+", Lookup"));
     }
 
     /**
@@ -425,6 +442,7 @@ public class D365CRM {
         if (getD365CrmVersion().equals("v9.2.nl")) {
             BrowserGlobal.iWaitUntilElementPresent(d365Loc.button(pageName,fieldLoc,fieldName));
             BrowserGlobal.iScrollToAnElement(d365Loc.button(pageName,fieldLoc,fieldName));
+            BrowserGlobal.iMouseoverOn(d365Loc.button(pageName,fieldLoc,fieldName));
             BrowserGlobal.iClickOn(d365Loc.button(pageName,fieldLoc,fieldName));
             BrowserGlobal.iWaitUntilElementPresent(d365Loc.selectListBox(page,"DROPDOWN_LISTBOX",dropdown_Text));
             BrowserGlobal.iClickOn(d365Loc.selectListBox(page,"DROPDOWN_LISTBOX",dropdown_Text));

@@ -767,6 +767,7 @@ public class d365Loc {
                     locEntry("xpath","//span[text()='<field_name>']");
                     locEntry("xpath","//label[text()='<field_name>']");
                     locEntry("xpath","//div[@aria-label='<field_name>']");
+                    locEntry("xpath","//DIV[text()='<field_name>']/parent::DIV/UL/LI/DIV");   //Click on Lookup selected record link
                     break;
                 }
             }
