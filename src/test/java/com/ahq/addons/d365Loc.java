@@ -767,7 +767,7 @@ public class d365Loc {
                     locEntry("xpath","//span[text()='<field_name>']");
                     locEntry("xpath","//label[text()='<field_name>']");
                     locEntry("xpath","//div[@aria-label='<field_name>']");
-                    locEntry("xpath","//DIV[text()='<field_name>']/parent::DIV/UL/LI/DIV");   //Click on Lookup selected record link
+                    locEntry("xpath","//DIV[text()='<field_name>']/parent::DIV/UL/LI/DIV/DIV");   //Click on Lookup selected record link
                     break;
                 }
             }
@@ -1139,6 +1139,21 @@ public static String systemViewOrHeaderTitle(String argPage, String argFieldLoca
             }
         }
         return locGeneration("Scroll Horizontal");
+    }
+
+    public static String scrollVertical(String argPage) throws Exception{
+        if (locCheck(argPage, "OTHER", "SCROLL", "Scroll Vertical")) {
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: {
+                    locEntry("xpath","(//H2)[1]");
+                    locEntry("xpath","(//H1)[1]");
+                    break;
+                }
+            }
+        }
+        return locGeneration("Scroll Vertical");
     }
 
 //        case ("SCROLL_HORIZONTAL"): {

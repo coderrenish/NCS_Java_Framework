@@ -8,6 +8,10 @@ import com.qmetry.qaf.automation.ui.WebDriverTestBase;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElement;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.*;
+import io.cucumber.java.en_scouse.An;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.WheelInput;
 
@@ -31,6 +35,8 @@ public class D365CRM {
      * @param field [Field name]
      * @param page [Page name]
      */
+//    @Given(D365CRM Input Text:\"{string}\" Field:\"{string}\" Page:\"{string}\"")
+    @And("D365CRM: Input Text:{string} Field:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Input Text:{0} Field:{1} Page:{2}")
     public static void inputText_D365CRM(String text,String field,String page) throws Exception {
         String pageName = pageNameCheck(page);
@@ -51,6 +57,7 @@ public class D365CRM {
      * @param field [Field name]
      * @param page [Page name]
      */
+    @And("D365CRM: Input-Date Text:{string} Field:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Input-Date Text:{0} Field:{1} Page:{2}")
     public static void inputDate_D365CRM(String date,String field,String page) throws Exception {
         String pageName = pageNameCheck(page);
@@ -74,6 +81,7 @@ public class D365CRM {
      * @param field [Field name]
      * @param page [Page name]
      */
+    @And("D365CRM: Input-Time Text:{string} Field:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Input-Time Text:{0} Field:{1} Page:{2}")
     public static void inputTime_d365Crm(String time,String field,String page) throws Exception {
         String pageName = pageNameCheck(page);
@@ -93,6 +101,7 @@ public class D365CRM {
      * @param field [Field name]
      * @param page [Page name]
      */
+    @And("D365CRM: Input-Lookup Text:{string} Field:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Input-Lookup Text:{0} Field:{1} Page:{2}")
     public static void inputLookUp_D365CRM(String text, String field, String page) throws Exception {
         String pageName = pageNameCheck(page);
@@ -164,6 +173,7 @@ public class D365CRM {
      * @param field [Field name]
      * @param page [Page name]
      */
+    @And("D365CRM: Input-Lookup Text:{string} By-Clearing-Value:{string} Field:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Input-Lookup Text:{0} By-Clearing-Value:{1} Field:{2} Page:{3}")
     public static void inputLookUpByClearingValue_D365CRM(String text, String clear_value, String field, String page) throws Exception {
         String splitFields[];
@@ -228,6 +238,7 @@ public class D365CRM {
      * @param field [Button Name]
      * @param page [Page Name]
      */
+    @And("D365CRM: Click-Button Field:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Click-Button Field:{0} Page:{1}")
     public static void clickButton_D365CRM(String field, String page) throws Exception {
         String pageName = pageNameCheck(page);
@@ -243,6 +254,7 @@ public class D365CRM {
      * @param field [Button Name]
      * @param page [Page Name]
      */
+    @And("D365CRM: Click-Close-Window Field:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Click-Close-Window Field:{0} Page:{1}")
     public static void clickCloseWindow_D365CRM(String field, String page) throws Exception {
         String pageName = pageNameCheck(page);
@@ -256,6 +268,7 @@ public class D365CRM {
     /**
      * @param button_text [Button text to be clicked]
      */
+    @And("D365CRM: Click-Popup-Button Text:{string}")
     @QAFTestStep(description = "D365CRM: Click-Popup-Button Text:{0}")
     public static void clickPopupButton_D365CRM(String button_text) throws Exception {
         BrowserGlobal.iWaitUntilElementVisible(d365Loc.button("popup","POPUP_DIALOG",button_text));
@@ -282,7 +295,8 @@ public class D365CRM {
      * @param tab_text [Tab text/name to be clicked]
      * @param page [Page Name]
      */
-    @QAFTestStep(description = "D365CRM: Click-Tab Text:{0} ")
+    @And("D365CRM: Click-Tab Text:{string} Page:{string}")
+    @QAFTestStep(description = "D365CRM: Click-Tab Text:{0} Page:{1}")
     public static void clickTabWithText_D365CRM(String tab_text, String page) throws Exception {
         String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,tab_text,"MAIN");
@@ -316,6 +330,7 @@ public class D365CRM {
     /**
      * @param link_text [Link text to be clicked]
      */
+    @And("D365CRM: Click-Link Text:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Click-Link Text:{0} Page:{1}")
     public static void clickLinkWithText_D365CRM(String link_text,String page) throws Exception {
         BrowserGlobal.iWaitUntilElementPresent(d365Loc.link(page,"main",link_text));
@@ -328,6 +343,7 @@ public class D365CRM {
      * @param page [Page name]
      * Note: It will work only for 1 record selection lookup
      */
+    @And("D365CRM: Click-Lookup-Record-Link Field:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Click-Lookup-Record-Link Field:{0} Page:{1}")
     public static void clickLookupRecordLink_D365CRM(String field,String page) throws Exception {
         String pageName = pageNameCheck(page);
@@ -342,6 +358,7 @@ public class D365CRM {
     /**
      * @param link_text [Link text to be clicked]
      */
+    @And("D365CRM: Click-Left-Menu Text:{string}")
     @QAFTestStep(description = "D365CRM: Click-Left-Menu Text:{0}")
     public static void clickLeftMenu_D365CRM(String link_text) throws Exception {
         BrowserGlobal.iWaitUntilElementPresent(d365Loc.link("menu","NAV_LEFT",link_text));
@@ -353,6 +370,7 @@ public class D365CRM {
      * @param mainMenu_text [Main Menu Text/name to be clicked]
      * @param subMenu_text [Sub Menu Text/name to be clicked]
      */
+    @And("D365CRM: Click-Left-Menu Text:{string} Then-Sub-Menu Text:{string}")
     @QAFTestStep(description = "D365CRM: Click-Left-Menu Text:{0} Then-Sub-Menu Text:{1}")
     public static void clickLeftMenuAndSubMenu_D365CRM(String mainMenu_text,String subMenu_text) throws Exception {
         BrowserGlobal.iWaitUntilElementPresent(d365Loc.link("menu","nav_left",mainMenu_text));
@@ -365,6 +383,7 @@ public class D365CRM {
     /**
      * @param button_text [Button text to be clicked]
      */
+    @And("D365CRM: Click-Top-Menu-Button Text:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Click-Top-Menu-Button Text:{0} Page:{1}")
     public static void clickTopMenuButton_D365CRM(String button_text, String page) throws Exception {
         BrowserGlobal.iScrollToAnElement(d365Loc.button(page,"MAIN",button_text));
@@ -382,6 +401,7 @@ public class D365CRM {
      * @param main_button_text [Main Button Text/Name]
      * @param sub_button_text [Sub Button Text/Name]
      */
+    @And("D365CRM: Click-Top-Menu-Button Text:{string} Then-Sub-Menu-Button Text:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Click-Top-Menu-Button Text:{0} Then-Sub-Menu-Button Text:{1} Page:{2}")
     public static void clickTopMenuButtonAndSubMenuButton_D365CRM(String main_button_text,String sub_button_text, String page) throws Exception {
         BrowserGlobal.iWaitUntilElementPresent(d365Loc.button(page,"MAIN",main_button_text));
@@ -410,6 +430,7 @@ public class D365CRM {
      * @param subView_text [Sub System View Text/name to be clicked]
      *                     [Note: No Section]
      */
+    @And("D365CRM: Click-Main-System-View Text:{string} Then-Sub-System-View Text:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Click-Main-System-View Text:{0} Then-Sub-System-View Text:{1} Page:{2}")
     public static void clickMainAndSubSystemView_D365CRM(String mainView_text,String subView_text,String page) throws Exception {
         String pageName = pageNameCheck(page);
@@ -433,6 +454,7 @@ public class D365CRM {
      * @param field [Field name]
      * @param page [Page name]
      */
+    @And("D365CRM: Select Text:{string} Field:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Select Text:{0} Field:{1} Page:{2}")
     public static void selectByText_D365CRM(String dropdown_Text, String field, String page) throws Exception {
         String pageName = pageNameCheck(page);
@@ -460,10 +482,11 @@ public class D365CRM {
     }
 
     /**
-     * @param dropdown_Text_Index [Index of the Text to be selected in dropdown starting with 0]
-     * @param field [Field name]
-     * @param page [Page name]
+     * @param dropdown_Text_Index [String] [Index of the Text to be selected in dropdown starting with 0]
+     * @param field [String] [Field name]
+     * @param page [String] [Page name]
      */
+    @And("D365CRM: Select Index:{string} Field:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Select Index:{0} Field:{1} Page:{2}")
     public static void selectByIndex_D365CRM(String dropdown_Text_Index, String field, String page) throws Exception {
         String pageName = pageNameCheck(page);
@@ -478,6 +501,7 @@ public class D365CRM {
      * @param field [Field name]
      * @param page [Page name]
      */
+    @And("D365CRM: Select-Multiple Text:{string} Field:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Select-Multiple Text:{0} Field:{1} Page:{2}")
     public static void selectMultipleByText_D365CRM(String multiple_dropdown_Text, String field, String page) throws Exception {
         BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"select",field));
@@ -498,6 +522,7 @@ public class D365CRM {
     /**
      * @param text [Keyword / Search text to fill]
      */
+    @And("D365CRM: Table-Input-Filter Text:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Table-Input-Filter Text:{0} Page:{1}")
     public static void tableInputFilter_D365CRM(String text, String page) throws Exception {
         String[] tempFieldVal = fieldValueCheck(text);
@@ -532,9 +557,10 @@ public class D365CRM {
 
     /**
      * Note: To be used if multiple Tables are in single page
-     * @param filters [Following parameters: ['<Field>','<Opertor>','<Value/s>'] Eg: ['Allow ECard','Equals','No,Yes'],['Year','Contains data','']"
+     * @param filters [Following parameters: ['Field','Opertor','Value/s'] Eg: ['Allow ECard','Equals','No,Yes'],['Year','Contains data','']"
      * @param page [Page name]
      */
+    @And("D365CRM: Table-Edit-Filter-Delete-All-And-Input-New filters:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Table-Edit-Filter-Delete-All-And-Input-New filters:{0} Page:{1}")
     public static void tableEditFilterDeleteAllAndInputNew_D365CRM(String filters, String page) throws Exception {
         String editFilterButtonName = "Edit filters";
@@ -616,6 +642,7 @@ public class D365CRM {
      * To reset Table Filters
      * @param page [Page name]
      */
+    @And("D365CRM: Table-Edit-Filter-Reset-To-Default Page:{string}")
     @QAFTestStep(description = "D365CRM: Table-Edit-Filter-Reset-To-Default Page:{0}")
     public static void tableEditFilterResetToDefault_D365CRM(String page) throws Exception {
         BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"BUTTON","Edit filters"));
@@ -632,6 +659,7 @@ public class D365CRM {
      * This will select particular table to do other operations
      * @param instance [Instance of Table to be selected]
      */
+    @And("D365CRM: Table-Select By-Instance:{string} Page:{string}")
     @QAFTestStep(description = "D365CRM: Table-Select By-Instance:{0} Page:{1}")
     public static void tableSelectByInstance_D365CRM(String instance, String page) throws Exception {
         try {
@@ -667,6 +695,7 @@ public class D365CRM {
      *
      */
     @QAFTestStep(description = "D365CRM: Table-Click-Header Text:{0} Column:{1} Then-Click-Dropdown-Button Text:{2} Page:{3}")
+    @And("D365CRM: Table-Click-Header Text:{string} Column:{string} Then-Click-Dropdown-Button Text:{string} Page:{string}")
     public static void tableClickHeaderColumnThenClickDropdownButton_D365CRM(String header_column_text,String header_column_number,String dropdown_text, String page) throws Exception {
         int tempColNum = Integer.parseInt(header_column_number) + 1;
         tableHeaderScrollRight( tempColNum, page);
@@ -703,6 +732,7 @@ public class D365CRM {
      * @param column_number [Table column number from left to right starting from 1]
      */
     @QAFTestStep(description = "D365CRM: Double-Click-Table-Cell Row:{0} Column:{1} Page:{2}")
+    @And("D365CRM: Double-Click-Table-Cell Row:{string} Column:{string} Page:{string}")
     public static void doubleClickTableCell_D365CRM(String row_number, String column_number, String page) throws Exception {
         int tempRowNum = Integer.parseInt(row_number) + 1;
         int tempColNum = Integer.parseInt(column_number) + 1;
@@ -780,7 +810,9 @@ public class D365CRM {
      * @param header_text [Header text to be verified]
      * @param page [Page name]
      */
+
     @QAFTestStep(description = "D365CRM: Wait-And-Verify-Page-Header Text:{0} Page:{1}")
+    @And("D365CRM: Wait-And-Verify-Page-Header Text:{string} Page:{string}")
     public static void waitAndVerifyPageHeader_D365CRM(String header_text,String page) throws Exception {
         BrowserGlobal.iWaitForPageToLoad();
         BrowserGlobal.iWaitUntilElementVisible(d365Loc.systemViewOrHeaderTitle(page,"main", header_text));
@@ -788,6 +820,8 @@ public class D365CRM {
 //        BrowserGlobal.iWaitUntilElementVisible(d365Loc.loc(page,"HEADER",header_text));
 //        BrowserGlobal.iAssertElementPresent(d365Loc.loc(page,"HEADER",header_text));
         BrowserGlobal.iAssertTitlePartialText(header_text);
+        BrowserGlobal.iScrollUsingMouseWheelByValueFromVisibleField("2000",d365Loc.scrollVertical(page));
+        BrowserGlobal.iScrollUsingMouseWheelByValueFromVisibleField("-2000",d365Loc.scrollVertical(page));
     }
 
     /**
@@ -795,6 +829,7 @@ public class D365CRM {
      * @param page [Page name]
      */
     @QAFTestStep(description = "D365CRM: Verify-field-locked Field:{0} Page:{1}")
+    @And("D365CRM: Verify-field-locked Field:{string} Page:{string}")
     public static void verifyFieldLocked_D365CRM(String field, String page) throws Exception {
         page = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,field,"MAIN");
@@ -809,6 +844,7 @@ public class D365CRM {
      * @param page [Page name]
      */
     @QAFTestStep(description = "D365CRM: Verify-Input-Value Text:{0} Field:{1} Page:{2}")
+    @And("D365CRM: Verify-Input-Value Text:{string} Field:{string} Page:{string}")
     public static void verifyInputValue_D365CRM(String text,String field,String page) throws Exception {
         String fieldLoc = fieldLocCheck(page,field,"MAIN");
         String pageName = pageNameCheck(page);
@@ -838,6 +874,7 @@ public class D365CRM {
      * @param page [Page name]
      */
     @QAFTestStep(description = "D365CRM: Verify-Input-Date Text:{0} Field:{1} Page:{2}")
+    @And("D365CRM: Verify-Input-Date Text:{string} Field:{string} Page:{string}")
     public static void verifyInputDate_D365CRM(String date,String field,String page) throws Exception {
         String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,field,"MAIN");
@@ -852,6 +889,7 @@ public class D365CRM {
      * [Check top left next to Dynamics logo]
      */
     @QAFTestStep(description = "D365CRM: Switch-App From:{0} To:{1}")
+    @And("D365CRM: Switch-App From:{string} To:{string}")
     public static void switchApp_D365CRM(String from_app, String to_app) throws Exception {
         BrowserGlobal.iWaitUntilElementPresent(d365Loc.link("Switching App","TOP_BAR",from_app));
         BrowserGlobal.iScrollToAnElement(d365Loc.link("Switching App","TOP_BAR",from_app));
@@ -878,6 +916,7 @@ public class D365CRM {
      * @param page [Page name]
      */
     @QAFTestStep(description = "D365CRM: Verify-Input-Time Text:{0} Field:{1} Page:{2}")
+    @And("D365CRM: Verify-Input-Time Text:{string} Field:{string} Page:{string}")
     public static void verifyInputTime_D365CRM(String time,String field,String page) throws Exception {
         page = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,field,"MAIN");
@@ -903,6 +942,7 @@ public class D365CRM {
      * @param page [Page name]
      */
     @QAFTestStep(description = "D365CRM: Verify-Input-Lookup Text:{0} Field:{1} Page:{2}")
+    @And("D365CRM: Verify-Input-Lookup Text:{string} Field:{string} Page:{string}")
     public static void verifyInputLookUp_D365CRM(String lookup_text, String field, String page) throws Exception {
         page = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,field,"MAIN");
@@ -918,6 +958,7 @@ public class D365CRM {
      * @param page [Page name]
      */
     @QAFTestStep(description = "D365CRM: Verify-Select Text:{0} Field:{1} Page:{2}")
+    @And("D365CRM: Verify-Select Text:{string} Field:{string} Page:{string}")
     public static void verifySelectText_D365CRM(String dropdown_Text, String field, String page) throws Exception {
         String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,field,"MAIN");
@@ -945,6 +986,7 @@ public class D365CRM {
      * @param page [Page name]
      */
     @QAFTestStep(description = "D365CRM: Verify-Text:{0} Page:{1}")
+    @And("D365CRM: Verify-Text:{string} Page:{string}")
     public static void verifyText_D365CRM(String text, String page) throws Exception {
         page = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,text,"OTHER");
@@ -968,6 +1010,7 @@ public class D365CRM {
      * @param header_control_list_text [Header Control List Test (Top Right) to be Verified]
      */
     @QAFTestStep(description = "D365CRM: Verify-Header-Control-List Text:{0} Page:{1}")
+    @And("D365CRM: Verify-Header-Control-List Text:{string} Page:{string}")
     public static void verifyHeaderControlList_D365CRM(String header_control_list_text, String page) throws Exception {
         String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,header_control_list_text,"MAIN")+"::HEADER_CONTROL_LIST";
@@ -982,6 +1025,7 @@ public class D365CRM {
      * @param column_number [Table column number from left to right starting from 1]
      */
     @QAFTestStep(description = "D365CRM: Verify-Table-Header Text:{0} Column:{1} Page:{2}")
+    @And("D365CRM: Verify-Table-Header Text:{string} Column:{string} Page:{string}")
     public static void verifyTableHeaderText_D365CRM(String header_text, String column_number, String page) throws Exception, InterruptedException{
         int tempColNum = Integer.parseInt(column_number) + 1;
         tableHeaderScrollRight(tempColNum, page);
@@ -993,6 +1037,7 @@ public class D365CRM {
      * @param header_text_all [Header text delimited by comma to be Verified Eg. "Id,Status,Address"]
      */
     @QAFTestStep(description = "D365CRM: Verify-Table-Header-All Text:{0} Page:{1}")
+    @And("D365CRM: Verify-Table-Header-All Text:{string} Page:{string}")
     public static void verifyTableHeaderAll_D365CRM(String header_text_all, String page) throws Exception {
         String[] splitHeaderNames = header_text_all.split(";");
         int colNum = 1;
@@ -1043,6 +1088,7 @@ public class D365CRM {
      *
      */
     @QAFTestStep(description = "D365CRM: Verify-Table-Header-Column-Ascending Header-Text:{0} Header-Column:{1} Page:{2}")
+    @And("D365CRM: Verify-Table-Header-Column-Ascending Header-Text:{string} Header-Column:{string} Page:{string}")
     public static void verifyTableColumnAscending_D365CRM(String header_column_text,String header_column_number, String page) throws Exception {
         int tempColNum = Integer.parseInt(header_column_number) + 1;
         tableHeaderScrollRight(tempColNum, page);
@@ -1059,6 +1105,7 @@ public class D365CRM {
      *
      */
     @QAFTestStep(description = "D365CRM: Verify-Table-Header-Column-Descending Header-Text:{0} Header-Column:{1} Page:{2}")
+    @And("D365CRM: Verify-Table-Header-Column-Descending Header-Text:{string} Header-Column:{string} Page:{string}")
     public static void verifyTableColumnDescending_D365CRM(String header_column_text,String header_column_number, String page) throws Exception {
         int tempColNum = Integer.parseInt(header_column_number) + 1;
         tableHeaderScrollRight(tempColNum, page);
@@ -1071,6 +1118,7 @@ public class D365CRM {
      * @param column_number [Table column number from left to right starting from 1]
      */
     @QAFTestStep(description = "D365CRM: Verify-Table-Header-By-Edit-Column Text:{0} Column:{1} Page:{2}")
+    @And("D365CRM: Verify-Table-Header-By-Edit-Column Text:{string} Column:{string} Page:{string}")
     public static void verifyTableHeaderByEditColumn_D365CRM(String header_text, String column_number, String page) throws Exception {
         BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_button","Edit columns"));
         BrowserGlobal.iClickOn(loc.get(page,"d365_button","Edit columns"));
@@ -1083,6 +1131,7 @@ public class D365CRM {
      * @param header_text_all [Header text delimited by comma to be Verified E.g. "id,status,address"]
      */
     @QAFTestStep(description = "D365CRM: Verify-Table-Header-All-By-Edit-Column Text:{0} Page:{1}")
+    @And("D365CRM: Verify-Table-Header-All-By-Edit-Column Text:{string} Page:{string}")
     public static void verifyTableHeaderAllByEditColumn_D365CRM(String header_text_all, String page) throws Exception {
         BrowserGlobal.iScrollToAnElement(loc.get(page,"d365_button","Edit columns"));
         BrowserGlobal.iClickOn(loc.get(page,"d365_button","Edit columns"));
@@ -1104,6 +1153,7 @@ public class D365CRM {
      * @param column_number [Table column number from left to right starting from 1]
      */
     @QAFTestStep(description = "D365CRM: Verify-Table-Cell-Value-Is Text:{0} Row:{1} Column:{2} Page:{3}")
+    @And("D365CRM: Verify-Table-Cell-Value-Is Text:{string} Row:{string} Column:{string} Page:{string}")
     public static void verifyTableCellValueIs_D365CRM(String cell_value, String row_number, String column_number, String page) throws Exception {
         int tempRowNum = Integer.parseInt(row_number) + 1;
         int tempColNum = Integer.parseInt(column_number) + 1;
@@ -1119,6 +1169,7 @@ public class D365CRM {
      * @param column_number [Table column number from left to right starting from 1]
      */
     @QAFTestStep(description = "D365CRM: Verify-Table-Cell-Value-Contains Text:{0} Row:{1} Column:{2} Page:{3}")
+    @And("D365CRM: Verify-Table-Cell-Value-Contains Text:{string} Row:{string} Column:{string} Page:{string}")
     public static void verifyTableCellValueContains_D365CRM(String cell_value, String row_number, String column_number, String page) throws Exception {
         int tempRowNum = Integer.parseInt(row_number) + 1;
         int tempColNum = Integer.parseInt(column_number) + 1;
@@ -1136,6 +1187,7 @@ public class D365CRM {
      * @param to_variable [Variable Name to store the value]
      */
     @QAFTestStep(description = "D365CRM: Assign-Table-Cell-Value-To-Variable Row:{0} Column:{1} To-Variable:{2} Page:{3}")
+    @And("D365CRM: Assign-Table-Cell-Value-To-Variable Row:{string} Column:{string} To-Variable:{string} Page:{string}")
     public static void storeTableCellValueToVariable_D365CRM(String row_number, String column_number, String to_variable, String page) throws Exception {
         int tempRowNum = Integer.parseInt(row_number) + 1;
         int tempColNum = Integer.parseInt(column_number) + 1;
@@ -1160,6 +1212,7 @@ public class D365CRM {
      * @param page [Page name]
      */
     @QAFTestStep(description="D365CRM: Store-Table-Row-Count To-Variable:{0} Page:{1}")
+    @And("D365CRM: Store-Table-Row-Count To-Variable:{string} Page:{string}")
     public static void storeTableRowCountToVar_D365CRM(String to_variable, String page) throws Exception {
         BrowserGlobal.iWaitForSeconds("3");
         BrowserGlobal.iWaitForPageToLoad();
@@ -1181,6 +1234,7 @@ public class D365CRM {
      * [Note: No instance feature available]
      */
     @QAFTestStep(description="D365CRM: Store-Header-Control-List-Column-Value Column:{0} To-Variable:{1} Page:{2}")
+    @And("D365CRM: Store-Header-Control-List-Column-Value Column:{string} To-Variable:{string} Page:{string}")
     public static void storeHeaderControlListColValueToVar_D365CRM(String column_number, String to_variable, String page) throws Exception {
         String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,"","MAIN");
@@ -1195,6 +1249,7 @@ public class D365CRM {
      * [Note: No instance feature available, Location available]
      */
     @QAFTestStep(description="D365CRM: Store-Header-Title-In-Form-Page To-Variable:{0} Page:{1}")
+    @And("D365CRM: Store-Header-Title-In-Form-Page To-Variable:{string} Page:{string}")
     public static void storeHeaderTitleToVar_D365CRM(String to_variable, String page) throws Exception {
         String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,"","MAIN");
@@ -1212,6 +1267,7 @@ public class D365CRM {
      * [Note: No instance feature available]
      */
     @QAFTestStep(description = "D365CRM: Scroll Value:{0} From-Visible Field:{1} Page:{2}")
+    @And("D365CRM: Scroll Value:{string} From-Visible Field:{string} Page:{string}")
     public static void scrollFromVisibleField_D365CRM(String scroll_value, String field, String page) throws Exception {
         BrowserGlobal.iWaitUntilElementPresent(loc.get(page,"general",field));
         BrowserGlobal.iScrollToAnElement(loc.get(page,"general",field));
@@ -1221,7 +1277,9 @@ public class D365CRM {
         new Actions(driver).scrollFromOrigin(scrollOrigin,0 , Integer.parseInt(scroll_value)).perform();
     }
 
+
     @QAFTestStep(description="D365CRM: Login to {0} with following details {1}, {2} and {3}")
+    @And("D365CRM: Login to {string} with following details {string}, {string} and {string}")
     public void loginTo_D365CRM(String name, String urlToOpen, String username, String password) throws Exception{
 
         BrowserGlobal.iOpenWebBrowser(urlToOpen);
@@ -1240,24 +1298,30 @@ public class D365CRM {
         for (int i = 0; i < 10; i++) {
             signinCount = signinCount + 1;
             try {
+                getBundle().setProperty("exec.email.report.fail","OFF");
                 BrowserGlobal.iWaitUntilElementVisibleWithTimeout(loc.get("ReLogin","button","Sign In"),"15");
                 BrowserGlobal.iClickOn(loc.get("ReLogin","button","Sign In"));
                 BrowserGlobal.iWaitForPageToLoad();
             } catch (Exception e) {
+                getBundle().setProperty("exec.email.report.fail","ON");
                 break;
             }
+            getBundle().setProperty("exec.email.report.fail","ON");
         }
         System.out.println("==signinCount=> "+signinCount);
         if (signinCount > 2) {
             int count = signinCount;
             for (int j = 0; j < signinCount; j++) {
                 try {
+                    getBundle().setProperty("exec.email.report.fail","OFF");
                     count = count - 1;
                     BrowserGlobal.iWaitUntilElementVisibleWithTimeout("xpath=(//button[@aria-label='Sign in'])["+count+"]","3");
                     BrowserGlobal.iClickOn("xpath=(//button[@aria-label='Sign in'])["+count+"]");
                     BrowserGlobal.iWaitForPageToLoad();
                 } catch (Exception e) {
+                    getBundle().setProperty("exec.email.report.fail","ON");
                 }
+                getBundle().setProperty("exec.email.report.fail","ON");
             }
         }
 
