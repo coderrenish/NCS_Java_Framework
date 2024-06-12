@@ -126,6 +126,46 @@ public class D365CRM {
         }
         BrowserGlobal.iWaitForMilliseconds(d365Global_input_lookup_select_wait);
     }
+
+    /**
+     * @param text [text to be entered in lookup]
+     * @param field [Field name]
+     * @param page [Page name]
+     */
+    @And("D365CRM: Input-Lookup-If-Empty Text:{string} Field:{string} Page:{string}")
+    @QAFTestStep(description = "D365CRM: Input-Lookup-If-Empty Text:{0} Field:{1} Page:{2}")
+    public static void inputLookUpIfEmpty_D365CRM(String text, String field, String page) throws Exception {
+        String pageName = pageNameCheck(page);
+        String fieldLoc = fieldLocCheck(page,field,"MAIN");
+        String fieldName = fieldNameCheck(field);
+//        Boolean fieldPresent = false;
+//        int defaultTimeout = getBundle().getInt("selenium.wait.timeout");
+//        try {
+//            BrowserGlobal.iVerifyElementPresent(d365Loc.inputLookup(pageName,fieldLoc,fieldName));
+//            fieldPresent = true;
+//        } catch (Exception e) {
+//            fieldPresent = false;
+//        }
+        if ( BrowserGlobal.isElementVisibleWithTimeout(d365Loc.inputLookup(pageName,fieldLoc,fieldName), "3000")) {
+            BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputLookup(pageName,fieldLoc,fieldName));
+            BrowserGlobal.iScrollToAnElement(d365Loc.inputLookup(pageName,fieldLoc,fieldName));
+            BrowserGlobal.iClickOn(d365Loc.inputLookup(pageName,fieldLoc,fieldName));
+            BrowserGlobal.iWaitForMilliseconds("500");
+            BrowserGlobal.iPressControlOrCommandAByOs();
+            BrowserGlobal.iWaitForMilliseconds("500");
+            BrowserGlobal.iInputInTo(text, d365Loc.inputLookup(pageName,fieldLoc,fieldName));
+            BrowserGlobal.iWaitForMilliseconds(d365Global_input_lookup_load_wait);
+            BrowserGlobal.iWaitUntilElementPresent(d365Loc.link(page,"DROPDOWN_LIST",text));
+            if (d365Global_input_lookup_select_type.equalsIgnoreCase("click")) {
+                BrowserGlobal.iClickOn(d365Loc.link(page,"DROPDOWN_LIST",text));
+            } else {
+                BrowserGlobal.iPressKey("ARROW_DOWN");
+                BrowserGlobal.iWaitForMilliseconds("1000");
+                BrowserGlobal.iPressReturnOrEnterKey();
+            }
+            BrowserGlobal.iWaitForMilliseconds(d365Global_input_lookup_select_wait);
+        }
+    }
 //    /**
 //     * Clearing Existing value by name in Lookup ad then enter
 //     * Note: Should know existing value

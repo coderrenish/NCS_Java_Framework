@@ -24,7 +24,7 @@ public class d365Loc {
     private static String fieldAdditionalVal_1 = "";
     private static String fieldAdditionalVal_2 = "";
     private static String fieldAdditionalVal_3 = "";
-    public static String loc(String page, String fieldType, String fieldName) throws Exception{
+    public static String loc(String page, String fieldType, String fieldName) throws Exception {
 
 //        Boolean loclocCheck()
 //        fieldName = fieldName.trim();
@@ -37,454 +37,458 @@ public class d365Loc {
 //        String locGeneratedField = "";
 //        if (d365Platform.equalsIgnoreCase("CRM")) {
 //            if (locator.equals(locVal) || locVal.length() < 5) {
-        if (locCheck(page, "temp",fieldType, fieldName)) {
-//            System.out.println("====> "+ locator);
-//            System.out.println("====> "+ locVal);
-//                locator = "auto." + locator;
-                switch (fieldType.trim().toUpperCase()) {
-                    case ("LINK"):
-                    case ("TAB"): {
-                        locGeneratedField = "LINK/TAB Field: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//a[@aria-label='" + fieldName.trim() + "']");
-                                locGeneratedVal.add("xpath=//a[@title='" + fieldName.trim() + "']");
-                                locGeneratedVal.add("xpath=//li[@aria-label='" + fieldName.trim() + "']");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("SYSTEM_VIEW"):
-                    case ("HEADER"): {
-                        locGeneratedField = "HEADER/SYSTEM_VIEW Field: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                                locGeneratedVal.add("xpath=//h1[@title='" + fieldName.trim() + "']");
-                                locGeneratedVal.add("xpath=//button[contains(@data-id,'ViewSelector')]/descendant::span[text()='" + fieldName.trim() + "']");
-                            default: {
-                                locGeneratedVal.add("xpath=//h1[@aria-label='" + fieldName.trim() + "']");
-                                locGeneratedVal.add("xpath=//div[@aria-label='" + fieldName.trim() + "']");
-                                locGeneratedVal.add("xpath=//h1[contains(@title,'" + fieldName.trim() + "')]");
-                                locGeneratedVal.add("xpath=//div[contains(@aria-label,'" + fieldName.trim() + "')]");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("SYSTEM_VIEW_LIST"): {
-                        locGeneratedField = "SYSTEM_VIEW_LIST Field: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                                locGeneratedVal.add("xpath=//ul[@aria-label='Select a view.'][@role='listbox']//descendant::li[@aria-label='" + fieldName.trim() + "']");
-                            case ("v9.2"):
-                                locGeneratedVal.add("xpath=//div[@aria-label='View Options'][@role='dialog']//descendant::label[text()='" + fieldName.trim() + "']");
-                            default:
-                                break;
-                        }
-                        break;
-                    }
-                    case ("INPUT_TEXT"): {
-                        locGeneratedField = "INPUT_TEXT Field: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//input[@aria-label='" + fieldName.trim() + "']");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("INPUT_DATE"): {
-                        locGeneratedField = "INPUT_DATE Field: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//input[@aria-label='Date of "+fieldName.trim()+"']");
-                                locGeneratedVal.add("xpath=//input[@aria-label='"+fieldName.trim()+"']");
-                                break;
-                            }
-                        }
-                            break;
-                    }
 
-                    case ("INPUT_TIME"): {
-                        locGeneratedField = "INPUT_TIME Field: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//input[@aria-label='Time of "+fieldName.trim()+"']");
-                                locGeneratedVal.add("xpath=//input[@aria-label='"+fieldName.trim()+"']");
-                                break;
-                            }
-                        }
-                        break;
-                    }//                    getBundle().setProperty(locator,"{\"locator\":[\"\",\"xpath=//input[@aria-label='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" field\"}");
-                    case ("INPUT_LOOKUP"): {
-                        locGeneratedField = "INPUT_LOOKUP Field: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//input[@aria-label='"+fieldName.trim()+", Lookup']");
-                                locGeneratedVal.add("xpath=//input[@aria-label='"+fieldName.trim()+"']");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("INPUT_LOOKUP_VALUE"): {
-                        locGeneratedField = "INPUT_LOOKUP_VALUE (Exiting Value) Field: " + fieldName;
-                        String[] lookupfieldSplit = fieldName.trim().split(":");
-                        String[] lookupfieldNameSplit = lookupfieldSplit[0].trim().replaceAll(" ","_").split("_");
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//div[contains(@data-id,'fieldControl-LookupResultsDropdown')][@title='"+lookupfieldSplit[1].trim()+"'][contains(@id,'"+lookupfieldNameSplit[0].trim().toLowerCase()+"')]");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("INPUT_TABLE_FILTER"): {
-                        locGeneratedField = "INPUT_TABLE_FILTER Field: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=(//input[@placeholder='Filter by keyword'])["+fieldName.trim()+"]");
-                                locGeneratedVal.add("xpath=(//*[contains(@data-id,'quickFind_text')])["+fieldName.trim()+"]");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("BUTTON"): {
-                        locGeneratedField = "BUTTON Field: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//button[@aria-label='"+fieldName.trim()+"']");
-                                locGeneratedVal.add("xpath=//button[@title='"+fieldName.trim()+"']");
-                                locGeneratedVal.add("xpath=//button[contains(@title,'"+fieldName.trim()+"')]");
-                                break;
-                            }
-                        }
-                        break;
-                    }
+        // DEPRICATED on 8/June/24
 
-                    case ("BUTTON_POPUP"): {
-                        locGeneratedField = "BUTTON_POPUP Field: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//div[contains(@id,'dialogView')]/descendant::button[@aria-label='"+fieldName.trim()+"']");
-                                locGeneratedVal.add("xpath=//div[contains(@id,'modalDialogView')]/descendant::button[@aria-label='"+fieldName.trim()+"']");
-                                locGeneratedVal.add("xpath=//div[contains(@id,'dialogView')]/descendant::span[text()='"+fieldName.trim()+"']");
-                                locGeneratedVal.add("xpath=//div[contains(@id,'modalDialogView')]/descendant::span[text()='"+fieldName.trim()+"']");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("BUTTON_SHOW_HIDE"): {
-                        locGeneratedField = "BUTTON_SHOW_HIDE Field: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//i[@title='Show/Hide "+fieldName.trim()+"']");
-                                locGeneratedVal.add("xpath=//i[contains(@title='Show/Hide "+fieldName.trim()+"')]");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("BUTTON_TABLE_HEADER_EDIT_COLUMN"): {
-                        locGeneratedField = "BUTTON_TABLE_HEADER_EDIT_COLUMN Field: " + fieldName;
-                        String[] headerElementSplit = fieldName.trim().split("::");
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=(//div[@role='listitem'])["+headerElementSplit[1]+"][@aria-label='"+headerElementSplit[0]+"']/descendant::span[text()='"+headerElementSplit[0]+"']");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("SELECT"): {
-                        locGeneratedField = "SELECT (Dropdown) Field: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//select[@aria-label='"+fieldName.trim()+"']");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("HEADER_CONTROL_LIST"): {
-                        locGeneratedField = "HEADER_CONTROL_LIST Field: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//div[contains(@id ,'headerControlsList')]//descendant::div[text()='"+fieldName.trim()+"']");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("ERROR_TEXT"): {
-                        locGeneratedField = "ERROR_TEXT section: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//span[contains(@id,'error-message')][contains(text(),'"+fieldName.trim()+"')]");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("TABLE_HEADER_COLUMN"): {
-                        locGeneratedField = "TABLE_HEADER_COLUMN Field: " + fieldName;
-                        String[] headerElementSplit = fieldName.trim().split("::");
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=((//div[@class='ag-header-container'])[1]/descendant::div[@aria-colindex='"+headerElementSplit[1]+"']/descendant::div[text()='"+headerElementSplit[0]+"'])[1]");
-                                locGeneratedVal.add("xpath=//div[@aria-rowindex='1'][@aria-label='Header']/descendant::div[@aria-colindex='"+headerElementSplit[1]+"'][@title='"+headerElementSplit[0]+"']");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("TABLE_HEADER_DROPDOWN"): {
-                        locGeneratedField = "TABLE_HEADER_DROPDOWN Field: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-ContextualMenu-container')]/descendant::button[@aria-label='"+fieldName+"']");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("TABLE_HEADER_COLUMN_SORT_UP"): {
-                        locGeneratedField = "TABLE_HEADER_COLUMN_SORT_UP Field: Icon";
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//div[@data-id='btnheaderselectcolumn']/following-sibling::div[@title='"+fieldName+"']/descendant::i[@data-icon-name='SortUp']");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("TABLE_HEADER_COLUMN_SORT_DOWN"): {
-                        locGeneratedField = "TABLE_HEADER_COLUMN_SORT_DOWN Field: Icon";
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//div[@data-id='btnheaderselectcolumn']/following-sibling::div[@title='"+fieldName+"']/descendant::i[@data-icon-name='SortDown']");
-
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("TABLE_HEADER_COLUMN_DROPDOWN_SORT_ICON"): {
-                        locGeneratedField = "TABLE_HEADER_COLUMN_DROPDOWN_SORT_ICON Field: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-ContextualMenu-container')]/descendant::button[@aria-label='"+fieldName+"']/descendant::i[@data-icon-name='CheckMark']");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("TABLE_CELL"): {
-                        locGeneratedField = "TABLE_CELL Field: " + fieldName;
-                        String[] cellInfoSplit = fieldName.trim().split("::");
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//div[@aria-rowindex='"+cellInfoSplit[1]+"']/descendant::div[@aria-colindex='"+cellInfoSplit[2]+"']");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("TABLE_CELL_VALUE"): {
-                        locGeneratedField = "TABLE_CELL_VALUE Field: " + fieldName;
-                        String[] cellInfoSplit = fieldName.trim().split("::");
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//div[@aria-rowindex='"+cellInfoSplit[1]+"']/descendant::div[@aria-colindex='"+cellInfoSplit[2]+"']//label[@aria-label='"+cellInfoSplit[3]+"']");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("TABLE_OVERFLOW_MENU"): {
-                        locGeneratedField = "TABLE_OVERFLOW_MENU: ";
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=(//button[contains(@aria-label,'More commands for')])[1]");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("TABLE_OVERFLOW_MENU_INSTANCE"): {
-                        locGeneratedField = "TABLE_OVERFLOW_MENU_INSTANCE: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=(//button[contains(@aria-label,'More commands for')])["+fieldName.trim()+"]");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("TABLE_OVERFLOW_SUB_MENU"): {
-                        locGeneratedField = "TABLE_OVERFLOW_SUB_MENU Button: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//ul[@role='menu']/descendant::button[@aria-label='"+fieldName.trim()+"']");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("TABLE_EDIT_FILTER_PANEL_BUTTON"): {
-                        locGeneratedField = "TABLE_EDIT_FILTER_PANEL_BUTTON Button: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-Panel-contentInner')]/descendant::button[@title='"+fieldName.trim()+"']");
-                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-Panel-contentInner')]/descendant::button[@aria-label='"+fieldName.trim()+"']");
-                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-Panel-contentInner')]/descendant::button[text()='"+fieldName.trim()+"']");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("TABLE_EDIT_FILTER_PANEL_BUTTON_INSTANCE"): {
-                        locGeneratedField = "TABLE_EDIT_FILTER_PANEL_BUTTON_INSTANCE Button: " + fieldName;
-                        String[] fieldSplit = fieldName.trim().split(":");
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=(//div[contains(@class,'ms-Panel-contentInner')]/descendant::button[@title='"+fieldSplit[0].trim()+"'])["+fieldSplit[1].trim()+"]");
-                                locGeneratedVal.add("xpath=(//div[contains(@class,'ms-Panel-contentInner')]/descendant::button[@aria-label='"+fieldSplit[0].trim()+"'])["+fieldSplit[1].trim()+"]");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE"): {
-                        locGeneratedField = "TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE Input: " + fieldName;
-                        String[] fieldSplit = fieldName.trim().split(":");
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=(//div[contains(@class,'ms-Panel-contentInner')]/descendant::input[@aria-label='"+fieldSplit[0].trim()+"'])["+fieldSplit[1].trim()+"]/following-sibling::button");
-                                locGeneratedVal.add("xpath=(//div[contains(@class,'ms-Panel-contentInner')]/descendant::input[@aria-label='"+fieldSplit[0].trim()+"'])["+fieldSplit[1].trim()+"]");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("TABLE_EDIT_FILTER_PANEL_MENU_LIST"): {
-                        locGeneratedField = "TABLE_EDIT_FILTER_PANEL_MENU_LIST Menu List: " + fieldName;
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-Callout-container')]/descendant::button[@name='"+fieldName.trim()+"']");
-                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-Callout-container')]/descendant::span[text()='"+fieldName.trim()+"']");
-                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-Callout-container')]/descendant::label[text()='"+fieldName.trim()+"']");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                    case ("SCROLL_HORIZONTAL"): {
-                        locGeneratedField = "SCROLL_HORIZONTAL Bar:";
-                        switch (d365PlatformVersion) {
-                            case ("v9.1"):
-                            case ("v9.2"):
-                            default: {
-                                locGeneratedVal.add("xpath=(//div[@class='ag-body-horizontal-scroll-viewport'])[1]");
-                                break;
-                            }
-                        }
-                        break;
-                    }
-
-                    //        case (""): {
-//                        locGeneratedField = "XXXXXXXXXX Field: " + fieldName;
+//        if (locCheck(page, "temp",fieldType, fieldName)) {
+////            System.out.println("====> "+ locator);
+////            System.out.println("====> "+ locVal);
+////                locator = "auto." + locator;
+//                switch (fieldType.trim().toUpperCase()) {
+//                    case ("LINK"):
+//                    case ("TAB"): {
+//                        locGeneratedField = "LINK/TAB Field: " + fieldName;
 //                        switch (d365PlatformVersion) {
 //                            case ("v9.1"):
 //                            case ("v9.2"):
 //                            default: {
-//                                locGeneratedVal.add();
-//                                locGeneratedVal.add();
-//                                locGeneratedVal.add();
-//                                locGeneratedVal.add();
-//                                locGeneratedVal.add();
+//                                locGeneratedVal.add("xpath=//a[@aria-label='" + fieldName.trim() + "']");
+//                                locGeneratedVal.add("xpath=//a[@title='" + fieldName.trim() + "']");
+//                                locGeneratedVal.add("xpath=//li[@aria-label='" + fieldName.trim() + "']");
 //                                break;
 //                            }
 //                        }
-//                    break;
+//                        break;
 //                    }
-                    default: {
-                        locGeneratedVal.add("xpath=//*[@aria-label='" + fieldName.trim() + "']");
-                        locGeneratedVal.add("xpath=//*[@title='" + fieldName.trim() + "']");
-                        locGeneratedVal.add("xpath=//*[@placeholder='" + fieldName.trim() + "']");
-                        locGeneratedVal.add("xpath=//*[@value='" + fieldName.trim() + "']");
-                        locGeneratedVal.add("id=" + fieldName + "");
-                        locGeneratedVal.add("id=" + fieldName.replaceAll("\\s+", "").toLowerCase());
-                        locGeneratedVal.add("name=" + fieldName.replaceAll("\\s+", "").toLowerCase());
-                        locGeneratedVal.add("xpath=//*[contains(@aria-label,'" + fieldName.trim() + "')]");
-                        locGeneratedVal.add("xpath=//*[contains(@title,'" + fieldName.trim() + "')]");
-                        locGeneratedVal.add("xpath=//*[contains(@value,'" + fieldName.trim() + "')]");
-                        locGeneratedVal.add("xpath=//*[contains(@value,'" + fieldName.trim() + "')]");
-                        locGeneratedVal.add("xpath=//*[contains(text(),'" + fieldName.trim() + "')]");
-                    }
-                }
-            }
-//        }
+//                    case ("SYSTEM_VIEW"):
+//                    case ("HEADER"): {
+//                        locGeneratedField = "HEADER/SYSTEM_VIEW Field: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                                locGeneratedVal.add("xpath=//h1[@title='" + fieldName.trim() + "']");
+//                                locGeneratedVal.add("xpath=//button[contains(@data-id,'ViewSelector')]/descendant::span[text()='" + fieldName.trim() + "']");
+//                            default: {
+//                                locGeneratedVal.add("xpath=//h1[@aria-label='" + fieldName.trim() + "']");
+//                                locGeneratedVal.add("xpath=//div[@aria-label='" + fieldName.trim() + "']");
+//                                locGeneratedVal.add("xpath=//h1[contains(@title,'" + fieldName.trim() + "')]");
+//                                locGeneratedVal.add("xpath=//div[contains(@aria-label,'" + fieldName.trim() + "')]");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("SYSTEM_VIEW_LIST"): {
+//                        locGeneratedField = "SYSTEM_VIEW_LIST Field: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                                locGeneratedVal.add("xpath=//ul[@aria-label='Select a view.'][@role='listbox']//descendant::li[@aria-label='" + fieldName.trim() + "']");
+//                            case ("v9.2"):
+//                                locGeneratedVal.add("xpath=//div[@aria-label='View Options'][@role='dialog']//descendant::label[text()='" + fieldName.trim() + "']");
+//                            default:
+//                                break;
+//                        }
+//                        break;
+//                    }
+//                    case ("INPUT_TEXT"): {
+//                        locGeneratedField = "INPUT_TEXT Field: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//input[@aria-label='" + fieldName.trim() + "']");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("INPUT_DATE"): {
+//                        locGeneratedField = "INPUT_DATE Field: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//input[@aria-label='Date of "+fieldName.trim()+"']");
+//                                locGeneratedVal.add("xpath=//input[@aria-label='"+fieldName.trim()+"']");
+//                                break;
+//                            }
+//                        }
+//                            break;
+//                    }
+//
+//                    case ("INPUT_TIME"): {
+//                        locGeneratedField = "INPUT_TIME Field: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//input[@aria-label='Time of "+fieldName.trim()+"']");
+//                                locGeneratedVal.add("xpath=//input[@aria-label='"+fieldName.trim()+"']");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }//                    getBundle().setProperty(locator,"{\"locator\":[\"\",\"xpath=//input[@aria-label='"+fieldName.trim()+"']\"],\"desc\":\""+fieldName+" field\"}");
+//                    case ("INPUT_LOOKUP"): {
+//                        locGeneratedField = "INPUT_LOOKUP Field: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//input[@aria-label='"+fieldName.trim()+", Lookup']");
+//                                locGeneratedVal.add("xpath=//input[@aria-label='"+fieldName.trim()+"']");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("INPUT_LOOKUP_VALUE"): {
+//                        locGeneratedField = "INPUT_LOOKUP_VALUE (Exiting Value) Field: " + fieldName;
+//                        String[] lookupfieldSplit = fieldName.trim().split(":");
+//                        String[] lookupfieldNameSplit = lookupfieldSplit[0].trim().replaceAll(" ","_").split("_");
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//div[contains(@data-id,'fieldControl-LookupResultsDropdown')][@title='"+lookupfieldSplit[1].trim()+"'][contains(@id,'"+lookupfieldNameSplit[0].trim().toLowerCase()+"')]");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("INPUT_TABLE_FILTER"): {
+//                        locGeneratedField = "INPUT_TABLE_FILTER Field: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=(//input[@placeholder='Filter by keyword'])["+fieldName.trim()+"]");
+//                                locGeneratedVal.add("xpath=(//*[contains(@data-id,'quickFind_text')])["+fieldName.trim()+"]");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("BUTTON"): {
+//                        locGeneratedField = "BUTTON Field: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//button[@aria-label='"+fieldName.trim()+"']");
+//                                locGeneratedVal.add("xpath=//button[@title='"+fieldName.trim()+"']");
+//                                locGeneratedVal.add("xpath=//button[contains(@title,'"+fieldName.trim()+"')]");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//
+//                    case ("BUTTON_POPUP"): {
+//                        locGeneratedField = "BUTTON_POPUP Field: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//div[contains(@id,'dialogView')]/descendant::button[@aria-label='"+fieldName.trim()+"']");
+//                                locGeneratedVal.add("xpath=//div[contains(@id,'modalDialogView')]/descendant::button[@aria-label='"+fieldName.trim()+"']");
+//                                locGeneratedVal.add("xpath=//div[contains(@id,'dialogView')]/descendant::span[text()='"+fieldName.trim()+"']");
+//                                locGeneratedVal.add("xpath=//div[contains(@id,'modalDialogView')]/descendant::span[text()='"+fieldName.trim()+"']");
+//                                locGeneratedVal.add("xpath=//div[contains(@id,'buttonView')]/descendant::button[@aria-label='"+fieldName.trim()+"']");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("BUTTON_SHOW_HIDE"): {
+//                        locGeneratedField = "BUTTON_SHOW_HIDE Field: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//i[@title='Show/Hide "+fieldName.trim()+"']");
+//                                locGeneratedVal.add("xpath=//i[contains(@title='Show/Hide "+fieldName.trim()+"')]");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("BUTTON_TABLE_HEADER_EDIT_COLUMN"): {
+//                        locGeneratedField = "BUTTON_TABLE_HEADER_EDIT_COLUMN Field: " + fieldName;
+//                        String[] headerElementSplit = fieldName.trim().split("::");
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=(//div[@role='listitem'])["+headerElementSplit[1]+"][@aria-label='"+headerElementSplit[0]+"']/descendant::span[text()='"+headerElementSplit[0]+"']");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("SELECT"): {
+//                        locGeneratedField = "SELECT (Dropdown) Field: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//select[@aria-label='"+fieldName.trim()+"']");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("HEADER_CONTROL_LIST"): {
+//                        locGeneratedField = "HEADER_CONTROL_LIST Field: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//div[contains(@id ,'headerControlsList')]//descendant::div[text()='"+fieldName.trim()+"']");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("ERROR_TEXT"): {
+//                        locGeneratedField = "ERROR_TEXT section: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//span[contains(@id,'error-message')][contains(text(),'"+fieldName.trim()+"')]");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("TABLE_HEADER_COLUMN"): {
+//                        locGeneratedField = "TABLE_HEADER_COLUMN Field: " + fieldName;
+//                        String[] headerElementSplit = fieldName.trim().split("::");
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=((//div[@class='ag-header-container'])[1]/descendant::div[@aria-colindex='"+headerElementSplit[1]+"']/descendant::div[text()='"+headerElementSplit[0]+"'])[1]");
+//                                locGeneratedVal.add("xpath=//div[@aria-rowindex='1'][@aria-label='Header']/descendant::div[@aria-colindex='"+headerElementSplit[1]+"'][@title='"+headerElementSplit[0]+"']");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("TABLE_HEADER_DROPDOWN"): {
+//                        locGeneratedField = "TABLE_HEADER_DROPDOWN Field: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-ContextualMenu-container')]/descendant::button[@aria-label='"+fieldName+"']");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("TABLE_HEADER_COLUMN_SORT_UP"): {
+//                        locGeneratedField = "TABLE_HEADER_COLUMN_SORT_UP Field: Icon";
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//div[@data-id='btnheaderselectcolumn']/following-sibling::div[@title='"+fieldName+"']/descendant::i[@data-icon-name='SortUp']");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("TABLE_HEADER_COLUMN_SORT_DOWN"): {
+//                        locGeneratedField = "TABLE_HEADER_COLUMN_SORT_DOWN Field: Icon";
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//div[@data-id='btnheaderselectcolumn']/following-sibling::div[@title='"+fieldName+"']/descendant::i[@data-icon-name='SortDown']");
+//
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("TABLE_HEADER_COLUMN_DROPDOWN_SORT_ICON"): {
+//                        locGeneratedField = "TABLE_HEADER_COLUMN_DROPDOWN_SORT_ICON Field: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-ContextualMenu-container')]/descendant::button[@aria-label='"+fieldName+"']/descendant::i[@data-icon-name='CheckMark']");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("TABLE_CELL"): {
+//                        locGeneratedField = "TABLE_CELL Field: " + fieldName;
+//                        String[] cellInfoSplit = fieldName.trim().split("::");
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//div[@aria-rowindex='"+cellInfoSplit[1]+"']/descendant::div[@aria-colindex='"+cellInfoSplit[2]+"']");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("TABLE_CELL_VALUE"): {
+//                        locGeneratedField = "TABLE_CELL_VALUE Field: " + fieldName;
+//                        String[] cellInfoSplit = fieldName.trim().split("::");
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//div[@aria-rowindex='"+cellInfoSplit[1]+"']/descendant::div[@aria-colindex='"+cellInfoSplit[2]+"']//label[@aria-label='"+cellInfoSplit[3]+"']");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("TABLE_OVERFLOW_MENU"): {
+//                        locGeneratedField = "TABLE_OVERFLOW_MENU: ";
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=(//button[contains(@aria-label,'More commands for')])[1]");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("TABLE_OVERFLOW_MENU_INSTANCE"): {
+//                        locGeneratedField = "TABLE_OVERFLOW_MENU_INSTANCE: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=(//button[contains(@aria-label,'More commands for')])["+fieldName.trim()+"]");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("TABLE_OVERFLOW_SUB_MENU"): {
+//                        locGeneratedField = "TABLE_OVERFLOW_SUB_MENU Button: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//ul[@role='menu']/descendant::button[@aria-label='"+fieldName.trim()+"']");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("TABLE_EDIT_FILTER_PANEL_BUTTON"): {
+//                        locGeneratedField = "TABLE_EDIT_FILTER_PANEL_BUTTON Button: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-Panel-contentInner')]/descendant::button[@title='"+fieldName.trim()+"']");
+//                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-Panel-contentInner')]/descendant::button[@aria-label='"+fieldName.trim()+"']");
+//                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-Panel-contentInner')]/descendant::button[text()='"+fieldName.trim()+"']");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("TABLE_EDIT_FILTER_PANEL_BUTTON_INSTANCE"): {
+//                        locGeneratedField = "TABLE_EDIT_FILTER_PANEL_BUTTON_INSTANCE Button: " + fieldName;
+//                        String[] fieldSplit = fieldName.trim().split(":");
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=(//div[contains(@class,'ms-Panel-contentInner')]/descendant::button[@title='"+fieldSplit[0].trim()+"'])["+fieldSplit[1].trim()+"]");
+//                                locGeneratedVal.add("xpath=(//div[contains(@class,'ms-Panel-contentInner')]/descendant::button[@aria-label='"+fieldSplit[0].trim()+"'])["+fieldSplit[1].trim()+"]");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE"): {
+//                        locGeneratedField = "TABLE_EDIT_FILTER_PANEL_INPUT_INSTANCE Input: " + fieldName;
+//                        String[] fieldSplit = fieldName.trim().split(":");
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=(//div[contains(@class,'ms-Panel-contentInner')]/descendant::input[@aria-label='"+fieldSplit[0].trim()+"'])["+fieldSplit[1].trim()+"]/following-sibling::button");
+//                                locGeneratedVal.add("xpath=(//div[contains(@class,'ms-Panel-contentInner')]/descendant::input[@aria-label='"+fieldSplit[0].trim()+"'])["+fieldSplit[1].trim()+"]");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("TABLE_EDIT_FILTER_PANEL_MENU_LIST"): {
+//                        locGeneratedField = "TABLE_EDIT_FILTER_PANEL_MENU_LIST Menu List: " + fieldName;
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-Callout-container')]/descendant::button[@name='"+fieldName.trim()+"']");
+//                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-Callout-container')]/descendant::span[text()='"+fieldName.trim()+"']");
+//                                locGeneratedVal.add("xpath=//div[contains(@class,'ms-Callout-container')]/descendant::label[text()='"+fieldName.trim()+"']");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//                    case ("SCROLL_HORIZONTAL"): {
+//                        locGeneratedField = "SCROLL_HORIZONTAL Bar:";
+//                        switch (d365PlatformVersion) {
+//                            case ("v9.1"):
+//                            case ("v9.2"):
+//                            default: {
+//                                locGeneratedVal.add("xpath=(//div[@class='ag-body-horizontal-scroll-viewport'])[1]");
+//                                break;
+//                            }
+//                        }
+//                        break;
+//                    }
+//
+//                    //        case (""): {
+////                        locGeneratedField = "XXXXXXXXXX Field: " + fieldName;
+////                        switch (d365PlatformVersion) {
+////                            case ("v9.1"):
+////                            case ("v9.2"):
+////                            default: {
+////                                locGeneratedVal.add();
+////                                locGeneratedVal.add();
+////                                locGeneratedVal.add();
+////                                locGeneratedVal.add();
+////                                locGeneratedVal.add();
+////                                break;
+////                            }
+////                        }
+////                    break;
+////                    }
+//                    default: {
+//                        locGeneratedVal.add("xpath=//*[@aria-label='" + fieldName.trim() + "']");
+//                        locGeneratedVal.add("xpath=//*[@title='" + fieldName.trim() + "']");
+//                        locGeneratedVal.add("xpath=//*[@placeholder='" + fieldName.trim() + "']");
+//                        locGeneratedVal.add("xpath=//*[@value='" + fieldName.trim() + "']");
+//                        locGeneratedVal.add("id=" + fieldName + "");
+//                        locGeneratedVal.add("id=" + fieldName.replaceAll("\\s+", "").toLowerCase());
+//                        locGeneratedVal.add("name=" + fieldName.replaceAll("\\s+", "").toLowerCase());
+//                        locGeneratedVal.add("xpath=//*[contains(@aria-label,'" + fieldName.trim() + "')]");
+//                        locGeneratedVal.add("xpath=//*[contains(@title,'" + fieldName.trim() + "')]");
+//                        locGeneratedVal.add("xpath=//*[contains(@value,'" + fieldName.trim() + "')]");
+//                        locGeneratedVal.add("xpath=//*[contains(@value,'" + fieldName.trim() + "')]");
+//                        locGeneratedVal.add("xpath=//*[contains(text(),'" + fieldName.trim() + "')]");
+//                    }
+//                }
+//            }
+////        }
 
 
         String tempLocator = "";
@@ -760,6 +764,7 @@ public class d365Loc {
                 default: {
                     locEntry("xpath","//a[@aria-label='<field_name>']");
                     locEntry("xpath","//a[@title='<field_name>']");
+                    locEntry("xpath","//a[contains(@aria-label,'<field_name>')]");
                     locEntry("xpath","//li[@aria-label='<field_name>']");
                     locEntry("xpath","//li[contains(@aria-label,'<field_name>,')]"); // Added for Lookup selection with comma. (Avoid incorrect same name selection like "ABC" and "ABC Organics"
                     locEntry("xpath","//li[contains(@aria-label,'<field_name>')]");
@@ -768,6 +773,8 @@ public class d365Loc {
                     locEntry("xpath","//label[text()='<field_name>']");
                     locEntry("xpath","//div[@aria-label='<field_name>']");
                     locEntry("xpath","//DIV[text()='<field_name>']/parent::DIV/UL/LI/DIV/DIV");   //Click on Lookup selected record link
+                    locEntry("xpath","//DIV[text()='<field_name>, Readonly']/parent::DIV/UL/LI/DIV/DIV");   //Click on Lookup selected record link
+
                     break;
                 }
             }
