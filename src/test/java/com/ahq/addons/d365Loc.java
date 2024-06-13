@@ -858,6 +858,7 @@ public static String systemViewOrHeaderTitle(String argPage, String argFieldLoca
                     locEntry("xpath","//input[@aria-label='<field_name>']");
                     locEntry("xpath","//input[@placeholder='<field_name>']");
                     locEntry("xpath","//input[@id='<field_name>']");
+                    locEntry("xpath","//textarea[@aria-label='<field_name>']");
                     break;
                 }
             }

@@ -1336,19 +1336,29 @@ public class D365CRM {
 
         int signinCount = 0;
         for (int i = 0; i < 10; i++) {
+            getBundle().setProperty("exec.email.report.fail","OFF");
             signinCount = signinCount + 1;
-            try {
-                getBundle().setProperty("exec.email.report.fail","OFF");
-                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(loc.get("ReLogin","button","Sign In"),"15");
+            if (BrowserGlobal.isElementVisibleWithTimeout(loc.get("ReLogin","button","Sign In"),"1500")) {
                 BrowserGlobal.iClickOn(loc.get("ReLogin","button","Sign In"));
                 BrowserGlobal.iWaitForPageToLoad();
-            } catch (Exception e) {
+                BrowserGlobal.iWaitForMilliseconds("1500");
+            } else {
                 getBundle().setProperty("exec.email.report.fail","ON");
                 break;
             }
             getBundle().setProperty("exec.email.report.fail","ON");
+//            try {
+//                getBundle().setProperty("exec.email.report.fail","OFF");
+//                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(loc.get("ReLogin","button","Sign In"),"15");
+//                BrowserGlobal.iClickOn(loc.get("ReLogin","button","Sign In"));
+//                BrowserGlobal.iWaitForPageToLoad();
+//            } catch (Exception e) {
+//                getBundle().setProperty("exec.email.report.fail","ON");
+//                break;
+//            }
+//            getBundle().setProperty("exec.email.report.fail","ON");
         }
-        System.out.println("==signinCount=> "+signinCount);
+//        System.out.println("==signinCount=> "+signinCount);
         if (signinCount > 2) {
             int count = signinCount;
             for (int j = 0; j < signinCount; j++) {
