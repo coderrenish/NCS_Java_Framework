@@ -365,6 +365,10 @@ public class D365CRM {
                 BrowserGlobal.iClickOn(d365Loc.link(pageName,"DROPDOWN_TAB",tab_text));
             }
         }
+        BrowserGlobal.iWaitForPageToLoad();
+        BrowserGlobal.iScrollUsingMouseWheelByValueFromVisibleField("2000",d365Loc.scrollVertical(page));
+        BrowserGlobal.iScrollUsingMouseWheelByValueFromVisibleField("-2000",d365Loc.scrollVertical(page));
+
     }
 
     /**
