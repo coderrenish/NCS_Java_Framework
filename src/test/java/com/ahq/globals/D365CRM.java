@@ -340,36 +340,35 @@ public class D365CRM {
     public static void clickTabWithText_D365CRM(String tab_text, String page) throws Exception {
         String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,tab_text,"MAIN");
-        boolean moreTabsTrigger = false;
-        try{
-            BrowserGlobal.iWaitUntilElementPresentWithTimeout(d365Loc.tab(pageName,fieldLoc,tab_text),"5");
+        Boolean tabScroll = false;
+        if (BrowserGlobal.isElementVisibleWithTimeout(d365Loc.tab(pageName,fieldLoc,tab_text),"5")) {
             BrowserGlobal.iScrollToAnElement(d365Loc.tab(pageName,fieldLoc,tab_text));
             BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tab(pageName,fieldLoc,tab_text),"5");
             BrowserGlobal.iClickOn(d365Loc.tab(pageName,fieldLoc,tab_text));
-        } catch(Exception e) {
-            moreTabsTrigger = true;
+            tabScroll = true;
+        } else if (BrowserGlobal.isElementVisibleWithTimeout(d365Loc.tab(pageName,fieldLoc,"More Tabs"),"3")){
+            BrowserGlobal.iScrollToAnElement(d365Loc.tab(pageName,fieldLoc,"More Tabs"));
+            BrowserGlobal.iClickOn(d365Loc.tab(pageName,fieldLoc,"More Tabs"));
+            BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(pageName,"DROPDOWN_TAB",tab_text),"5");
+            BrowserGlobal.iScrollToAnElement(d365Loc.link(pageName,"DROPDOWN_TAB",tab_text));
+            BrowserGlobal.iClickOn(d365Loc.link(pageName,"DROPDOWN_TAB",tab_text));
+            tabScroll = true;
+        } else {
+            BrowserGlobal.iScrollToAnElement(d365Loc.tab(pageName,fieldLoc,"Related"));
+            BrowserGlobal.iClickOn(d365Loc.tab(pageName,fieldLoc,"Related"));
+            BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(pageName,"DROPDOWN_TAB",tab_text),"5");
+            BrowserGlobal.iScrollToAnElement(d365Loc.link(pageName,"DROPDOWN_TAB",tab_text));
+            BrowserGlobal.iClickOn(d365Loc.link(pageName,"DROPDOWN_TAB",tab_text));
+        }
+        if (tabScroll) {
+            BrowserGlobal.iWaitForPageToLoad();
+            BrowserGlobal.iWaitUntilElementVisible(d365Loc.scrollVerticalTabPanel(page,tab_text));
+            BrowserGlobal.iMouseoverOn(d365Loc.scrollVerticalTabPanel(page,tab_text));
+            BrowserGlobal.iScrollUsingMouseWheelByValueFromVisibleField("2000",d365Loc.scrollVerticalTabPanel(page,tab_text));
+            BrowserGlobal.iScrollUsingMouseWheelByValueFromVisibleField("-2000",d365Loc.scrollVerticalTabPanel(page,tab_text));
         }
 
-        if (moreTabsTrigger) {
-            try {
-                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tab(pageName,fieldLoc,"More Tabs"),"2");
-                BrowserGlobal.iClickOn(d365Loc.tab(pageName,fieldLoc,"More Tabs"));
-                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(pageName,"DROPDOWN_TAB",tab_text),"5");
-                BrowserGlobal.iScrollToAnElement(d365Loc.link(pageName,"DROPDOWN_TAB",tab_text));
-                BrowserGlobal.iClickOn(d365Loc.link(pageName,"DROPDOWN_TAB",tab_text));
-            } catch(Exception error) {
-                BrowserGlobal.iWaitUntilElementVisible(d365Loc.tab(pageName,fieldLoc,"Related"));
-                BrowserGlobal.iClickOn(d365Loc.tab(pageName,fieldLoc,"Related"));
-                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(pageName,"DROPDOWN_TAB",tab_text),"5");
-                BrowserGlobal.iScrollToAnElement(d365Loc.link(pageName,"DROPDOWN_TAB",tab_text));
-                BrowserGlobal.iClickOn(d365Loc.link(pageName,"DROPDOWN_TAB",tab_text));
-            }
-        }
-        BrowserGlobal.iWaitForPageToLoad();
-        BrowserGlobal.iScrollUsingMouseWheelByValueFromVisibleField("2000",d365Loc.scrollVertical(page));
-        BrowserGlobal.iScrollUsingMouseWheelByValueFromVisibleField("-2000",d365Loc.scrollVertical(page));
-
-    }
+     }
 
     /**
      * @param link_text [Link text to be clicked]

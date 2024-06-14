@@ -1155,6 +1155,7 @@ public static String systemViewOrHeaderTitle(String argPage, String argFieldLoca
                 case ("v9.1"):
                 case ("v9.2"):
                 default: {
+                    locEntry("xpath","(//H3)[1]");
                     locEntry("xpath","(//H2)[1]");
                     locEntry("xpath","(//H1)[1]");
                     break;
@@ -1162,6 +1163,24 @@ public static String systemViewOrHeaderTitle(String argPage, String argFieldLoca
             }
         }
         return locGeneration("Scroll Vertical");
+    }
+
+    public static String scrollVerticalTabPanel(String argPage,String argFieldName) throws Exception{
+        if (locCheck(argPage, "OTHER", "SCROLL", argFieldName)) {
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: {
+                    locEntry("xpath","(//div[@role='tabpanel'][@aria-label='<field_name>']//H3)[1]");
+                    locEntry("xpath","(//div[@role='tabpanel'][@aria-label='<field_name>']//H2)[1]");
+                    locEntry("xpath","(//div[contains(@id,'tab-section')]//H1)[1]");
+                    locEntry("xpath","(//div[contains(@id,'tab-section')]//H2)[1]");
+                    locEntry("xpath","(//div[contains(@id,'tab-section')]//H3)[1]");
+                    break;
+                }
+            }
+        }
+        return locGeneration("Scroll Vertical Tab Panel");
     }
 
 //        case ("SCROLL_HORIZONTAL"): {
