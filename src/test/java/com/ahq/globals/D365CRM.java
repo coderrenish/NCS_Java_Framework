@@ -341,27 +341,30 @@ public class D365CRM {
         String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,tab_text,"MAIN");
         Boolean tabScroll = false;
-        for (int i = 0; i < 3; i++) {
-            if (BrowserGlobal.isElementVisibleWithTimeout(d365Loc.tab(pageName, fieldLoc, tab_text), "5")) {
-                BrowserGlobal.iScrollToAnElement(d365Loc.tab(pageName, fieldLoc, tab_text));
-                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tab(pageName, fieldLoc, tab_text), "5");
-                BrowserGlobal.iClickOn(d365Loc.tab(pageName, fieldLoc, tab_text));
-                tabScroll = true;
-            } else if (BrowserGlobal.isElementVisibleWithTimeout(d365Loc.tab(pageName, fieldLoc, "More Tabs"), "3")) {
-                BrowserGlobal.iScrollToAnElement(d365Loc.tab(pageName, fieldLoc, "More Tabs"));
-                BrowserGlobal.iClickOn(d365Loc.tab(pageName, fieldLoc, "More Tabs"));
-                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(pageName, "DROPDOWN_TAB", tab_text), "5");
-                BrowserGlobal.iScrollToAnElement(d365Loc.link(pageName, "DROPDOWN_TAB", tab_text));
-                BrowserGlobal.iClickOn(d365Loc.link(pageName, "DROPDOWN_TAB", tab_text));
-                tabScroll = true;
-            } else if (BrowserGlobal.isElementVisibleWithTimeout(d365Loc.tab(pageName, fieldLoc, "Related"), "3")) {
-                BrowserGlobal.iScrollToAnElement(d365Loc.tab(pageName, fieldLoc, "Related"));
-                BrowserGlobal.iClickOn(d365Loc.tab(pageName, fieldLoc, "Related"));
-                BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(pageName, "DROPDOWN_TAB", tab_text), "5");
-                BrowserGlobal.iScrollToAnElement(d365Loc.link(pageName, "DROPDOWN_TAB", tab_text));
-                BrowserGlobal.iClickOn(d365Loc.link(pageName, "DROPDOWN_TAB", tab_text));
-            }
+        BrowserGlobal.iWaitUntilElementVisible(d365Loc.scrollVerticalTabPanel(page,tab_text));
+
+//        for (int i = 0; i < 3; i++) {
+        if (BrowserGlobal.isElementVisibleWithTimeout(d365Loc.tab(pageName, fieldLoc, tab_text), "5")) {
+            BrowserGlobal.iScrollToAnElement(d365Loc.tab(pageName, fieldLoc, tab_text));
+            BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tab(pageName, fieldLoc, tab_text), "5");
+            BrowserGlobal.iClickOn(d365Loc.tab(pageName, fieldLoc, tab_text));
+            tabScroll = true;
+        } else if (BrowserGlobal.isElementVisibleWithTimeout(d365Loc.tab(pageName, fieldLoc, "More Tabs"), "3")) {
+            BrowserGlobal.iScrollToAnElement(d365Loc.tab(pageName, fieldLoc, "More Tabs"));
+            BrowserGlobal.iClickOn(d365Loc.tab(pageName, fieldLoc, "More Tabs"));
+            BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(pageName, "DROPDOWN_TAB", tab_text), "5");
+            BrowserGlobal.iScrollToAnElement(d365Loc.link(pageName, "DROPDOWN_TAB", tab_text));
+            BrowserGlobal.iClickOn(d365Loc.link(pageName, "DROPDOWN_TAB", tab_text));
+            tabScroll = true;
+//        } else if (BrowserGlobal.isElementVisibleWithTimeout(d365Loc.tab(pageName, fieldLoc, "Related"), "3")) {
+        } else {
+            BrowserGlobal.iScrollToAnElement(d365Loc.tab(pageName, fieldLoc, "Related"));
+            BrowserGlobal.iClickOn(d365Loc.tab(pageName, fieldLoc, "Related"));
+            BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(pageName, "DROPDOWN_TAB", tab_text), "5");
+            BrowserGlobal.iScrollToAnElement(d365Loc.link(pageName, "DROPDOWN_TAB", tab_text));
+            BrowserGlobal.iClickOn(d365Loc.link(pageName, "DROPDOWN_TAB", tab_text));
         }
+//        }
 
         if (tabScroll) {
             BrowserGlobal.iWaitForPageToLoad();
