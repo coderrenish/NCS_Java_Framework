@@ -1104,7 +1104,20 @@ public static String systemViewOrHeaderTitle(String argPage, String argFieldLoca
         return locGeneration(argCellDetails);
     }
 
-
+    public static String loader(String argPage, String argFieldLocation) throws Exception{
+        if (locCheck(argPage, argFieldLocation, "LOADER", "Loader")) {
+            switch (d365PlatformVersion) {
+                case ("v9.1"):
+                case ("v9.2"):
+                default: {
+                    locEntry("xpath","//span[@role='alert']");
+                    locEntry("xpath","//div[@id='datasethost-progress-indicator']");
+                    break;
+                }
+            }
+        }
+        return locGeneration("Loader");
+    }
 
     public static String headerControlListValue(String argPage, String argFieldLocation, String argCellDetails) throws Exception{
         if (locCheck(argPage, argFieldLocation, "HEADER_CONTROL_LIST_VALUE", argCellDetails)) {

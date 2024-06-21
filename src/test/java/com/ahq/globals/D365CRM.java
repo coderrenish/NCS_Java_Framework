@@ -344,12 +344,12 @@ public class D365CRM {
         BrowserGlobal.iWaitUntilElementVisible(d365Loc.scrollVerticalTabPanel(page,tab_text));
 
 //        for (int i = 0; i < 3; i++) {
-        if (BrowserGlobal.isElementVisibleWithTimeout(d365Loc.tab(pageName, fieldLoc, tab_text), "5")) {
+        if (BrowserGlobal.isElementVisibleWithTimeout(d365Loc.tab(pageName, fieldLoc, tab_text), "5000")) {
             BrowserGlobal.iScrollToAnElement(d365Loc.tab(pageName, fieldLoc, tab_text));
             BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.tab(pageName, fieldLoc, tab_text), "5");
             BrowserGlobal.iClickOn(d365Loc.tab(pageName, fieldLoc, tab_text));
             tabScroll = true;
-        } else if (BrowserGlobal.isElementVisibleWithTimeout(d365Loc.tab(pageName, fieldLoc, "More Tabs"), "3")) {
+        } else if (BrowserGlobal.isElementVisibleWithTimeout(d365Loc.tab(pageName, fieldLoc, "More Tabs"), "3000")) {
             BrowserGlobal.iScrollToAnElement(d365Loc.tab(pageName, fieldLoc, "More Tabs"));
             BrowserGlobal.iClickOn(d365Loc.tab(pageName, fieldLoc, "More Tabs"));
             BrowserGlobal.iWaitUntilElementVisibleWithTimeout(d365Loc.link(pageName, "DROPDOWN_TAB", tab_text), "5");
@@ -444,6 +444,7 @@ public class D365CRM {
             BrowserGlobal.iWaitForMilliseconds("5000");
             BrowserGlobal.iClickOn(d365Loc.button(page,"MAIN",button_text));
         }
+        waiForLoaderToDisappear_D365CRM(page);
     }
 
     /**
@@ -458,6 +459,7 @@ public class D365CRM {
         BrowserGlobal.iClickOn(d365Loc.button(page,"MAIN",main_button_text));
         BrowserGlobal.iWaitUntilElementVisible(d365Loc.button(page,"DROPDOWN_MENU",sub_button_text));
         BrowserGlobal.iClickOn(d365Loc.button(page,"DROPDOWN_MENU",sub_button_text));
+        waiForLoaderToDisappear_D365CRM(page);
     }
 
 //    /**
@@ -490,7 +492,7 @@ public class D365CRM {
         BrowserGlobal.iClickOn(d365Loc.systemViewOrHeaderTitle(pageName,fieldLoc,mainView_text));
         BrowserGlobal.iWaitUntilElementPresent(d365Loc.link(pageName,"DROPDOWN_SYSTEM_VIEW",subView_text));
         BrowserGlobal.iClickOn(d365Loc.link(pageName,"DROPDOWN_SYSTEM_VIEW",subView_text));
-
+        waiForLoaderToDisappear_D365CRM(page);
 //        BrowserGlobal.iWaitUntilElementPresent(d365Loc.loc(page,"SYSTEM_VIEW",mainView_text));
 //        BrowserGlobal.iScrollToAnElement(d365Loc.loc(page,"SYSTEM_VIEW",mainView_text));
 //        BrowserGlobal.iClickOn(d365Loc.loc(page,"SYSTEM_VIEW",mainView_text));
@@ -853,6 +855,35 @@ public class D365CRM {
 //        BrowserGlobal.iWaitForSeconds(wait_in_secs);
 //        BrowserGlobal.iClickOn(loc.get("menu","button",sub_button_name));
 //    }
+
+    // ============= WAIT ==============
+    /**
+     * @param tab_text [Header text to be verified]
+     * @param page [Page name]
+     */
+    @QAFTestStep(description = "D365CRM: Wait-For-New-Tab-To-Be-Present Text:{0} Page:{1}")
+    @And("D365CRM: Wait-For-New-Tab-To-Be-Present Text:{string} Page:{string}")
+    public static void waitForNewTabToBePresent_D365CRM(String tab_text,String page) throws Exception {
+        String pageName = pageNameCheck(page);
+        String fieldLoc = fieldLocCheck(page,tab_text,"MAIN");
+        BrowserGlobal.iWaitForPageToLoad();
+        BrowserGlobal.iWaitUntilElementVisible(d365Loc.tab(pageName, fieldLoc, tab_text));
+        BrowserGlobal.iWaitUntilElementEnabled(d365Loc.tab(pageName, fieldLoc, tab_text));
+    }
+
+    /**
+     * @param page [Page name]
+     */
+    @QAFTestStep(description = "D365CRM: Wait-For-Loader-To-Disappear Page:{0}")
+    @And("D365CRM: Wait-For-Loader-To-Disappear Page:{string}")
+    public static void waiForLoaderToDisappear_D365CRM(String page) throws Exception {
+        String pageName = pageNameCheck(page);
+        if (BrowserGlobal.isElementVisibleWithTimeout(d365Loc.loader(pageName, "MAIN"),"3000")){
+            BrowserGlobal.iWaitUntilElementNotPresent(d365Loc.loader(pageName, "MAIN"));
+        }
+
+    }
+
 
     // ============= VERIFY ==============
     /**
