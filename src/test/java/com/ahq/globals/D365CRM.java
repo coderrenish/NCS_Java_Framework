@@ -42,14 +42,12 @@ public class D365CRM {
         String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,field,"MAIN");
         String fieldName = fieldNameCheck(field);
-
-        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputText(pageName,fieldLoc,fieldName));
-        BrowserGlobal.iScrollToAnElement(d365Loc.inputText(pageName,fieldLoc,fieldName));
-        BrowserGlobal.iWaitUntilElementVisible(d365Loc.inputText(pageName,fieldLoc,fieldName));
-        BrowserGlobal.iClickOn(d365Loc.inputText(pageName,fieldLoc,fieldName));
+        String locName = d365Loc.inputText(pageName,fieldLoc,fieldName);
+        waitFieldToBePresentScrollVisibleAndEnabled(locName);
+        BrowserGlobal.iClickOn(locName);
         BrowserGlobal.iWaitForMilliseconds(d365Global_input_text_select_all_wait);
         BrowserGlobal.iPressControlOrCommandAByOs();
-        BrowserGlobal.iInputInTo(text,d365Loc.inputText(pageName,fieldLoc,fieldName));
+        BrowserGlobal.iInputInTo(text,locName);
     }
 
     /**
@@ -63,17 +61,16 @@ public class D365CRM {
         String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,field,"MAIN");
         String fieldName = fieldNameCheck(field);
-
-        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputDate(pageName,fieldLoc,fieldName));
-        BrowserGlobal.iScrollToAnElement(d365Loc.inputDate(pageName,fieldLoc,fieldName));
-        BrowserGlobal.iClickOn(d365Loc.inputDate(pageName,fieldLoc,fieldName));
+        String locName = d365Loc.inputDate(pageName,fieldLoc,fieldName);
+        waitFieldToBePresentScrollVisibleAndEnabled(locName);
+        BrowserGlobal.iClickOn(locName);
         BrowserGlobal.iWaitForMilliseconds("500");
 //        BrowserGlobal.iWaitForMilliseconds(d365Global_input_date_double_click_wait);
-        BrowserGlobal.iClickOn(d365Loc.inputDate(pageName,fieldLoc,fieldName));
+        BrowserGlobal.iClickOn(locName);
         BrowserGlobal.iWaitForMilliseconds(d365Global_input_date_select_all_wait);
         BrowserGlobal.iPressControlOrCommandAByOs();
 //        BrowserGlobal.iWaitForMilliseconds(d365Global_input_date_fill_wait);
-        BrowserGlobal.iInputInTo(date,d365Loc.inputDate(pageName,fieldLoc,fieldName));
+        BrowserGlobal.iInputInTo(date,locName);
     }
 
     /**
@@ -87,13 +84,13 @@ public class D365CRM {
         String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,field,"MAIN");
         String fieldName = fieldNameCheck(field);
+        String locName = d365Loc.inputTime(pageName,fieldLoc,fieldName);
+        waitFieldToBePresentScrollVisibleAndEnabled(locName);
 
-        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputTime(pageName,fieldLoc,fieldName));
-        BrowserGlobal.iScrollToAnElement(d365Loc.inputTime(pageName,fieldLoc,fieldName));
-        BrowserGlobal.iClickOn(d365Loc.inputTime(pageName,fieldLoc,fieldName));
+        BrowserGlobal.iClickOn(locName);
         BrowserGlobal.iWaitForMilliseconds(d365Global_input_text_select_all_wait);
         BrowserGlobal.iPressControlOrCommandAByOs();
-        BrowserGlobal.iInputInTo(time,d365Loc.inputTime(pageName,fieldLoc,fieldName));
+        BrowserGlobal.iInputInTo(time,locName);
     }
 
     /**
@@ -107,18 +104,19 @@ public class D365CRM {
         String pageName = pageNameCheck(page);
         String fieldLoc = fieldLocCheck(page,field,"MAIN");
         String fieldName = fieldNameCheck(field);
+        String locName = d365Loc.inputLookup(pageName,fieldLoc,fieldName);
+        String LocName2 = d365Loc.link(page,"DROPDOWN_LIST",text);
+        waitFieldToBePresentScrollVisibleAndEnabled(locName);
 
-        BrowserGlobal.iWaitUntilElementPresent(d365Loc.inputLookup(pageName,fieldLoc,fieldName));
-        BrowserGlobal.iScrollToAnElement(d365Loc.inputLookup(pageName,fieldLoc,fieldName));
-        BrowserGlobal.iClickOn(d365Loc.inputLookup(pageName,fieldLoc,fieldName));
+        BrowserGlobal.iClickOn(locName);
         BrowserGlobal.iWaitForMilliseconds("500");
         BrowserGlobal.iPressControlOrCommandAByOs();
         BrowserGlobal.iWaitForMilliseconds("500");
-        BrowserGlobal.iInputInTo(text, d365Loc.inputLookup(pageName,fieldLoc,fieldName));
+        BrowserGlobal.iInputInTo(text, locName);
         BrowserGlobal.iWaitForMilliseconds(d365Global_input_lookup_load_wait);
-        BrowserGlobal.iWaitUntilElementPresent(d365Loc.link(page,"DROPDOWN_LIST",text));
+        BrowserGlobal.iWaitUntilElementPresent(LocName2);
         if (d365Global_input_lookup_select_type.equalsIgnoreCase("click")) {
-            BrowserGlobal.iClickOn(d365Loc.link(page,"DROPDOWN_LIST",text));
+            BrowserGlobal.iClickOn(LocName2);
         } else {
             BrowserGlobal.iPressKey("ARROW_DOWN");
             BrowserGlobal.iWaitForMilliseconds("1000");
@@ -1524,6 +1522,13 @@ public class D365CRM {
             BrowserGlobal.iPressKey("ARROW_UP");
             BrowserGlobal.iWaitForMilliseconds("100");
         }
+    }
+
+    private static void waitFieldToBePresentScrollVisibleAndEnabled(String locName) throws Exception {
+        BrowserGlobal.iWaitUntilElementPresent(locName);
+        BrowserGlobal.iScrollToAnElement(locName);
+        BrowserGlobal.iWaitUntilElementVisible(locName);
+        BrowserGlobal.iWaitUntilElementEnabled(locName);
     }
 
 }
