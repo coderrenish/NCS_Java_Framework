@@ -15,8 +15,8 @@
     <testSuiteFile>test-runner/demo.xml</testSuiteFile>
     <sourceVersion>11</sourceVersion>
     <targetVersion>11</targetVersion>
-    <qaf.version>4.0.0-RC2</qaf.version>
-    <qaf-support-ws.version>4.0.0-RC2</qaf-support-ws.version>
+    <qaf.version>4.0.0-RC3</qaf.version>
+    <qaf-support-ws.version>4.0.0-RC3</qaf-support-ws.version>
     <selenium.version>4.15.0</selenium.version>
     <test.results.dir>test-results</test.results.dir>
     <run.time>${maven.build.timestamp}</run.time>
@@ -196,6 +196,7 @@
           <failIfNoTests>true</failIfNoTests>
           <reportsDirectory>${test.results.dir}/${run.time}</reportsDirectory>
           <systemPropertyVariables>
+            <org.freemarker.loggerLibrary>none</org.freemarker.loggerLibrary>
             <org.uncommons.reportng.xml-dialect>testng</org.uncommons.reportng.xml-dialect>
             <org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>
             <log4j.configuration>file:///${resource.dir}/log4j.properties</log4j.configuration>
