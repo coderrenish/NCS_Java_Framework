@@ -545,12 +545,6 @@ BrowserGlobal.iClickOn(patternLoc.modalButton(getPageName(),field));
 
 /*
 
-    Web: Open browser with url {0}
-     Web: Open browser with url {0}
-    Web: Open-Browser-And-Maximise Url:{0}
-    Web: Open-Browser-With-Set-Window-Size Url:{0} Width:{1} Height:{2}
-
-
 //    Web: Open-Browser Url:{0}
 //    Web: Open-Browser-And-Maximise Url:{0}
 //    Web: Open-Browser-With-Set-Window-Size Url:{0} Width:{1} Height:{2}
@@ -582,40 +576,40 @@ BrowserGlobal.iClickOn(patternLoc.modalButton(getPageName(),field));
     Web: Upload-File File-Name-with-Path:{0} Field:{1}
     Web: Upload-Last-Downloaded-File Field:{0}
 
-    Web: Verify Input-Text-Filled Value:{0} Field:{1}
-    Web: Verify Dropdown-Selected Value:{0} Field:{1}
-    Web: Verify Switch-Button-On Field:{0}
-    Web: Verify Switch-Button-Off Field:{0}
-    Web: Verify Checkbox-Selected Field:{0}
-    Web: Verify Checkbox-Not-Selected Field:{0}
-    Web: Verify Radio-Button-Selected Field:{0}
-    Web: Verify Radio-Button-Not-Selected Field:{0}
+    Web: Verify-Input-Text-Filled Value:{0} Field:{1}
+    Web: Verify-Dropdown-Selected Value:{0} Field:{1}
+    Web: Verify-Switch-Button-On Field:{0}
+    Web: Verify-Switch-Button-Off Field:{0}
+    Web: Verify-Checkbox-Selected Field:{0}
+    Web: Verify-Checkbox-Not-Selected Field:{0}
+    Web: Verify-Radio-Button-Selected Field:{0}
+    Web: Verify-Radio-Button-Not-Selected Field:{0}
 
-    Web: Verify Table-Cell-Text Row:{0} Column:{1} Field:{2}
-    Web: Verify Table-Header-Text Column:{0} Field:{1}
+    Web: Verify-Table-Cell-Text Row:{0} Column:{1} Field:{2}
+    Web: Verify-Table-Header-Text Column:{0} Field:{1}
 
-    Web: Verify Page-Title Value:{0} Page-Name:{1}
-    Web: Verify Page-Title-Partial Value:{0} Page-Name:{1}
-    Web: Verify Page-Contains-Text Value:{0} Page-Name:{1}
-    Web: Verify Page-Header-Text Field:{0} Page-Name:{1}
-    Web: Verify Page-Sub-Header-Text Field:{0} Page-Name:{1}
+    Web: Verify-Page-Title Value:{0} Page-Name:{1}
+    Web: Verify-Page-Title-Partial Value:{0} Page-Name:{1}
+    Web: Verify-Page-Contains-Text Value:{0} Page-Name:{1}
+    Web: Verify-Page-Header-Text Field:{0} Page-Name:{1}
+    Web: Verify-Page-Sub-Header-Text Field:{0} Page-Name:{1}
 
-    Web: Verify Page-Status-Is-200 [Page OK]
-    Web: Verify Page-Status-Is-Not-200 [Not-Page OK]
-    Web: Verify Page-Status-Is-404 [Page Not Found]
-    Web: Verify Page-Status-Is-Not-404 [Not-Page Not Found]
-    Web: Verify Page-Status-Is-500 [Internal Server Error]
-    Web: Verify Page-Status-Is-Not-500 [Not-Internal Server Error]
-    Web: Verify Page-Status Value:{}
-    Web: Verify Page-Status-Is-Not Value:{}
+    Web: Verify-Page-Status-Is-200 [Page OK]
+    Web: Verify-Page-Status-Is-Not-200 [Not-Page OK]
+    Web: Verify-Page-Status-Is-404 [Page Not Found]
+    Web: Verify-Page-Status-Is-Not-404 [Not-Page Not Found]
+    Web: Verify-Page-Status-Is-500 [Internal Server Error]
+    Web: Verify-Page-Status-Is-Not-500 [Not-Internal Server Error]
+    Web: Verify-Page-Status Value:{}
+    Web: Verify-Page-Status-Is-Not Value:{}
 
-    Web: Verify URL-Protocol-Is-HTTP
-    Web: Verify URL-Protocol-Is-HTTPS
-    Web: Verify URL-Domain Value:{}
-    Web: Verify URL-Path Value:{} (Without-Domain)
-    Web: Verify URL-Path-Contains Value:{} (Without-Domain)
-    Web: Verify URL-Path-Query-String Value:{} (Start with ?)
-    Web: Verify URL-Path-Hash Value:{} (Start with #)
+    Web: Verify-URL-Protocol-Is-HTTP
+    Web: Verify-URL-Protocol-Is-HTTPS
+    Web: Verify-URL-Domain Value:{}
+    Web: Verify-URL-Path Value:{} (Without-Domain)
+    Web: Verify-URL-Path-Contains Value:{} (Without-Domain)
+    Web: Verify-URL-Path-Query-String Value:{} (Start with ?)
+    Web: Verify-URL-Path-Hash Value:{} (Start with #)
 
     Web: Set Page-Name Value:{0}
     Web: Set Cookie-Value Key:{0} Value:{1}
